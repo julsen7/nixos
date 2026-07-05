@@ -13,7 +13,7 @@
     bluetui
     wiremix
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
     blender
     gimp
