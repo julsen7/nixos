@@ -9,7 +9,6 @@
     piper
     obs-studio
     hyprlock
-    durdraw
     matugen
     _7z
     bluetui
