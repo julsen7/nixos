@@ -1,0 +1,36 @@
+{
+  "layer": "top",
+  "margin-top": 10,
+  "margin-left": 10,
+  "margin-right": 10,
+  "margin-bottom": 0,
+  "spacing": 5,
+  "include": [
+    "~/.config/waybar/modules/custom-arch-icon.jsonc",
+    "~/.config/waybar/modules/mpris.jsonc",
+    "~/.config/waybar/modules/custom-weather.jsonc",
+    "~/.config/waybar/modules/tray.jsonc",
+    "~/.config/waybar/modules/clock.jsonc",
+    "~/.config/waybar/modules/hyprland-workspaces.jsonc",
+    "~/.config/waybar/modules/group-audio.jsonc",
+    "~/.config/waybar/modules/bluetooth.jsonc",
+    "~/.config/waybar/modules/network.jsonc",
+    "~/.config/waybar/modules/battery.jsonc"
+  ],
+  "modules-left": [
+    "custom/arch-icon",
+    "mpris",
+    "custom/weather",
+    "tray"
+  ],
+  "modules-center": [
+    "clock",
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "group/audio",
+    "bluetooth",
+    "network",
+    "battery"
+  ]
+}
