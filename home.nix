@@ -7,7 +7,6 @@
 
   home.packages = with pkgs; [
     piper
-    obs-studio
     hyprlock
     matugen
     bluetui
@@ -112,7 +111,6 @@
 
       # Inits für Tools (Fzf wird von Home Manager separat unten sauberer gelöst)
       eval "$(zoxide init zsh)"
-      eval "$(starship init zsh)"
     '';
   };
 
