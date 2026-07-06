@@ -193,10 +193,6 @@
 
   programs.kitty = {
     enable = true;
-    dynamic_background_opacity = true;
-    enable_audio_bell = false;
-    mouse_hide_wait = "3.0";
-    window_padding_width = 30;
 
     font = {
       name = "JetBrainsMono Nerd Font";
@@ -204,6 +200,11 @@
     };
 
     settings = {
+      dynamic_background_opacity = true;
+      enable_audio_bell = false;
+      mouse_hide_wait = "3.0";
+      window_padding_width = 30;
+      
       disable_ligatures = "never";
       
       cursor_stop_blinking_after = 0;
