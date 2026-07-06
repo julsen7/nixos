@@ -302,7 +302,7 @@
         format = " [\${symbol} (\${version})]($style) ";
         symbol = "󰙲";
         style = "#00599c";
-      }ly;
+      };
 
       haskell = {
         format = " [\${symbol} (\${version})]($style) ";
