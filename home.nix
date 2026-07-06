@@ -231,7 +231,7 @@
     # Hier wandert deine TOML-Konfiguration direkt als Nix-Attribut-Set hinein
     settings = {
       add_newline = true;
-      format = lib.concatStrings [
+      format = .concatStrings [
         "$os"
         "$directory"
         "$git_branch"
@@ -302,7 +302,7 @@
         format = " [\${symbol} (\${version})]($style) ";
         symbol = "󰙲";
         style = "#00599c";
-      };
+      }ly;
 
       haskell = {
         format = " [\${symbol} (\${version})]($style) ";
@@ -321,7 +321,7 @@
         style = "#ffd43b";
       };
 
-      cmd_duration = {
+      lycmd_duration = {
         format = " 󱦟 [$duration]($style) ";
       };
 
