@@ -13,7 +13,7 @@
 
   # GENERAL
 
-  networking.hostName = "desktop";
+  networking.hostName = "laptop";
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
 
@@ -32,7 +32,6 @@
 
   services.xserver.videoDrivers = [
     "amdgpu"
-    "nvidia"
   ];
 
   hardware = {
@@ -40,14 +39,6 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-    };
-    nvidia = {
-      open = true;
-      prime = {
-        offload.enable = true;
-        amdgpuBusId = "PCI:5@0:0:0";
-        nvidiaBusId = "PCI:1@0:0:0";
-      };
     };
     bluetooth = {
       enable = true;

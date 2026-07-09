@@ -51,8 +51,8 @@
   };
 
   xdg.configFile = {
-    "hypr/hyprland.lua".text = builtins.readFile ./dotfiles/hypr/hyprland.lua;
-    "rofi/config.rasi".text = builtins.readFile ./dotfiles/rofi/config.rasi;
+    "hypr/hyprland.lua".source = ./dotfiles/hypr/hyprland.lua;
+    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
     "waybar".source = ./dotfiles/waybar;
   };
 
