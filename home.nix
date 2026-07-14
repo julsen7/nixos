@@ -8,6 +8,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    brightnessctl
     awww
     blender
     bluetui
@@ -51,8 +52,8 @@
   };
 
   xdg.configFile = {
-    "hypr/hyprland.lua".source = ./dotfiles/hypr/hyprland.lua;
-    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
+    "hypr".source = ./dotfiles/hypr;
+    "rofi".source = ./dotfiles/rofi;
     "waybar".source = ./dotfiles/waybar;
   };
 
@@ -76,6 +77,7 @@
   };
 
   home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
     x11.enable = true;
     name = "Bibata-Modern-Ice";
@@ -90,16 +92,24 @@
 
   programs.git = {
     enable = true;
-    userName  = "julsen7";
-    userEmail = "263753131+julsen7@users.noreply.github.com";
+    user = {
+      name  = "julsen7";
+      email = "263753131+julsen7@users.noreply.github.com";
+    }
+    config = {
+      init.defaultBranch= "main";
+    }
 
-    extraConfig = {
-      init.defaultBranch = "main";
-      "credential \"https://github.com\"" = {
-        helper = "${pkgs.github-cli}/bin/gh auth git-credential";
+    settings = {
+      credential = {
+        "https://github.com" = {
+          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
+        };
       };
-      "credential \"https://gist.github.com\"" = {
-        helper = "${pkgs.github-cli}/bin/gh auth git-credential";
+      credential= {
+        "https://gist.github.com" = {
+          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
+        };
       };
     };
   };
@@ -113,7 +123,7 @@
       ignoreAllDups = true;
       saveNoDups = true;
       size = 10000;
-      path = "`\${config.programs.zsh.dotDir}/.zsh_history`";
+      path = "${config.home.homeDirectory}/.zsh_history";
     };
     
     shellAliases = {

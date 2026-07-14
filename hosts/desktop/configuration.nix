@@ -19,6 +19,8 @@
 
   zramSwap.enable = true;
 
+  # LOCALISATION
+
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
@@ -36,7 +38,8 @@
   ];
 
   hardware = {
-    enableAllFirmware = true;
+    # enableAllFirmware = true;
+    enableRedistributableFirmware = true;
     graphics = {
       enable = true;
       enable32Bit = true;
@@ -68,7 +71,6 @@
 
   services.openssh.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  services.ratbagd.enable = true;
   services.udisks2.enable = true;
   services.fwupd.enable = true;
   services.power-profiles-daemon.enable = true;
@@ -87,7 +89,7 @@
 
   users.users.julsen = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "input" ];
     hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
   };
 
@@ -95,25 +97,28 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-  ];
-
+  security.rtkit.enable = true;
+  security.polkit.enable = true;
+  
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
 
-  boot.supportedFilesystems = [ "ntfs" ];
-  
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-
   programs.hyprland = {
     enable = true;
     withUWSM = true;
     xwayland.enable = true;
+  };
+
+  # NIX
+
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
 
   system.stateVersion = "26.05";
