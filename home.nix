@@ -85,7 +85,7 @@ in {
     dnsmasq
     davinci-resolve
     heroic
-    inputs.snappy-switcher.packages.${pkgs.system}.default
+    inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     (texliveMedium.withPackages (ps: with ps; [
       biber
