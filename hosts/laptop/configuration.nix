@@ -19,6 +19,8 @@
 
   zramSwap.enable = true;
 
+  # LOCALISATION
+
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
@@ -32,13 +34,29 @@
 
   services.xserver.videoDrivers = [
     "amdgpu"
+    "nvidia"
   ];
 
   hardware = {
-    enableAllFirmware = true;
+    # enableAllFirmware = true;
+    enableRedistributableFirmware = true; # ?
     graphics = {
       enable = true;
       enable32Bit = true;
+      # extraPackages32 = [ pkgs.obs-vkcapture ];
+      # extraPackages = [ pkgs.obs-vkcapture ];
+    };
+    nvidia = {
+      modesetting.enable = true; # ?
+      open = true;
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+        amdgpuBusId = "PCI:5@0:0:0";
+        nvidiaBusId = "PCI:1@0:0:0";
+      };
     };
     bluetooth = {
       enable = true;
@@ -59,7 +77,6 @@
 
   services.openssh.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  services.ratbagd.enable = true;
   services.udisks2.enable = true;
   services.fwupd.enable = true;
   services.power-profiles-daemon.enable = true;
@@ -74,6 +91,26 @@
     jack.enable = true;
   };
 
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
+
+  # VIRTUALISATION
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      ovmf = {
+        enable = true;
+        packages = [ pkgs.OVMFFull.fd ];
+      };
+      swtpm.enable = true;
+    };
+  };
+
   # USER
 
   users.users.julsen = {
@@ -86,25 +123,30 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-  ];
-
+  security.rtkit.enable = true;
+  security.polkit.enable = true;
+  
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
 
-  boot.supportedFilesystems = [ "ntfs" ];
-  
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-
   programs.hyprland = {
     enable = true;
     withUWSM = true;
     xwayland.enable = true;
+  };
+
+  programs.virt-manager.enable = true;
+
+  # NIX
+
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
 
   system.stateVersion = "26.05";

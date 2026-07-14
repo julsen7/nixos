@@ -378,11 +378,6 @@ in {
     };
   };
 
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
-  };
-
   services.udiskie = {
     enable = true;
     tray = "auto";
