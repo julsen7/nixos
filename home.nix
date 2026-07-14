@@ -50,7 +50,7 @@ in {
     btop
     chromium
     discord
-    cliphistswitcher
+    cliphist
     dunst
     easyeffects
     gimp
