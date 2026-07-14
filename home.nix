@@ -92,24 +92,17 @@
 
   programs.git = {
     enable = true;
-    user = {
-      name  = "julsen7";
-      email = "263753131+julsen7@users.noreply.github.com";
-    }
-    config = {
-      init.defaultBranch= "main";
-    }
-
     settings = {
-      credential = {
-        "https://github.com" = {
-          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
-        };
+      init.defaultBranch = "main";
+      user = {
+        name  = "julsen7";
+        email = "263753131+julsen7@users.noreply.github.com";
       };
-      credential= {
-        "https://gist.github.com" = {
+      "credential \"https://github.com\"" = {
           helper = "${pkgs.github-cli}/bin/gh auth git-credential";
-        };
+      };
+      "credential \"https://gist.github.com\"" = {
+          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
       };
     };
   };
