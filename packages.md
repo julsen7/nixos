@@ -21,9 +21,5 @@ audacity4-bin
 
 # mariadb/mysql
 # keepassxc
-# onepassword
-# libreoffice-fresh
-# onlyoffice
-# wpsoffice
 # gradle
 # maven

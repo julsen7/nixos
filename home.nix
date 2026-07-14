@@ -93,7 +93,10 @@ in {
     tex-fmt
     vlc
     libbluray
-
+    libreoffice-fresh
+    # onlyoffice-desktopeditors
+    # wpsoffice
+    keypassxc
   ];
 
   home.file = {
