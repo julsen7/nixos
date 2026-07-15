@@ -1,6 +1,6 @@
 # nixos-config
 
-Boot from USB-stick with Nixos-minimal.
+Boot from USB-stick with Nixos-minimal. Change host.
 
 ```bash
 sudo cfdisk /dev/nvme0n1 gpt (512M EFI System und rest linux filesystem) schreiben
@@ -12,7 +12,7 @@ sudo mount /dev/nvme0n1p2 /mnt
 sudo mount --mkdir /dev/nvme0n1p1 /mnt/boot
 lsblk -f
 
-sudo nixos-install --flake github:julsen7/nixos-config#HOST --no-write-lock-file
+sudo nixos-install --flake github:julsen7/nixos-config#HOST
 ```
 
 EXISTIERT NICHT:
