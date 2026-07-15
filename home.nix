@@ -234,7 +234,7 @@ in {
         # ms-vscode.cpp-devtools
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
-        ms-vscode.cpptools-themes
+        # ms-vscode.cpptools-themes
         pkief.material-icon-theme
         rebornix.prolog
         redhat.java
