@@ -221,7 +221,6 @@ in {
         eamodio.gitlens
         ecmel.vscode-html-css
         github.github-vscode-theme
-        haskell.haskell
         haskell.language-haskell # Neu hinzugefügt aus deinem Screenshot
         james-yu.latex-workshop
         ms-python.debugpy
@@ -287,6 +286,12 @@ in {
           name = "logo-lang";
           publisher = "zion-school";
           version = "0.8.1";
+          sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+        }
+        {
+          name = "haskell";
+          publisher = "haskell";
+          version = "2.6.1";
           sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
         }
       ]);
