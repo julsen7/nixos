@@ -231,7 +231,7 @@ in {
         ms-python.python
         ms-python.vscode-pylance
         ms-vscode.cmake-tools
-        ms-vscode.cpp-devtools
+        # ms-vscode.cpp-devtools
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
         ms-vscode.cpptools-themes
