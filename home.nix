@@ -683,11 +683,7 @@ in {
       shuffle
     ];
     theme = {
-      src = ./dotfiles/spicetify/Themes;
-      injectCss = true;
-      injectThemeJs = true;
-      replaceColors = true;
-      overwriteAssets = true;
+      src = ./dotfiles/spicetify/Themes/Theme;
     };
     colorScheme = "Theme";
   };
