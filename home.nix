@@ -247,7 +247,7 @@ in {
         vscjava.vscode-java-pack
         vscjava.vscode-java-test
         vscjava.vscode-maven
-        zion-school.logo-lang
+        # zion-school.logo-lang
       ];
     };
   };
