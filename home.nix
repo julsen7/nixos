@@ -126,7 +126,6 @@ in {
     "obs-studio".source = ./dotfiles/obs-studio;
     "rofi".source = ./dotfiles/rofi;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
-    "spicetify".source = ./dotfiles/spicetify;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
     "waybar".source = ./dotfiles/waybar;
     "wallpaper".source = ./wallpaper;
@@ -681,7 +680,11 @@ in {
       hidePodcasts
       shuffle
     ];
-    theme = "Theme";
+    theme = {
+      name = "Theme";
+      src = ./dotfiles/spicetify/Themes;
+      appendName = true;
+    };
     colorScheme = "Theme";
   };
 
