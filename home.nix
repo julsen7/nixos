@@ -225,7 +225,7 @@ in {
         ecmel.vscode-html-css
         github.github-vscode-theme
         haskell.haskell
-        haskell.language-haskell
+        # haskell.language-haskell
         james-yu.latex-workshop
         ms-python.debugpy
         ms-python.python
