@@ -127,7 +127,9 @@ in {
     "rofi".source = ./dotfiles/rofi;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
-    "waybar".source = ./dotfiles/waybar;
+    "waybar/style.css".source = ./dotfiles/waybar/style.css;
+    "waybar/colors.css".source = ./dotfiles/waybar/colors.css;
+    "waybar/scripts".source = ./dotfiles/waybar/scripts;
     "wallpaper".source = ./wallpaper;
   };
 
