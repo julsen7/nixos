@@ -164,9 +164,10 @@ in {
       autoload -U compinit && compinit
     '';
 
-    # initContent = ''
-    #   bindkey '^[[3~' delete-char
-    # '';
+    initContent = ''
+      bindkey '^[[3~' delete-char
+      fastfetch
+    '';
   };
 
   programs.eza = {
