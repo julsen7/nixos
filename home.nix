@@ -215,9 +215,7 @@ in {
       ];
       "files.simpleDialog.enable" = true;
     };
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      cweijan.dbclient-jdbc
-      cweijan.vscode-database-client2
+    profiles.default.extensions = (with pkgs.vscode-extensions; [
       davidanson.vscode-markdownlint
       eamodio.gitlens
       ecmel.vscode-html-css
@@ -227,14 +225,9 @@ in {
       ms-python.debugpy
       ms-python.python
       ms-python.vscode-pylance
-      ms-python.vscode-python-envs
       ms-vscode.cmake-tools
-      ms-vscode.cpp-devtools
       ms-vscode.cpptools
-      ms-vscode.cpptools-extension-pack
-      ms-vscode.cpptools-themes
       pkief.material-icon-theme
-      rebornix.prolog
       redhat.java
       ritwickdey.liveserver
       sumneko.lua
@@ -245,8 +238,56 @@ in {
       vscjava.vscode-java-pack
       vscjava.vscode-java-test
       vscjava.vscode-maven
-      zion-school.logo-lang
-    ];
+    ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "dbclient-jdbc";
+        publisher = "cweijan";
+        version = "4.5.3";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+      {
+        name = "vscode-database-client2";
+        publisher = "cweijan";
+        version = "4.5.3";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+      {
+        name = "vscode-python-envs";
+        publisher = "ms-python";
+        version = "2024.0.0";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+      {
+        name = "cpp-devtools";
+        publisher = "ms-vscode";
+        version = "0.0.1";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+      {
+        name = "cpptools-extension-pack";
+        publisher = "ms-vscode";
+        version = "1.3.0";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+      {
+        name = "cpptools-themes";
+        publisher = "ms-vscode";
+        version = "2.0.0";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+      {
+        name = "prolog";
+        publisher = "rebornix";
+        version = "0.1.1";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+      {
+        name = "logo-lang";
+        publisher = "zion-school";
+        version = "0.0.3";
+        sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      }
+    ]);
   };
 
   services.dunst = {
