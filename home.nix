@@ -274,7 +274,7 @@ in {
           name = "logo-lang";
           publisher = "zion-school";
           version = "0.8.1";
-          sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+          sha256 = "sha256-LvM51DKHa9G1/EAelCnB0jQL7bRBLvAgYDHQR/MR6Xc=";
         }
       ];
     };
