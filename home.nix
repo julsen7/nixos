@@ -113,10 +113,10 @@ in {
     "themes".source = ./themes;
   };
 
-  home.packages = [
-    (pkgs.writeShellScriptBin "theme-switcher" (builtins.readFile ./scripts/theme.sh))
-    (pkgs.writeShellScriptBin "wallpaper-switcher" (builtins.readFile ./scripts/wallpaper.sh))
-  ];
+  # home.packages = [
+  #   (pkgs.writeShellScriptBin "theme-switcher" (builtins.readFile ./scripts/theme.sh))
+  #   (pkgs.writeShellScriptBin "wallpaper-switcher" (builtins.readFile ./scripts/wallpaper.sh))
+  # ];
 
   wayland.windowManager.hyprland.systemd.enable = false;
 
