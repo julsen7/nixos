@@ -22,10 +22,6 @@ input_path = '~/.config/matugen/templates/kitty-colors.conf'
 output_path = '~/themes/colorful/kitty.conf'
 post_hook = "kitty +kitten themes --reload-in=all"
 
-[templates.obs]
-input_path = '~/.config/matugen/templates/matugen.obt'
-output_path = '~/themes/colorful/obs-studio.obt'
-
 [templates.rofi]
 input_path = '~/.config/matugen/templates/rofi-colors.rasi'
 output_path = '~/themes/colorful/rofi.rasi'

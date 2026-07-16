@@ -37,6 +37,22 @@ in {
     package = pkgs.bibata-cursors;
   };
 
+  # DEFAULT WALLPAPER & THEME
+
+  home.activation = {
+    setupDefaultTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [ ! -f "$HOME/.config/hypr/colors.lua" ]; then
+          echo "Initializing system with default-wallpaper..."
+          
+          DEFAULT_WALLPAPER="${./wallpaper/DarkTree.png}"
+
+          bash ${./scripts/wallpaper.sh} "$DEFAULT_WALLPAPER"
+
+          bash ${./scripts/theme.sh} "Colorful"
+      fi
+    '';
+  };
+
   # PACKAGES
 
   programs.home-manager.enable = true;
