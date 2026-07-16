@@ -15,18 +15,25 @@ else
     SELECTED_THEME=$(printf "%b\n" "${themes[@]}" | rofi -dmenu -p "Theme Selector")
 fi
 
+DUNST_TARGET="$HOME/.config/dunst/dunstrc"
+HYPR_LUA_TARGET="$HOME/.config/hypr/colors.lua"
+HYPR_CONF_TARGET="$HOME/.config/hypr/colors.conf"
+KITTY_TARGET="$HOME/.config/kitty/current-theme.conf"
+ROFI_TARGET="$HOME/.config/rofi/colors.rasi"
+WAYBAR_TARGET="$HOME/.config/waybar/colors.css"
+
 if [[ -n "$SELECTED_THEME" ]]; then
     mkdir -p "$HOME/.config/dunst" "$HOME/.config/hypr" "$HOME/.config/kitty" "$HOME/.config/rofi" "$HOME/.config/waybar"
 
     if [[ "$SELECTED_THEME" == "BlackWhite" ]]; then
         BLACKWHITE_THEME_DIR="$HOME/themes/blackwhite"
 
-        cp -f "$BLACKWHITE_THEME_DIR/dunstrc" "$HOME/.config/dunst/dunstrc"
-        cp -f "$BLACKWHITE_THEME_DIR/hypr.lua" "$HOME/.config/hypr/colors.lua"
-        cp -f "$BLACKWHITE_THEME_DIR/hypr.conf" "$HOME/.config/hypr/colors.conf"
-        cp -f "$BLACKWHITE_THEME_DIR/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
-        cp -f "$BLACKWHITE_THEME_DIR/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
-        cp -f "$BLACKWHITE_THEME_DIR/waybar.css" "$HOME/.config/waybar/colors.css"
+        ln -sf "$BLACKWHITE_THEME_DIR/dunstrc" "$DUNST_TARGET"
+        ln -sf "$BLACKWHITE_THEME_DIR/hypr.lua" "$HYPR_LUA_TARGET"
+        ln -sf "$BLACKWHITE_THEME_DIR/hypr.conf" "$HYPR_CONF_TARGET"
+        ln -sf "$BLACKWHITE_THEME_DIR/kitty.conf" "$KITTY_TARGET"
+        ln -sf "$BLACKWHITE_THEME_DIR/rofi.rasi" "$ROFI_TARGET"
+        ln -sf "$BLACKWHITE_THEME_DIR/waybar.css" "$WAYBAR_TARGET"
 
         if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
             dunstify "Theme Selector" "$SELECTED_THEME theme selected" -i "$BLACKWHITE_ICON"
@@ -40,12 +47,12 @@ if [[ -n "$SELECTED_THEME" ]]; then
             exit 1
         fi
 
-        cp -f "$COLORFUL_THEME_DIR/dunstrc" "$HOME/.config/dunst/dunstrc"
-        cp -f "$COLORFUL_THEME_DIR/hypr.lua" "$HOME/.config/hypr/colors.lua"
-        cp -f "$COLORFUL_THEME_DIR/hypr.conf" "$HOME/.config/hypr/colors.conf"
-        cp -f "$COLORFUL_THEME_DIR/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
-        cp -f "$COLORFUL_THEME_DIR/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
-        cp -f "$COLORFUL_THEME_DIR/waybar.css" "$HOME/.config/waybar/colors.css"
+        ln -sf "$COLORFUL_THEME_DIR/dunstrc" "$DUNST_TARGET"
+        ln -sf "$COLORFUL_THEME_DIR/hypr.lua" "$HYPR_LUA_TARGET"
+        ln -sf "$COLORFUL_THEME_DIR/hypr.conf" "$HYPR_CONF_TARGET"
+        ln -sf "$COLORFUL_THEME_DIR/kitty.conf" "$KITTY_TARGET"
+        ln -sf "$COLORFUL_THEME_DIR/rofi.rasi" "$ROFI_TARGET"
+        ln -sf "$COLORFUL_THEME_DIR/waybar.css" "$WAYBAR_TARGET"
 
         if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
             dunstify "Theme Selector" "$SELECTED_THEME theme selected" -i "$COLOR_ICON"
