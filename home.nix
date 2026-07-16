@@ -132,12 +132,15 @@ in {
   ];
 
   xdg.configFile = {
-    "hypr".source = ./dotfiles/hypr;
-    "obs-studio".source = ./dotfiles/obs-studio;
-    "rofi".source = ./dotfiles/rofi;
+    "hypr/hyprland.lua".source = ./dotfiles/hypr/hyprland.lua;
+    "matugen".source = ./dotfiles/matugen;
+    "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
+    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
-    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+    "spicetify".source = ./dotfiles/spicetify;
+    "waybar/scripts".source = ./dotfiles/waybar/scripts;
     "waybar/style.css".source = ./dotfiles/waybar/style.css;
+    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
   programs.zsh = {
