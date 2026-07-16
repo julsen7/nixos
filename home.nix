@@ -118,6 +118,7 @@ in {
     "wallpaper".source = ./wallpaper;
     "scripts".source = ./scripts;
     "themes/blackwhite".source = ./themes/blackwhite;
+    "themes/blackwhite/hypr.lua".source = ./dotfiles/hypr/colors.lua;
   };
 
   xdg.configFile = {
