@@ -15,6 +15,9 @@
 - ly-configuration
 - daws
 - renaming wallpapers
+- rofi: style von <https://github.com/adi1090x/rofi> und andere overlays (1:6, 1:8, 2:2, 2:8, 2:9, 3:10, 5:4, 6:1, 6:7, 6:9, 7:1, 7:2, 7:3, 7:5, 7:6)
+- easyeffects settings <https://wwmm.github.io/easyeffects/plugins/autogain.html>
+- renaming repo(s) and hosts
 
 ## MISSING PACKAGES
 
@@ -32,3 +35,8 @@
 ## LATER
 
 - generate hardware-configuration.nix for dektop
+- Wallpapers: <https://www.wallpaperflare.com/>
+- NixOS
+- HomeManager
+- QuickShell (waybar, dunst, rofi, snappy-switcher)
+- Docker
