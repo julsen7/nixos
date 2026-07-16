@@ -137,7 +137,7 @@ in {
   xdg.configFile = {
     "hypr/hyprland.lua".source = ./dotfiles/hypr/hyprland.lua;
     "matugen".source = ./dotfiles/matugen;
-    "obs-studio".source = ./dotfiles/obs-studio;
+    "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
     "spicetify".source = ./dotfiles/spicetify;
     "waybar/scripts".source = ./dotfiles/waybar/scripts;
