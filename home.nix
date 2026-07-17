@@ -99,7 +99,10 @@ in {
 
   # SYSTEM
 
-  wayland.windowManager.hyprland.systemd.enable = false;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+  };
 
   home.sessionVariables = {
     EDITOR = "code";
@@ -126,8 +129,6 @@ in {
     "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
     "spicetify".source = ./dotfiles/spicetify;
-    "waybar/scripts".source = ./dotfiles/waybar/scripts;
-    "waybar/style.css".source = ./dotfiles/waybar/style.css;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
@@ -464,7 +465,10 @@ in {
     };
   };
 
-  # hyprland
+  wayland.windowManager.hyprland = {
+    enable = true;
+    systemd.enable = false;
+  };
 
   programs.hyprlock = {
     enable = true;
@@ -831,7 +835,7 @@ in {
         };
 
         "custom/weather" = {
-          exec = "\${config.xdg.configHome}/waybar/scripts/weather.sh";
+          exec = "\${config.xdg.configHome}/scripts/waybar_weather.sh";
           format = "{}";
           return-type = "json";
           interval = 1800;
@@ -946,6 +950,91 @@ in {
         };
       };
     };
+    style = ''
+      @import "colors.css";
+
+        * {
+          font-family: "JetBrainsMono Nerd Font Propo";
+          font-size: 16px;
+          color: @on_surface;
+          border-radius: 20px;
+        }
+
+        window#waybar {
+          background-color: transparent;
+        }
+
+        #custom-arch-icon,
+        #mpris,
+        #custom-weather,
+        #tray,
+        #clock,
+        #workspaces,
+        #audio,
+        #bluetooth,
+        #network,
+        #battery {
+          background-color: @surface;
+          padding: 0px 16px;
+        }
+
+        #tray menu {
+          background-color: @surface;
+          padding: 4px 8px;
+        }
+
+        #tray menuitem:hover {
+          background-color: @surface_container;
+        }
+
+        #workspaces {
+          padding: 2px 4px;
+        }
+
+        #workspaces button {
+          background-color: @surface_container;
+          margin: 4px;
+        }
+
+        #workspaces button.active {
+          background-color: @primary;
+        }
+
+        #workspaces button.active label {
+          color: @on_primary;
+        }
+
+        #pulseaudio-slider slider {
+          min-height: 0px;
+          min-width: 0px;
+          opacity: 0;
+          background-image: none;
+          border: none;
+          box-shadow: none
+        }
+
+        #pulseaudio-slider trough {
+          min-height: 10px;
+          min-width: 100px;
+          background-color: @surface_container;
+        }
+
+        #pulseaudio-slider highlight {
+          background-color: @primary;
+        }
+
+        #battery.charging {
+          color: @primary;
+        }
+
+        #battery.warning {
+          color: @inverse_surface;
+        }
+
+        #battery.critical {
+          color: @error;
+        }
+    '';
   };
 
   # wireplumber
