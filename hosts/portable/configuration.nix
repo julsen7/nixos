@@ -13,7 +13,7 @@
 
   # GENERAL
 
-  networking.hostName = "laptop";
+  networking.hostName = "portable";
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
 

@@ -124,7 +124,6 @@ in {
   };
 
   xdg.configFile = {
-    "hypr/hyprland.lua".source = ./dotfiles/hypr/hyprland.lua;
     "matugen".source = ./dotfiles/matugen;
     "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
@@ -470,62 +469,113 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
+    
     settings = {
-      bind = [
-        {
-          _args = [
-            (lib.generators.mkLuaInline "mod .. \" + Q\"")
-            (lib.generators.mkLuaInline "hl.dsp.window.close()")
-            { locked = true; }
-          ];
-        }
-        {
-          _args = [
-            "SUPER + RETURN"
-            (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"kitty\")")
-          ];
-        }
-        {
-          _args = [
-            "ALT + R"
-            (lib.generators.mkLuaInline "hl.dsp.submap(\"resize\")")
-          ];
-        }
+      monitor = [
+        "HDMI-A-1, 2560x1440@144, 0x0, 1"
+        "eDP-1, 1920x1080@60, 2560x500, 1"
+        ", preferred, auto, 1, mirror, eDP-1"
       ];
-      on = [
-        {
-          _args = [
-            "hyprland.start"
-            (lib.generators.mkLuaInline "function()\n  hl.exec_cmd(\"waybar\")\nend")
-          ];
-        }
-        {
-          _args = [
-            "hyprland.start"
-            (lib.generators.mkLuaInline "function()\n  hl.exec_cmd(\"waybar\")\nend")
-          ];
-        }
+      exec-once = [
+        "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+        "gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Ice'"
+        "xrandr --output HDMI-A-1 --primary"
+        "uwsm app -- wl-paste --type text --watch cliphist store"
+        "uwsm app -- wl-paste --type image --watch cliphist store"
+        "uwsm app -- udiskie &"
+        "uwsm app -- snappy-switcher --daemon"
+        "uwsm app -- awww-daemon"
+        "uwsm app -- discord --start-minimized"
+        "uwsm app -- spotify"
+        "hyprctl dispatch focusworkspaceonmonitor 1"
       ];
-
-      config = {
-        general = {
-            border_size      = 0;
-            gaps_in          = 5;
-            gaps_out         = 10;
-            resize_on_border = true;
-        };
-        decoration = {
-            rounding = 20;
-            shadow   = {
-                enabled = true;
-                range = 10;
-                color = colors.primary_container;
-            };
-        };
-        input = {
-            kb_layout = "de";
+      workspace = [
+        "1, monitor:HDMI-A-1, default:true, persistent:true"
+        "2, monitor:HDMI-A-1, persistent:true"
+        "3, monitor:HDMI-A-1, persistent:true"
+        "4, monitor:eDP-1, default:true, persistent:true"
+        "5, monitor:eDP-1, persistent:true"
+        "6, monitor:eDP-1, persistent:true"
+      ];
+      windowrulev2 = [
+        "workspace 6 silent, class:^(Spotify)$"
+      ];
+      general = {
+        border_size = 0;
+        gaps_in = 5;
+        gaps_out = 10;
+        resize_on_border = true;
+      };
+      decoration = {
+        rounding = 20;
+        shadow = {
+          enabled = true;
+          range = 10;
+          color = "rgba(1a1a1aee)";
         };
       };
+      input = {
+        kb_layout = "de";
+      };
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_fingers = 3;
+      };
+      bezier = [
+        "easeInOutCubic, 0.65, 0, 0.35, 1"
+      ];
+      animation = [
+        "windows, 1, 2, easeInOutCubic, slide"
+        "workspaces, 1, 2, default, slide"
+      ];
+      bind = [
+        "CTRL ALT, Delete, exit,"
+        "SUPER, left, movewindow, l"
+        "SUPER, right, movewindow, r"
+        "SUPER, up, movewindow, u"
+        "SUPER, down, movewindow, d"
+        "F11, fullscreen, 0"
+        "SUPER, F, togglefloating,"
+        "SUPER, S, togglesplit,"
+        "ALT, F4, killactive,"
+        
+        "ALT, TAB, exec, snappy-switcher next --workspace --mod alt"
+        "SUPER, TAB, exec, ~/scripts/wallpaper.sh"
+        "SUPER, SPACE, exec, ~/scripts/theme.sh"
+        "SUPER SHIFT, V, exec, uwsm app -- kitty --title=wiremix -e wiremix"
+        "SUPER ALT_L, exec, uwsm app -- rofi -show drun -show-icons -disable-history"
+        "SUPER SHIFT, S, exec, uwsm app -- hyprshot -m region --clipboard-only"
+        "SUPER, L, exec, uwsm app -- hyprlock"
+        "SUPER, P, exec, uwsm app -- hyprpicker -a"
+        "SUPER, V, exec, uwsm app -- cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"
+        
+        "SUPER, Q, exec, uwsm app -- kitty"
+        "SUPER, E, exec, uwsm app -- kitty -e yazi"
+        "SUPER, B, exec, uwsm app -- zen"
+        "SUPER, M, exec, uwsm app -- spotify"
+        "SUPER, D, exec, uwsm app -- discord"
+        "SUPER, C, exec, uwsm app -- code"
+      ] 
+      ++ (map (i: "SUPER, ${toString i}, workspace, ${toString i}") (lib.range 1 6))
+      ++ (map (i: "SUPER SHIFT, ${toString i}, movetoworkspace, ${toString i}") (lib.range 1 6));
+      bindm = [
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
+      ];
+      bindle = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
+        ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+      ];
+      bindl = [
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPause, exec, playerctl play-pause"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioPrev, exec, playerctl previous"
+      ];
     };
   };
 
