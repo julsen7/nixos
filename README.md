@@ -37,5 +37,5 @@ mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 swapon /dev/nvme0n1p2
 lsblk -f
 
-sudo nixos-install --flake github:julsen7/nixos#HOST
+nixos-install --flake github:julsen7/nixos#HOST
 ```
