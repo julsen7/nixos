@@ -774,7 +774,7 @@ in {
         spacing = mkLiteral "16px";
         layout = mkLiteral "vertical";
         border = 0;
-        background-color = transparent;
+        background-color = mkLiteral "transparent";
         columns = 4;
         scrollbar = false;
         lines = 3;
