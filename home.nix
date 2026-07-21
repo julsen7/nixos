@@ -62,6 +62,7 @@ in {
     awww
     udiskie
     cliphist
+    playerctl
     wl-clipboard
     hyprpolkitagent
     hyprpicker
@@ -727,92 +728,103 @@ in {
 
   programs.rofi = {
     enable = true;
-    
-    extraConfig = {
-      modes = [ "drun" "window" ];
-      "drun-display-format" = "{name}";
-    };
 
-    theme = {
-      "@import" = "colors.rasi";
+    extraConfig = ''
+      @import "colors.rasi"
 
-      "*" = {
-        font = "JetBrainsMono Nerd Font Propo 12";
-        border-radius = "20px";
-      };
+      configuration {
+          modes: [ drun, window ];
+          drun-display-format: "{name}";
+      }
 
-      "window" = {
-        width = "800px";
-        background-color = "@surface";
-        border = 0;
-        children = [ "mainbox" ];
-      };
+      * {
+          font: "JetBrainsMono Nerd Font Propo 12";
+          border-radius: 20px;
+      }
 
-      "mainbox" = {
-        padding = "24px";
-        spacing = "20px";
-        children = [ "inputbar" "listview" ];
-      };
+      window {
+          width: 800px;
+          background-color: @surface;
+          border: 0;
+          children: [ mainbox ];
+      }
 
-      "inputbar" = {
-        children = [ "entry" ];
-      };
+      mainbox {
+          padding: 24px;
+          spacing: 20px;
+          children: [ inputbar, listview ];
+      }
 
-      "entry" = {
-        padding = "10px 50px";
-        background-color = "@surface-container";
-        placeholder-color = "@on-surface";
-        text-color = "@on-surface";
-        placeholder = "Search...";
-      };
+      inputbar {
+          children: [ entry ];
+      }
 
-      "listview" = {
-        spacing = "16px";
-        layout = "vertical";
-        border = 0;
-        background-color = "transparent";
-        columns = 4;
-        scrollbar = false;
-        lines = 3;
-        flow = "horizontal";
-        fixed-columns = true;
-      };
+      entry {
+          padding: 10px 50px;
+          background-color: @surface-container;
+          placeholder-color: @on-surface;
+          text-color: @on-surface;
+          placeholder: "Search...";
+      }
 
-      "element" = {
-        padding = "24px 16px";
-        orientation = "vertical";
-        spacing = "16px";
-        border-radius = "20px";
-        children = [ "element-icon" "element-text" ];
-      };
+      listview {
+          spacing: 16px;
+          layout: vertical;
+          border: 0;
+          background-color: transparent;
+          columns: 4;
+          scrollbar: false;
+          lines: 3;
+          flow: horizontal;
+          fixed-columns: true;
+      }
 
-      "element-icon" = {
-        size = "48px";
-        horizontal-align = "0.5";
-      };
+      element {
+          padding: 24px 16px;
+          orientation: vertical;
+          spacing: 16px;
+          border-radius: 20px;
+          children: [ element-icon, element-text ];
+      }
 
-      "element-text" = {
-        horizontal-align = "0.5";
-      };
+      element-icon {
+          size: 48px;
+          horizontal-align: 0.5;
+      }
 
-      "element normal.normal, element alternate.normal, element normal.active, element alternate.active" = {
-        background-color = "@surface";
-      };
+      element-text {
+          horizontal-align: 0.5;
+      }
 
-      "element-text normal.normal, element-text alternate.normal, element-text normal.active, element-text alternate.active" = {
-        text-color = "@on-surface";
-      };
+      element normal.normal,
+      element alternate.normal,
+      element normal.active,
+      element alternate.active {
+          background-color: @surface;
+      }
 
-      "element selected.normal, element selected.alternate, element selected.active" = {
-        border = "2px";
-        border-color = "@on-surface";
-        background-color = "@surface-container";
-      };
+      element-text normal.normal,
+      element-text alternate.normal,
+      element-text normal.active, 
+      element-text alternate.active {
+          text-color: @on-surface;
+      }
 
-      "element-text selected.normal, element-text selected.alternate, element-text selected.active" = {
-        text-color = "@on-surface";
-      };
-    };
+
+      element selected.normal,
+      element selected.alternate,
+      element selected.active {
+          border: 2px;
+          border-color: @on-surface;
+          background-color: @surface-container;
+      }
+
+      element-text selected.normal,
+      element-text selected.alternate,
+      element-text selected.active {
+          text-color: @on-surface;
+      }
+    '';
   };
 
   programs.spicetify = {
