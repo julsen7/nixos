@@ -797,7 +797,7 @@ in {
 
       "#element-text" = {
         horizontal-align = 0.5;
-      }
+      };
 
       "element normal.normal, element alternate.normal, element normal.active, element alternate.active" = {
         background-color = mkLiteral "@surface";
