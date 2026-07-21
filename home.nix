@@ -778,7 +778,7 @@ in {
         columns = 4;
         scrollbar = false;
         lines = 3;
-        flow = horizontal;
+        flow = mkLiteral "horizontal";
         fixed-columns = true;
       };
 
