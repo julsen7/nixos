@@ -108,6 +108,7 @@ in {
       collection-fontsrecommended
     ]))
     tex-fmt
+    rofi
   ];
 
   # SYSTEM
