@@ -13,7 +13,7 @@
 
   # GENERAL
 
-  networking.hostName = "desktop";
+  networking.hostName = "portable";
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
 
@@ -81,7 +81,14 @@
   services.fwupd.enable = true;
   services.power-profiles-daemon.enable = true;
 
-  services.displayManager.ly.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "matrix";
+      dur_file_path = "blackhole.dur";
+      bigclock = "en";
+    };
+  };
 
   services.pipewire = {
     enable = true;
@@ -111,7 +118,7 @@
 
   users.users.julsen = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
   };
 
