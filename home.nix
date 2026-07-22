@@ -63,6 +63,7 @@ in {
     udiskie
     cliphist
     wl-clipboard
+    playerctl
     hyprpolkitagent
     hyprpicker
     hyprshot
@@ -71,7 +72,6 @@ in {
     btop
     bluetui
     wiremix
-    playerctl
     nvtopPackages.full
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     discord

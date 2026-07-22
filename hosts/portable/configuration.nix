@@ -113,7 +113,7 @@
     };
   };
 
-  # programs.virt-manager.enable = true;
+  programs.virt-manager.enable = true;
 
   # USER
 
@@ -124,11 +124,6 @@
   };
 
   # PACKAGES
-
-  environment.systemPackages = with pkgs; [
-    virt-manager
-    qemu
-  ];
 
   nixpkgs.config.allowUnfree = true;
 
