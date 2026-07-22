@@ -100,8 +100,8 @@ in {
     # python ?
     # maven ?
     # gradle
-    qemu
-    dnsmasq
+    # qemu
+    # dnsmasq
     # libosinfo
     # bridge-utils
     (texliveMedium.withPackages (ps: with ps; [

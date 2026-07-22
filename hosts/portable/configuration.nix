@@ -108,31 +108,38 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
+      package = pkgs.qemu_kvm;
       swtpm.enable = true;
+      ovmf.enable = true;
+      ovmf.packages = [ pkgs.OVMFFull.fd ];
     };
   };
 
-  programs.virt-manager.enable = true;
+  # programs.virt-manager.enable = true;
 
   # USER
 
   users.users.julsen = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
+    extraGroups = [ "wheel" "networkmanager" "libvirtd" "kvm" ];
     hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
   };
 
   # PACKAGES
 
-  environment.systemPackages = [
-    pkgs.qemu
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    qemu
+    OVMF
   ];
 
   nixpkgs.config.allowUnfree = true;
 
-  security.rtkit.enable = true;
-  security.polkit.enable = true;
-  
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
