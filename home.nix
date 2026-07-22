@@ -71,6 +71,7 @@ in {
     btop
     bluetui
     wiremix
+    playerctl
     nvtopPackages.full
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     discord
@@ -109,7 +110,6 @@ in {
     ]))
     tex-fmt
     rofi
-    playerctl
   ];
 
   # SYSTEM
@@ -839,6 +839,7 @@ in {
 
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
 
     settings = {
       mainBar = {

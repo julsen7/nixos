@@ -2,8 +2,6 @@
 
 ## BUGS & FEATURES
 
-- waybar clickable workspace
-- waybar spotify dbus error mpris
 - test virt-manager rest qemu packages
 - refactor hyprland.lua
 - default wallpaper and colorful-theme
