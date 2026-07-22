@@ -142,7 +142,6 @@ in {
     "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
     "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
-    "spicetify".source = ./dotfiles/spicetify;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
@@ -732,12 +731,8 @@ in {
       hidePodcasts
       shuffle
     ];
-    theme = {
-      name = "Theme";
-      src = ./dotfiles/spicetify/Themes/Theme;
-      appendName = false;
-    };
-    colorScheme = "Theme";
+    theme = spicePkgs.themes.sleek;
+    colorScheme = "UltraBlack";
   };
 
   programs.starship = {

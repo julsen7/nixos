@@ -28,6 +28,4 @@
 - generate hardware-configuration.nix for dektop
 - Wallpapers: <https://www.wallpaperflare.com/>
 - NixOS
-- HomeManager
 - QuickShell (waybar, dunst, rofi, snappy-switcher)
-- Docker
