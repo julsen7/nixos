@@ -55,6 +55,7 @@ in {
     brightnessctl
     awww
     rofi
+    udiskie
     cliphist
     wl-clipboard
     playerctl
