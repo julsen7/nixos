@@ -4,7 +4,7 @@
 
 - default wallpaper and colorful-theme
 - correct config: hyprland, waybar, rofi <https://github.com/adi1090x/rofi> (overlays 1:6, 1:8, 2:2, 2:8, 2:9, 3:10, 5:4, 6:1, 6:7, 6:9, 7:1, 7:2, 7:3, 7:5, 7:6)
-- missing config settings: zen-browser
+- missing config settings: zen-browser, prismlauncher (incl. profiles), ly dur_file (durdraw ?)
 - xbox-controller bluetooth, vscode-extensions updates
 - QuickShell (waybar, dunst, rofi, snappy-switcher, hyprlock)
 
@@ -18,5 +18,4 @@
 
 ## NOT EXISTING PACKAGE
 
-- durdraw
 - nmtui-go

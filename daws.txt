@@ -1,36 +1,47 @@
+-- DAWS
+bitwig studio
+reaper cockos
+traktion waveform free
+ardour
+lmms
+spotifys soundtrap
+bandlab
+ableton live
+fl studio
+studio one
+cubase
+pro tools
+reason
+steinberg nuendo
+motu digital performer
+mixcraft
+cakewalk by bandlab
+cakewalk sonar/next
+logic pro
+garageband
+luna
+
+! wikipedia: liste daws
+
 -- EDITOR
 audacity
 ocenaudio
 
--- DAWS
-ableton live
-fl studio
-reason
-pro tools
-studio one
-cubase
-traktion waveform free
-cxan cadur
-lmms
-logic pro
-garageband
-mixcraft
-reaper cockos
-LUNA
-cakewalk by bandlab
-cakewalk next
-cakewalk sonar
-spotifys soundtrap
-
-! wikipedia: liste daws
-
--- Instr/Effects
+-- Instruments/Samples
 spitfire audio labs
+komplete start(native instruments)
+power drum kit 2(mt power)
 tux guitar
-power drum kit 2
-komplete start
-mfreefxbundle
+
+-- Effects/Analysing
 kilohearts essentials
+mfreefxbundle (meldaproduction)
 voxengo SPAN
 youlean loudness meter
+
+-- System Drivers
 asio4all
+
+-- plugins
+xfer serum
+vital

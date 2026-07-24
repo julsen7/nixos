@@ -44,8 +44,6 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = [ pkgs.obs-vkcapture ];
-      extraPackages32 = [ pkgs.obs-vkcapture ];
     };
     nvidia = {
       modesetting.enable = true; # ?

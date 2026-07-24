@@ -100,6 +100,9 @@ in {
     # python ?
     # maven ?
     # gradle
+    bitwig-studio
+    # lmms
+    # reaper
   ];
 
   # SYSTEM
