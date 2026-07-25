@@ -103,6 +103,7 @@ in {
     bitwig-studio
     # lmms
     # reaper
+    lshw
   ];
 
   # SYSTEM

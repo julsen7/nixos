@@ -16,10 +16,44 @@
   networking = {
     hostName = "desktop";
     networkmanager.enable = true;
-    firewall.enable = true;
+    wireless.networks = {
+      "Basis" = {
+        pskRaw = "f532aeb13b3a225711a806fca6d00ce88129528f2bbe199e47d9e73f71ffb457";
+      };
+    };
   };
 
   zramSwap.enable = true;
+
+  # SERVICES
+
+  services.openssh.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  services.udisks2.enable = true;
+  services.fwupd.enable = true;
+  services.power-profiles-daemon.enable = true;
+
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "matrix";
+      dur_file_path = "thorizedKeblackhole.dur";
+      bigclock = "en";
+    };
+  };
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
 
   # LOCALISATION
 
@@ -27,17 +61,18 @@
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
 
-  services.xserver.xkb = {
-    layout = "de";
-    options = "eurosign:e,caps:escape";
-  };
-
   # HARDWARE
 
-  services.xserver.videoDrivers = [
-    "amdgpu"
-    "nvidia"
-  ];
+  services.xserver = {
+    xkb = {
+      layout = "de";
+      options = "eurosign:e,caps:escape";
+    };
+    videoDrivers = [
+      "amdgpu"
+      "nvidia"
+    ];
+  };
 
   hardware = {
     enableRedistributableFirmware = true;
@@ -46,7 +81,7 @@
       enable32Bit = true;
     };
     nvidia = {
-      modesetting.enable = true; # ?
+      modesetting.enable = true;
       open = true;
       prime = {
         offload = {
@@ -65,41 +100,8 @@
           Experimental = true;
           FastConnectable = true;
         };
-        Policy = {
-          AutoEnable = true;
-        };
       };
     };
-  };
-
-  # SERVICES
-
-  services.openssh.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  services.udisks2.enable = true;
-  services.fwupd.enable = true;
-  services.power-profiles-daemon.enable = true;
-
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "matrix";
-      dur_file_path = "blackhole.dur";
-      bigclock = "en";
-    };
-  };
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
   };
 
   # VIRTUALISATION
