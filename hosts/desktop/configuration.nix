@@ -133,7 +133,7 @@
 
   stylix = {
     enable = true;
-    image = ../../wallpaper/AssassinsCreed.jpg
+    image = ../../wallpaper/AssassinsCreed.jpg;
   };
 
   # PACKAGES
