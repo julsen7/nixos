@@ -326,7 +326,7 @@ in {
         icon_corner_radius = 10;
         frame_width = 0;
         gap_size = 5;
-        font = "JetBrainsMono Nerd Font Propo 10";
+        # font = "JetBrainsMono Nerd Font Propo 10";
         corner_radius = 20;
         enable_recursive_icon_lookup = true;
         max_icon_size = 64;
