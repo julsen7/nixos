@@ -40,15 +40,6 @@
     defaultSession = "hyprland-uwsm";
   };
 
-  # services.displayManager.ly = {
-  #   enable = true;
-  #   settings = {
-  #     animation = "matrix";
-  #     dur_file_path = "blackhole.dur";
-  #     bigclock = "en";
-  #   };
-  # };
-
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -133,7 +124,37 @@
 
   stylix = {
     enable = true;
-    image = ./AssassinsCreed.jpg;
+    image = ./../..wallpaper/BlackRain.jpg;
+    # polarity = "dark";
+
+    targets.hyprland.enable = false;
+    targets.hyprlock.enable = false;
+    targets.vscode.enable = false;
+
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
+      };
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+      serif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
   };
 
   # PACKAGES
@@ -156,6 +177,8 @@
     withUWSM = true;
     xwayland.enable = true;
   };
+
+  # NIXOS
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;

@@ -47,23 +47,23 @@ in {
   #   style.name = "adwaita-dark"; # breeze
   # };
 
-  home.pointerCursor = {
-    enable = true;
-    gtk.enable = true;
-    x11.enable = true;
-    name = "Bibata-Modern-Ice";
-    size = 24;
-    package = pkgs.bibata-cursors;
-  };
+  # home.pointerCursor = {
+  #   enable = true;
+  #   gtk.enable = true;
+  #   x11.enable = true;
+  #   name = "Bibata-Modern-Ice";
+  #   size = 24;
+  #   package = pkgs.bibata-cursors;
+  # };
 
   # PACKAGES
 
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-color-emoji
-    nerd-fonts.jetbrains-mono
+    # noto-fonts
+    # noto-fonts-color-emoji
+    # nerd-fonts.jetbrains-mono
     brightnessctl
     awww
     rofi
@@ -126,8 +126,8 @@ in {
 
   home.sessionVariables = {
     EDITOR = "code";
-    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
-    HYPRCURSOR_SIZE = "24";
+    # HYPRCURSOR_THEME = "Bibata-Modern-Ice";
+    # HYPRCURSOR_SIZE = "24";
   };
 
   home.sessionPath = [
@@ -140,14 +140,14 @@ in {
   home.file = {
     "wallpaper".source = ./wallpaper;
     "scripts".source = ./scripts;
-    "themes/blackwhite".source = ./themes/blackwhite;
+    # "themes/blackwhite".source = ./themes/blackwhite;
   };
 
   xdg.configFile = {
-    "matugen".source = ./dotfiles/matugen;
+    # "matugen".source = ./dotfiles/matugen;
     # "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
-    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
-    "snappy-switcher".source = ./dotfiles/snappy-switcher;
+    # "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
+    # "snappy-switcher".source = ./dotfiles/snappy-switcher;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
@@ -362,14 +362,17 @@ in {
     enable = true;
     systemd.enable = false;
     
-    extraConfig = ''
-      local success, colors = pcall(require, "colors")
+    # local success, colors = pcall(require, "colors")
 
-      if not success then
-        colors = {
-          primary_container = "0xee1a1a1a"
-        }
-      end
+    # if not success then
+    #   colors = {
+    #     primary_container = "0xee1a1a1a"
+    #   }
+    # end
+    extraConfig = ''
+      local colors = {
+        primary_container = "0xee${config.lib.stylix.colors.base0D}",
+      }
 
       -- =========================================================================
       -- Monitor-Setups
@@ -525,42 +528,54 @@ in {
 
   programs.hyprlock = {
     enable = true;
-    extraConfig = "source = \${config.xdg.configHome}/.config/hypr/colors.conf";
+    # extraConfig = "source = \${config.xdg.configHome}/.config/hypr/colors.conf";
 
     settings = {
       general = {
         hide_cursor = true;
       };
 
-      # background = [
-      #   {
-      #     monitor = "";
-      #     path = "$image";
-      #   }
-      # ];
+      background = [
+        {
+          monitor = "";
+          # path = "$image";
+          path = "${config.stylix.image}"; 
+        }
+      ];
 
-      # "input-field" = [
-      #   {
-      #     monitor = "";
-      #     size = "250, 50";
-      #     outline_thickness = 0;
-      #     inner_color = "$on_surface";
-      #     font_color = "$surface";
-      #     check_color = "$primary";
-      #     fail_color = "$error";
-      #     fade_on_empty = false;
-      #     font_family = "JetBrainsMono Nerd Font";
-      #     capslock_color = "$tertiary";
-      #   }
-      # ];
+      "input-field" = [
+        {
+          monitor = "";
+          size = "250, 50";
+          outline_thickness = 0;
+
+          # inner_color = "$on_surface";
+          # font_color = "$surface";
+          # check_color = "$primary";
+          # fail_color = "$error";
+          # capslock_color = "$tertiary";
+
+          inner_color = "rgb(${config.lib.stylix.colors.base01})"; # Dunkler Hintergrund
+          font_color = "rgb(${config.lib.stylix.colors.base05})";  # Helle Schrift
+          check_color = "rgb(${config.lib.stylix.colors.base0D})"; # Akzentfarbe (Blau/Cyan)
+          fail_color = "rgb(${config.lib.stylix.colors.base08})";  # Rot für Fehler
+          capslock_color = "rgb(${config.lib.stylix.colors.base0E})"; # Violett
+
+          fade_on_empty = false;
+          # font_family = "JetBrainsMono Nerd Font";
+          font_family = config.stylix.fonts.monospace.name;
+        }
+      ];
 
       label = [
         {
           monitor = "";
           text = "$TIME"; 
-          color = "$primary";
+          # color = "$primary";
+          color = "rgb(${config.lib.stylix.colors.base0D})";
           font_size = 55;
           font_family = "Noto Sans";
+          font_family = config.stylix.fonts.sansSerif.name;
           position = "0, 80";
         }
       ];
@@ -570,10 +585,10 @@ in {
   programs.kitty = {
     enable = true;
 
-    font = {
-      # name = "JetBrainsMono Nerd Font";
-      # size = 11;
-    };
+    # font = {
+    #   name = "JetBrainsMono Nerd Font";
+    #   size = 11;
+    # };
 
     settings = {
       disable_ligatures = "never";
@@ -591,9 +606,9 @@ in {
       shell = "zsh";
     };
 
-    extraConfig = ''
-      include current-theme.conf
-    '';
+    # extraConfig = ''
+    #   include current-theme.conf
+    # '';
   };
 
   programs.obs-studio = {
@@ -739,7 +754,7 @@ in {
         "explorer.confirmDragAndDrop" = false;
         "git.confirmSync" = false;
         "git.autofetch" = true;
-        # "editor.fontFamily" = "'JetBrainsMono Nerd Font Propo', 'Droid Sans Mono', monospace";
+        "editor.fontFamily" = "'JetBrainsMono Nerd Font Propo', 'Droid Sans Mono', monospace";
         "explorer.confirmPasteNative" = false;
         "latex-workshop.latex.autoBuild.run" = "onFileChange";
         "files.autoSave" = "afterDelay";
@@ -754,7 +769,7 @@ in {
           "markdown" = false;
           "scminput" = false;
         };
-        # "workbench.colorTheme" = "GitHub Dark Default";
+        "workbench.colorTheme" = "GitHub Dark Default";
         "Lua.workspace.library" = [
           "/usr/share/hypr/stubs"
         ];
@@ -992,12 +1007,19 @@ in {
       };
     };
 
+    # @import "colors.css";
+    # font-family: "JetBrainsMono Nerd Font Propo";
+    # font-size: 16px;
     style = ''
-      @import "colors.css";
+      @define-color surface @base01;
+      @define-color on_surface @base05;
+      @define-color surface_container @base02;
+      @define-color primary @base0D;
+      @define-color on_primary @base00;
+      @define-color inverse_surface @base06;
+      @define-color error @base08;
 
       * {
-        font-family: "JetBrainsMono Nerd Font Propo";
-        font-size: 16px;
         color: @on_surface;
         border-radius: 20px;
       }
