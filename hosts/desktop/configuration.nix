@@ -127,10 +127,6 @@
     image = ./../../wallpaper/BlackRain.jpg;
     polarity = "dark";
 
-    targets.hyprland.enable = false;
-    targets.hyprlock.enable = false;
-    targets.vscode.enable = false;
-
     cursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
