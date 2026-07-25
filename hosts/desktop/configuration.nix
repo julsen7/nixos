@@ -16,11 +16,6 @@
   networking = {
     hostName = "desktop";
     networkmanager.enable = true;
-    wireless.networks = {
-      "Basis" = {
-        pskRaw = "f532aeb13b3a225711a806fca6d00ce88129528f2bbe199e47d9e73f71ffb457";
-      };
-    };
   };
 
   zramSwap.enable = true;
@@ -37,7 +32,7 @@
     enable = true;
     settings = {
       animation = "matrix";
-      dur_file_path = "thorizedKeblackhole.dur";
+      dur_file_path = "blackhole.dur";
       bigclock = "en";
     };
   };
