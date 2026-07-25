@@ -37,6 +37,7 @@
       enable = true;
       user = "julsen";
     };
+    defaultSession = "hyprland-uwsm";
   };
 
   # services.displayManager.ly = {
@@ -128,6 +129,11 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "libvirtd" "kvm" ];
     hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
+  };
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
   };
 
   # PACKAGES

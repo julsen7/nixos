@@ -17,22 +17,22 @@ in {
 
   gtk = {
     enable = true;
-    # theme = {
-    #   name = "Adwaita-dark";
-    #   package = pkgs.gnome-themes-extra;
-    # };
-    # iconTheme = {
-    #   package = pkgs.adwaita-icon-theme;
-    #   name = "Adwaita";
-    # };
     theme = {
-      name = "Breeze-Dark";
-      package = pkgs.kdePackages.breeze-gtk;
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
     };
     iconTheme = {
-      name = "breeze-dark";
-      package = pkgs.kdePackages.breeze-icons;
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
     };
+    # theme = {
+    #   name = "Breeze-Dark";
+    #   package = pkgs.kdePackages.breeze-gtk;
+    # };
+    # iconTheme = {
+    #   name = "breeze-dark";
+    #   package = pkgs.kdePackages.breeze-icons;
+    # };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
     };
@@ -43,15 +43,15 @@ in {
 
   qt = {
     enable = true;
-    platformTheme = "kde"; # gtk3
-    style.name = "breeze"; # adwaita-dark
+    platformTheme = "gtk3"; # kde
+    style.name = "adwaita-dark"; # breeze
   };
 
   home.pointerCursor = {
     enable = true;
     gtk.enable = true;
     x11.enable = true;
-    name = "Bibata-Modern-Classic";
+    name = "Bibata-Modern-Ice";
     size = 24;
     package = pkgs.bibata-cursors;
   };
@@ -122,11 +122,6 @@ in {
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-    config = {
-      common = {
-        default = [ "kde" ];
-      };
-    };
   };
 
   home.sessionVariables = {
@@ -324,7 +319,6 @@ in {
     enable = true;
     settings = {
       global = {
-        monitor = 0;
         enable_posix_regex = true;
         width = 400;
         height = "(0, 300)";
@@ -333,12 +327,8 @@ in {
         frame_width = 0;
         gap_size = 5;
         font = "JetBrainsMono Nerd Font Propo 10";
-        dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst:";
         corner_radius = 20;
-        # icon_path = "/usr/share/icons/Adwaita/16x16/devices/";
-        icon_theme = "Adwaita, breeze";
         enable_recursive_icon_lookup = true;
-        min_icon_size = 32;
         max_icon_size = 64;
         fullscreen = "suppress";
       };
@@ -372,41 +362,12 @@ in {
     enable = true;
     settings = {
       logo = {
-        # type = "none";
         source = "nixos";
       };
       display = {
         separator = " ";
       };
       modules = [
-        # {
-        #   type = "custom";
-        #   key = " ";
-        # }
-        # {
-        #   type = "custom";
-        #   key = "    ___              __  ";
-        # }
-        # {
-        #   type = "custom";
-        #   key = "   /   |  __________/ /_ ";
-        # }
-        # {
-        #   type = "custom";
-        #   key = "  / /| | / ___/ ___/ __ \\";
-        # }
-        # {
-        #   type = "custom";
-        #   key = " / ___ |/ /  / /__/ / / /";
-        # }
-        # {
-        #   type = "custom";
-        #   key = "/_/  |_/_/   \\___/_/ /_/ ";
-        # }
-        # {
-        #   type = "custom";
-        #   key = " ";
-        # }
         {
           type = "custom";
           key = "╭────────────╮";
@@ -656,23 +617,12 @@ in {
 
   programs.hyprlock = {
     enable = true;
-    extraConfig = "source = \${config.xdg.configHome}/hypr/colors.conf";
+    extraConfig = "source = \${config.xdg.configHome}/.config/hypr/colors.conf";
 
     settings = {
       general = {
         hide_cursor = true;
       };
-
-      # auth = [
-      #   {
-      #     pam:enabled = true:
-      #     pam:module = "hyprlock";
-      #     fingerprint:enabled = false;
-      #     fingerprint:ready_message = "(Scan fingerprint to unlock)";
-      #     fingerprint:present_message = "Scanning fingerprint";
-      #     fingerprint:retry_delay = 250;
-      #   };
-      # ];
 
       background = [
         {

@@ -16,9 +16,13 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, spicetify-nix, snappy-switcher, ... } @ inputs: {
+  outputs = { nixpkgs, home-manager, spicetify-nix, snappy-switcher, stylix, ... } @ inputs: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -31,6 +35,7 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.julsen = import ./home.nix;
           }
+          stylix.nixosModules.stylix
         ];
       };
       portable = nixpkgs.lib.nixosSystem {
@@ -44,6 +49,7 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.julsen = import ./home.nix;
           }
+          stylix.nixosModules.stylix
         ];
       };
     };
