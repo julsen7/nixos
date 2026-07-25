@@ -21,6 +21,10 @@ in {
     #   name = "Adwaita-dark";
     #   package = pkgs.gnome-themes-extra;
     # };
+    # iconTheme = {
+    #   package = pkgs.adwaita-icon-theme;
+    #   name = "Adwaita";
+    # };
     theme = {
       name = "Breeze-Dark";
       package = pkgs.kdePackages.breeze-gtk;
@@ -47,7 +51,7 @@ in {
     enable = true;
     gtk.enable = true;
     x11.enable = true;
-    name = "Bibata-Modern-Ice";
+    name = "Bibata-Modern-Classic";
     size = 24;
     package = pkgs.bibata-cursors;
   };
@@ -117,7 +121,10 @@ in {
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland xdg-desktop-portal-kde ];
+    config = {
+      default = [ "kde" ];
+    };
   };
 
   home.sessionVariables = {
