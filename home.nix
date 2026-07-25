@@ -17,7 +17,7 @@ in {
     hyprland.enable = false; # Verhindert Konflikte mit deinem Lua-Setup
     hyprlock.enable = false; # Damit dein eigenes Hyprlock-Layout aktiv bleibt
     vscode.enable = false;   # Lässt dein GitHub Dark Theme in VS Code unberührt
-    awww.enable = false;
+    swww.enable = false;
     rofi.enable = false;
   };
 
