@@ -631,20 +631,20 @@ in {
       #   }
       # ];
 
-      "input-field" = [
-        {
-          monitor = "";
-          size = "250, 50";
-          outline_thickness = 0;
-          inner_color = "$on_surface";
-          font_color = "$surface";
-          check_color = "$primary";
-          fail_color = "$error";
-          fade_on_empty = false;
-          font_family = "JetBrainsMono Nerd Font";
-          capslock_color = "$tertiary";
-        }
-      ];
+      # "input-field" = [
+      #   {
+      #     monitor = "";
+      #     size = "250, 50";
+      #     outline_thickness = 0;
+      #     inner_color = "$on_surface";
+      #     font_color = "$surface";
+      #     check_color = "$primary";
+      #     fail_color = "$error";
+      #     fade_on_empty = false;
+      #     font_family = "JetBrainsMono Nerd Font";
+      #     capslock_color = "$tertiary";
+      #   }
+      # ];
 
       label = [
         {
