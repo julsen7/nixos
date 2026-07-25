@@ -123,7 +123,9 @@ in {
     enable = true;
     extraPortals = with pkgs; [ "xdg-desktop-portal-hyprland" "xdg-desktop-portal-kde" ];
     config = {
-      default = [ "kde" ];
+      common = {
+        default = [ "kde" ];
+      };
     };
   };
 
