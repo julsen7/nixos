@@ -622,7 +622,7 @@ in {
       hidePodcasts
       shuffle
     ];
-    theme = spicePkgs.themes.sleek;
+    # theme = spicePkgs.themes.sleek;
     colorScheme = "UltraBlack";
   };
 
