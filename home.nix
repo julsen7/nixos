@@ -754,7 +754,7 @@ in {
           "markdown" = false;
           "scminput" = false;
         };
-        "workbench.colorTheme" = "GitHub Dark Default";
+        # "workbench.colorTheme" = "GitHub Dark Default";
         "Lua.workspace.library" = [
           "/usr/share/hypr/stubs"
         ];
