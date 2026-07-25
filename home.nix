@@ -121,7 +121,12 @@ in {
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-kde ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+    config = {
+      common = {
+        default = [ "kde" ];
+      };
+    };
   };
 
   home.sessionVariables = {
