@@ -624,12 +624,12 @@ in {
         hide_cursor = true;
       };
 
-      background = [
-        {
-          monitor = "";
-          path = "$image";
-        }
-      ];
+      # background = [
+      #   {
+      #     monitor = "";
+      #     path = "$image";
+      #   }
+      # ];
 
       "input-field" = [
         {
