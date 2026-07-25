@@ -13,64 +13,49 @@ in {
   home.homeDirectory = "/home/julsen";
   home.stateVersion = "26.05";
 
-  stylix.targets = {
-    hyprland.enable = false; # Verhindert Konflikte mit deinem Lua-Setup
-    hyprlock.enable = false; # Damit dein eigenes Hyprlock-Layout aktiv bleibt
-    vscode.enable = false;   # Lässt dein GitHub Dark Theme in VS Code unberührt
-    rofi.enable = false;
-  };
-
   # THEMING & CURSOR
 
-  # gtk = {
-  #   enable = true;
-  #   theme = {
-  #     name = "Adwaita-dark";
-  #     package = pkgs.gnome-themes-extra;
-  #   };
-  #   iconTheme = {
-  #     package = pkgs.adwaita-icon-theme;
-  #     name = "Adwaita";
-  #   };
-  #   # theme = {
-  #   #   name = "Breeze-Dark";
-  #   #   package = pkgs.kdePackages.breeze-gtk;
-  #   # };
-  #   # iconTheme = {
-  #   #   name = "breeze-dark";
-  #   #   package = pkgs.kdePackages.breeze-icons;
-  #   # };
-  #   gtk3.extraConfig = {
-  #     gtk-application-prefer-dark-theme = 1;
-  #   };
-  #   gtk4.extraConfig = {
-  #     gtk-application-prefer-dark-theme = 1;
-  #   };
-  # };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
 
-  # qt = {
-  #   enable = true;
-  #   platformTheme = "gtk3"; # kde
-  #   style.name = "adwaita-dark"; # breeze
-  # };
+  qt = {
+    enable = true;
+    platformTheme = "gtk3";
+    style.name = "adwaita-dark";
+  };
 
-  # home.pointerCursor = {
-  #   enable = true;
-  #   gtk.enable = true;
-  #   x11.enable = true;
-  #   name = "Bibata-Modern-Ice";
-  #   size = 24;
-  #   package = pkgs.bibata-cursors;
-  # };
+  home.pointerCursor = {
+    enable = true;
+    gtk.enable = true;
+    x11.enable = true;
+    name = "Bibata-Modern-Ice";
+    size = 24;
+    package = pkgs.bibata-cursors;
+  };
 
   # PACKAGES
 
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    # noto-fonts
-    # noto-fonts-color-emoji
-    # nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-color-emoji
+    nerd-fonts.jetbrains-mono
     brightnessctl
     awww
     rofi
@@ -133,8 +118,8 @@ in {
 
   home.sessionVariables = {
     EDITOR = "code";
-    # HYPRCURSOR_THEME = "Bibata-Modern-Ice";
-    # HYPRCURSOR_SIZE = "24";
+    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
+    HYPRCURSOR_SIZE = "24";
   };
 
   home.sessionPath = [
@@ -146,16 +131,15 @@ in {
 
   home.file = {
     "wallpaper".source = ./wallpaper;
-    "scripts/waybar_weather.sh".source = ./scripts/waybar_weather.sh;
-    "scripts/wallpaper2.sh".source = ./scripts/wallpaper2.sh;
-    # "themes/blackwhite".source = ./themes/blackwhite;
+    "scripts".source = ./scripts;
+    "themes/blackwhite".source = ./themes/blackwhite;
   };
 
   xdg.configFile = {
-    # "matugen".source = ./dotfiles/matugen;
-    # "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
+    "matugen".source = ./dotfiles/matugen;
+    "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
     "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
-    # "snappy-switcher".source = ./dotfiles/snappy-switcher;
+    "snappy-switcher".source = ./dotfiles/snappy-switcher;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
@@ -242,7 +226,7 @@ in {
         icon_corner_radius = 10;
         frame_width = 0;
         gap_size = 5;
-        # font = "JetBrainsMono Nerd Font Propo 10";
+        font = "JetBrainsMono Nerd Font Propo 10";
         corner_radius = 20;
         enable_recursive_icon_lookup = true;
         max_icon_size = 64;
@@ -255,19 +239,19 @@ in {
       };
 
       urgency_low = {
-        # background = "#19120d";
-        # foreground = "#f0dfd7";
+        background = "#19120d";
+        foreground = "#f0dfd7";
       };
 
       urgency_normal = {
-        # background = "#19120d";
-        # foreground = "#f0dfd7";
+        background = "#19120d";
+        foreground = "#f0dfd7";
         override_pause_level = 30;
       };
 
       urgency_critical = {
-        # background = "#19120d";
-        # foreground = "#f0dfd7";
+        background = "#19120d";
+        foreground = "#f0dfd7";
         timeout = 0;
         override_pause_level = 60;
       };
@@ -370,17 +354,14 @@ in {
     enable = true;
     systemd.enable = false;
     
-    # local success, colors = pcall(require, "colors")
-
-    # if not success then
-    #   colors = {
-    #     primary_container = "0xee1a1a1a"
-    #   }
-    # end
     extraConfig = ''
-      local colors = {
-        primary_container = "0xee${config.lib.stylix.colors.base0D}",
-      }
+      local success, colors = pcall(require, "colors")
+
+      if not success then
+        colors = {
+          primary_container = "0xee1a1a1a"
+        }
+      end
 
       -- =========================================================================
       -- Monitor-Setups
@@ -536,7 +517,7 @@ in {
 
   programs.hyprlock = {
     enable = true;
-    # extraConfig = "source = \${config.xdg.configHome}/.config/hypr/colors.conf";
+    extraConfig = "source = \${config.xdg.configHome}/.config/hypr/colors.conf";
 
     settings = {
       general = {
@@ -546,8 +527,7 @@ in {
       background = [
         {
           monitor = "";
-          # path = "$image";
-          path = "${config.stylix.image}"; 
+          path = "$image";
         }
       ];
 
@@ -557,21 +537,14 @@ in {
           size = "250, 50";
           outline_thickness = 0;
 
-          # inner_color = "$on_surface";
-          # font_color = "$surface";
-          # check_color = "$primary";
-          # fail_color = "$error";
-          # capslock_color = "$tertiary";
-
-          inner_color = "rgb(${config.lib.stylix.colors.base01})"; # Dunkler Hintergrund
-          font_color = "rgb(${config.lib.stylix.colors.base05})";  # Helle Schrift
-          check_color = "rgb(${config.lib.stylix.colors.base0D})"; # Akzentfarbe (Blau/Cyan)
-          fail_color = "rgb(${config.lib.stylix.colors.base08})";  # Rot für Fehler
-          capslock_color = "rgb(${config.lib.stylix.colors.base0E})"; # Violett
+          inner_color = "$on_surface";
+          font_color = "$surface";
+          check_color = "$primary";
+          fail_color = "$error";
+          capslock_color = "$tertiary";
 
           fade_on_empty = false;
-          # font_family = "JetBrainsMono Nerd Font";
-          font_family = config.stylix.fonts.monospace.name;
+          font_family = "JetBrainsMono Nerd Font";
         }
       ];
 
@@ -579,11 +552,9 @@ in {
         {
           monitor = "";
           text = "$TIME"; 
-          # color = "$primary";
-          color = "rgb(${config.lib.stylix.colors.base0D})";
+          color = "$primary";
           font_size = 55;
-          # font_family = "Noto Sans";
-          font_family = config.stylix.fonts.sansSerif.name;
+          font_family = "Noto Sans";
           position = "0, 80";
         }
       ];
@@ -593,10 +564,10 @@ in {
   programs.kitty = {
     enable = true;
 
-    # font = {
-    #   name = "JetBrainsMono Nerd Font";
-    #   size = 11;
-    # };
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 11;
+    };
 
     settings = {
       disable_ligatures = "never";
@@ -614,9 +585,9 @@ in {
       shell = "zsh";
     };
 
-    # extraConfig = ''
-    #   include current-theme.conf
-    # '';
+    extraConfig = ''
+      include current-theme.conf
+    '';
   };
 
   programs.obs-studio = {
@@ -645,8 +616,8 @@ in {
       hidePodcasts
       shuffle
     ];
-    # theme = spicePkgs.themes.sleek;
-    # colorScheme = "UltraBlack";
+    theme = spicePkgs.themes.sleek;
+    colorScheme = "UltraBlack";
   };
 
   programs.starship = {
@@ -1015,19 +986,12 @@ in {
       };
     };
 
-    # @import "colors.css";
-    # font-family: "JetBrainsMono Nerd Font Propo";
-    # font-size: 16px;
     style = ''
-      @define-color surface @base01;
-      @define-color on_surface @base05;
-      @define-color surface_container @base02;
-      @define-color primary @base0D;
-      @define-color on_primary @base00;
-      @define-color inverse_surface @base06;
-      @define-color error @base08;
+      @import "colors.css";
 
       * {
+        font-family: "JetBrainsMono Nerd Font Propo";
+        font-size: 16px;
         color: @on_surface;
         border-radius: 20px;
       }
