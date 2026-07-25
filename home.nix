@@ -120,17 +120,24 @@ in {
   # SYSTEM
 
   xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ 
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-kde 
-    ];
-    config = {
-      common = {
-        default = [ "kde" ];
-      };
+  enable = true;
+  extraPortals = with pkgs; [ 
+    xdg-desktop-portal-hyprland 
+    xdg-desktop-portal-kde
+    xdg-desktop-portal-gtk  # Wichtiger Fallback für GTK/Gnome-Apps
+  ];
+  config = {
+    # Einstellungen speziell wenn du in Hyprland bist
+    hyprland = {
+      default = [ "hyprland" "gtk" ];
+      "org.freedesktop.impl.portal.FileChooser" = [ "kde" ]; # Erzwingt KDE-Dateidialog in Hyprland
+    };
+    # Einstellungen für alle anderen Desktops
+    common = {
+      default = [ "kde" ];
     };
   };
+};
 
   home.sessionVariables = {
     EDITOR = "code";
