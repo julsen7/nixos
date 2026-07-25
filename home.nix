@@ -464,8 +464,8 @@ in {
 
       -- App-Launcher & Quick-Tools
       hl.bind("ALT + TAB", hl.dsp.exec_cmd("snappy-switcher next --workspace --mod alt"))
-      hl.bind("SUPER + TAB", hl.dsp.exec_cmd("~/scripts/wallpaper2.sh"))
-      -- hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("~/scripts/theme.sh"))
+      hl.bind("SUPER + TAB", hl.dsp.exec_cmd("~/scripts/wallpaper.sh"))
+      hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("~/scripts/theme.sh"))
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("uwsm app -- rofi -show drun -show-icons -disable-history"))
