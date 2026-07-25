@@ -17,6 +17,8 @@ in {
     hyprland.enable = false; # Verhindert Konflikte mit deinem Lua-Setup
     hyprlock.enable = false; # Damit dein eigenes Hyprlock-Layout aktiv bleibt
     vscode.enable = false;   # Lässt dein GitHub Dark Theme in VS Code unberührt
+    awww.enable = false;
+    rofi.enable = false;
   };
 
   # THEMING & CURSOR
@@ -145,14 +147,15 @@ in {
 
   home.file = {
     "wallpaper".source = ./wallpaper;
-    "scripts".source = ./scripts;
+    "scripts/waybar_weather.sh".source = ./scripts/waybar_weather.sh;
+    "scripts/wallpaper2.sh".source = ./scripts/wallpaper2.sh;
     # "themes/blackwhite".source = ./themes/blackwhite;
   };
 
   xdg.configFile = {
     # "matugen".source = ./dotfiles/matugen;
     # "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
-    # "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
+    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
     # "snappy-switcher".source = ./dotfiles/snappy-switcher;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
@@ -481,8 +484,8 @@ in {
 
       -- App-Launcher & Quick-Tools
       hl.bind("ALT + TAB", hl.dsp.exec_cmd("snappy-switcher next --workspace --mod alt"))
-      hl.bind("SUPER + TAB", hl.dsp.exec_cmd("~/scripts/wallpaper.sh"))
-      hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("~/scripts/theme.sh"))
+      hl.bind("SUPER + TAB", hl.dsp.exec_cmd("~/scripts/wallpaper2.sh"))
+      -- hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("~/scripts/theme.sh"))
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("uwsm app -- rofi -show drun -show-icons -disable-history"))
