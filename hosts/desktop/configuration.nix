@@ -28,7 +28,7 @@
   services.fwupd.enable = true;
   services.power-profiles-daemon.enable = true;
 
-  services.displayManager.sddm = {
+  services.displayManager = {
     sddm = {
       enable = true;
       wayland.enable = true;
