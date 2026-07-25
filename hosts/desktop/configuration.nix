@@ -124,8 +124,8 @@
 
   stylix = {
     enable = true;
-    image = ./../..wallpaper/BlackRain.jpg;
-    # polarity = "dark";
+    image = ./../../wallpaper/BlackRain.jpg;
+    polarity = "dark";
 
     targets.hyprland.enable = false;
     targets.hyprlock.enable = false;

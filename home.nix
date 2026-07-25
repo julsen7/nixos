@@ -13,6 +13,12 @@ in {
   home.homeDirectory = "/home/julsen";
   home.stateVersion = "26.05";
 
+  stylix.targets = {
+    hyprland.enable = false; # Verhindert Konflikte mit deinem Lua-Setup
+    hyprlock.enable = false; # Damit dein eigenes Hyprlock-Layout aktiv bleibt
+    vscode.enable = false;   # Lässt dein GitHub Dark Theme in VS Code unberührt
+  };
+
   # THEMING & CURSOR
 
   # gtk = {
