@@ -623,7 +623,7 @@ in {
       shuffle
     ];
     # theme = spicePkgs.themes.sleek;
-    colorScheme = "UltraBlack";
+    # colorScheme = "UltraBlack";
   };
 
   programs.starship = {
