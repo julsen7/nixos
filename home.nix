@@ -580,7 +580,7 @@ in {
           # color = "$primary";
           color = "rgb(${config.lib.stylix.colors.base0D})";
           font_size = 55;
-          font_family = "Noto Sans";
+          # font_family = "Noto Sans";
           font_family = config.stylix.fonts.sansSerif.name;
           position = "0, 80";
         }
