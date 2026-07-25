@@ -28,14 +28,25 @@
   services.fwupd.enable = true;
   services.power-profiles-daemon.enable = true;
 
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "matrix";
-      dur_file_path = "blackhole.dur";
-      bigclock = "en";
+  services.displayManager.sddm = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    autoLogin = {
+      enable = true;
+      user = "julsen";
     };
   };
+
+  # services.displayManager.ly = {
+  #   enable = true;
+  #   settings = {
+  #     animation = "matrix";
+  #     dur_file_path = "blackhole.dur";
+  #     bigclock = "en";
+  #   };
+  # };
 
   services.pipewire = {
     enable = true;
@@ -138,16 +149,6 @@
     enable = true;
     withUWSM = true;
     xwayland.enable = true;
-  };
-
-  # NIX
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.auto-optimise-store = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
   };
 
   system.stateVersion = "26.05";

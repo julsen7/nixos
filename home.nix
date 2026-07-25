@@ -17,9 +17,17 @@ in {
 
   gtk = {
     enable = true;
+    # theme = {
+    #   name = "Adwaita-dark";
+    #   package = pkgs.gnome-themes-extra;
+    # };
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "Breeze-Dark";
+      package = pkgs.kdePackages.breeze-gtk;
+    };
+    iconTheme = {
+      name = "breeze-dark";
+      package = pkgs.kdePackages.breeze-icons;
     };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
@@ -31,8 +39,8 @@ in {
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk3";
-    style.name = "adwaita-dark";
+    platformTheme = "kde"; # gtk3
+    style.name = "breeze"; # adwaita-dark
   };
 
   home.pointerCursor = {
@@ -103,7 +111,6 @@ in {
     bitwig-studio
     # lmms
     # reaper
-    lshw
   ];
 
   # SYSTEM
@@ -134,7 +141,7 @@ in {
 
   xdg.configFile = {
     "matugen".source = ./dotfiles/matugen;
-    "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
+    # "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
     "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
     "snappy-switcher".source = ./dotfiles/snappy-switcher;
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
