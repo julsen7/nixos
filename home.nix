@@ -339,19 +339,19 @@ in {
       };
 
       urgency_low = {
-        background = "#19120d";
-        foreground = "#f0dfd7";
+        # background = "#19120d";
+        # foreground = "#f0dfd7";
       };
 
       urgency_normal = {
-        background = "#19120d";
-        foreground = "#f0dfd7";
+        # background = "#19120d";
+        # foreground = "#f0dfd7";
         override_pause_level = 30;
       };
 
       urgency_critical = {
-        background = "#19120d";
-        foreground = "#f0dfd7";
+        # background = "#19120d";
+        # foreground = "#f0dfd7";
         timeout = 0;
         override_pause_level = 60;
       };
