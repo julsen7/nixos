@@ -138,8 +138,32 @@ in {
   xdg.configFile = {
     "matugen".source = ./dotfiles/matugen;
     "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
-    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
-    "snappy-switcher".source = ./dotfiles/snappy-switcher;
+    # "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
+    "snappy-switcher/config.ini".text = ''
+      [general]
+      mode = overview
+      follow_monitor = true
+      show_workspace_badge = false
+
+      [theme]
+      background = #000000
+      card_bg = #000000
+      card_selected = #313131
+      text_color = #ffffff
+      border_color = #ffffff
+      corner_radius = 20
+
+      [layout]
+      icon_size = 64
+      icon_radius = 20
+
+      [icons]
+      theme = Adwaita
+      fallback = hicolor
+
+      [font]
+      family = JetBrainsMono Nerd Font
+    '';
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
@@ -607,6 +631,95 @@ in {
       obs-gstreamer
       obs-vkcapture
     ];
+  };
+
+  programs.rofi = {
+    enable = true;
+
+    extraConfig = {
+      modes = [ "drun" "window" ];
+      drun-display-format = "{name}";
+    };
+    theme = {
+      "@import" = "colors.rasi";
+
+      "*" = {
+        font = "JetBrainsMono Nerd Font Propo 12";
+        border-radius = "20px";
+      };
+
+      "window" = {
+        width = "800px";
+        background-color = "@surface";
+        border = 0;
+        children = [ "mainbox" ];
+      };
+
+      "mainbox" = {
+        padding = "24px";
+        spacing = "20px";
+        children = [ "inputbar" "listview" ];
+      };
+
+      "inputbar" = {
+        children = [ "entry" ];
+      };
+
+      "entry" = {
+        padding = "10px 50px";
+        background-color = "@surface-container";
+        placeholder-color = "@on-surface";
+        text-color = "@on-surface";
+        placeholder = "Search...";
+      };
+
+      "listview" = {
+        spacing = "16px";
+        layout = "vertical";
+        border = 0;
+        background-color = "transparent";
+        columns = 4;
+        scrollbar = false;
+        lines = 3;
+        flow = "horizontal";
+        fixed-columns = true;
+      };
+
+      "element" = {
+        padding = "24px 16px";
+        orientation = "vertical";
+        spacing = "16px";
+        border-radius = "20px";
+        children = [ "element-icon" "element-text" ];
+      };
+
+      "element-icon" = {
+        size = "48px";
+        horizontal-align = "0.5";
+      };
+
+      "element-text" = {
+        horizontal-align = "0.5";
+      };
+
+      "element normal.normal, element alternate.normal, element normal.active, element alternate.active" = {
+        background-color = "@surface";
+      };
+
+      "element-text normal.normal, element-text alternate.normal, element-text normal.active, element-text alternate.active" = {
+        text-color = "@on-surface";
+      };
+
+      "element selected.normal, element selected.alternate, element selected.active" = {
+        border = "2px";
+        border-color = "@on-surface";
+        background-color = "@surface-container";
+      };
+
+      "element-text selected.normal, element-text selected.alternate, element-text selected.active" = {
+        text-color = "@on-surface";
+      };
+    };
   };
 
   programs.spicetify = {
