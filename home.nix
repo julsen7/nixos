@@ -919,16 +919,16 @@ in {
         ms-vscode.cpp-devtools
         ms-vscode.cpptools
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        # {
-        #   name = "cpp-devtools";
-        #   publisher = "ms-vscode";
-        #   version = "0.5.13";
-        #   sha256 = "sha256-g8ZXdEgKB6okJEVXvFQMGz5oDMsOh5mWzl50B/etVjw=";
-        # }
         {
           name = "cpptools-themes";
           publisher = "ms-vscode";
           version = "2.0.0";
+          sha256 = "sha256-0000000000000000000000000000000000000000000=";
+        }
+        {
+          name = "cpp-devtools";
+          publisher = "ms-vscode";
+          version = "0.5.14";
           sha256 = "sha256-0000000000000000000000000000000000000000000=";
         }
        ];
