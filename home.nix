@@ -182,7 +182,7 @@ in {
       DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
 
       cp "$DEFAULT_WALLPAPER" "$HOME/.config/hypr/current_wallpaper"
-      matugen image "$DEFAULT_WALLPAPER" --source-color-index 0
+      ${pkgs.matugen}/bin/matugen image "$DEFAULT_WALLPAPER" --source-color-index 0
 
       touch "$FLAG_FILE"
       echo "Default wallpapaer and theme initialized!"
