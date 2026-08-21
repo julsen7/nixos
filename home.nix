@@ -922,13 +922,13 @@ in {
           name = "cpptools-themes";
           publisher = "ms-vscode";
           version = "2.0.0";
-          sha256 = "sha256-0000000000000000000000000000000000000000000=";
+          sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
         }
         {
           name = "cpp-devtools";
           publisher = "ms-vscode";
           version = "0.5.14";
-          sha256 = "sha256-0000000000000000000000000000000000000000000=";
+          sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
         }
        ];
     };
