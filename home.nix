@@ -916,7 +916,6 @@ in {
         redhat.java
         ms-vscode.cpptools-extension-pack
         ms-vscode.cmake-tools
-        ms-vscode.cpp-devtools
         ms-vscode.cpptools
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
