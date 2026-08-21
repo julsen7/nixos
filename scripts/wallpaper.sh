@@ -11,9 +11,7 @@ else
         exit 1
     fi
 
-    shopt -s nullglob
-    WALLPAPERS=( "$WALLPAPER_DIR"/*.{png,jpg,jpeg,webp} )
-    shopt -u nullglob
+    mapfile -t WALLPAPERS < <(find -L "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \))
 
     if (( ${#WALLPAPERS[@]} == 0 )); then
         dunstify "Wallpaper Error" "Folder $WALLPAPER_DIR does not contain any images!" -u critical
@@ -25,10 +23,15 @@ else
         basename=$(basename "$full_path")
         menu_items+="${basename}\0icon\x1f${full_path}\n"
     done
-
+ 
     SELECTED_NAME=$(echo -e "$menu_items" | rofi -dmenu)
     if [[ -n "$SELECTED_NAME" ]]; then
-        WALLPAPER_PATH="$WALLPAPER_DIR/$SELECTED_NAME"
+        for full_path in "${WALLPAPERS[@]}"; do
+            if [[ "$(basename "$full_path")" == "$SELECTED_NAME" ]]; then
+                WALLPAPER_PATH="$full_path"
+                break
+            fi
+        done
     else
         exit 0
     fi
@@ -38,8 +41,6 @@ if [[ -n "$WALLPAPER_PATH" ]]; then
     cp "$WALLPAPER_PATH" "$HOME/.config/hypr/current_wallpaper"
 
     matugen image "$WALLPAPER_PATH" --source-color-index 0 >/dev/null 2>&1
-
-    bash "$HOME/scripts/theme.sh" "Colorful"
 
     if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
         dunstify "Wallpaper" "Set $SELECTED_NAME as wallpaper" -i "$WALLPAPER_PATH"
