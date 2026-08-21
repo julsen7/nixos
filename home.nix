@@ -111,9 +111,7 @@ in {
       src = ./scripts/change-wallpaper.sh;
       wallpaper_dir = ./wallpaper;
     })))
-    (writeShellScriptBin "change-wallpaper" (builtins.readFile (replaceVars ./scripts/change-wallpaper.sh {
-      wallpaper_dir = ./wallpaper;
-    }).outPath))
+    (writeShellScriptBin "change-wallpaper" (builtins.replaceStrings [ "@wallpaper_dir@" ] [ "${./wallpaper}" ] (builtins.readFile ./scripts/change-wallpaper.sh)))
     (writeScriptBin "waybar-weather" (builtins.readFile ./scripts/waybar-weather.sh))
   ];
 
