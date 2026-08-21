@@ -58,7 +58,7 @@ in {
     nerd-fonts.jetbrains-mono
     brightnessctl
     awww
-    rofi
+    # rofi
     udiskie
     cliphist
     wl-clipboard
