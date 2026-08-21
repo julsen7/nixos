@@ -132,13 +132,11 @@ in {
   home.file = {
     "wallpaper".source = ./wallpaper;
     "scripts".source = ./scripts;
-    "themes/blackwhite".source = ./themes/blackwhite;
   };
 
   xdg.configFile = {
     "matugen".source = ./dotfiles/matugen;
     "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
-    # "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
     "snappy-switcher/config.ini".text = ''
       [general]
       mode = overview
@@ -489,7 +487,6 @@ in {
       -- App-Launcher & Quick-Tools
       hl.bind("ALT + TAB", hl.dsp.exec_cmd("snappy-switcher next --workspace --mod alt"))
       hl.bind("SUPER + TAB", hl.dsp.exec_cmd("~/scripts/wallpaper.sh"))
-      hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("~/scripts/theme.sh"))
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("uwsm app -- rofi -show drun -show-icons -disable-history"))
@@ -955,8 +952,8 @@ in {
         modules-right = [
           "group/audio"
           "bluetooth"
-          "network"
-          "battery"
+          # "network"
+          # "battery"
         ];
 
         # =========================================================================
@@ -983,7 +980,7 @@ in {
         };
 
         "custom/weather" = {
-          exec = "\${config.xdg.configHome}/scripts/waybar_weather.sh";
+          exec = "${config.xdg.configHome}/scripts/waybar_weather.sh";
           format = "{}";
           return-type = "json";
           interval = 1800;
@@ -1042,7 +1039,6 @@ in {
         pulseaudio = {
           format = "{icon}";
           format-muted = "";
-          format-bluetooth = "{icon}";
           format-icons = {
             headphone = "󰋋";
             headset = "󰋎";
@@ -1057,6 +1053,10 @@ in {
           on-click-right = "uwsm app -- kitty --title=wiremix -e wiremix";
         };
 
+        "pulseaudio/slider" = {
+          max = 150;
+        };
+
         "pulseaudio#microphone" = {
           format = "{format_source}";
           format-source = "";
@@ -1067,7 +1067,7 @@ in {
         };
 
         bluetooth = {
-          format = "󰂯 {num_connections}";
+          format-connected = "󰂯 {num_connections}";
           on-click = "uwsm app -- kitty --title=bluetui -e bluetui";
           tooltip-format-connected = "{controller_alias}\t{controller_address}\n{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}";
