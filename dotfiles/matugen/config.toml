@@ -6,32 +6,32 @@ command = "awww img {{ image }} --transition-type center"
 
 [templates.dunst]
 input_path = '~/.config/matugen/templates/dunstrc-colors'
-output_path = '~/theme/dunstrc'
+output_path = '~/.config/theme/dunstrc'
 post_hook = 'dunstctl reload'
 
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.lua'
-output_path = '~/theme/hypr.lua'
+output_path = '~/.config/theme/hypr.lua'
 
 [templates.hyprlock]
 input_path = '~/.config/matugen/templates/hyprland-colors.conf'
-output_path = '~/theme/hypr.conf'
+output_path = '~/.config/theme/hypr.conf'
 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty-colors.conf'
-output_path = '~/theme/kitty.conf'
+output_path = '~/.config/theme/kitty.conf'
 post_hook = "pkill -SIGUSR1 kitty"
 
 [templates.rofi]
 input_path = '~/.config/matugen/templates/rofi-colors.rasi'
-output_path = '~/theme/rofi.rasi'
+output_path = '~/.config/theme/rofi.rasi'
 
 [templates.spotify]
 input_path = '~/.config/matugen/templates/spicetify.ini'
-output_path = '~/theme/spotify.ini'
+output_path = '~/.config/theme/spotify.ini'
 post_hook = 'spicetify watch -s 2>&1 | sed "/Reloaded Spotify/q"'
 
 [templates.waybar]
 input_path = '~/.config/matugen/templates/colors.css'
-output_path = '~/theme/waybar.css'
+output_path = '~/.config/theme/waybar.css'
 post_hook = "pkill -SIGUSR2 waybar"

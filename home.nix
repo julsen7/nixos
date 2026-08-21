@@ -107,6 +107,8 @@ in {
     # bitwig-studio
     lmms
     # reaper
+    (writeScriptBin "change-wallpaper" (builtins.readFile ./scripts/change-wallpaper.sh))
+    (writeShellApplication "waybar-weather" (builtins.readFile ./scripts/waybar-weather.sh))
   ];
 
   # SYSTEM
@@ -128,11 +130,6 @@ in {
   ];
 
   # FILES & CONFIGURATION
-
-  home.file = {
-    "wallpaper".source = ./wallpaper;
-    "scripts".source = ./scripts;
-  };
 
   xdg.configFile = {
     "matugen".source = ./dotfiles/matugen;
@@ -165,12 +162,12 @@ in {
     
     # Theme Symlinks
 
-    "dunst/dunstrc".source = "${config.home.homeDirectory}/theme/dunstrc";
-    "hypr/colors.lua".source = "${config.home.homeDirectory}/theme/hypr.lua";
-    "hypr/colors.conf".source = "${config.home.homeDirectory}/theme/hypr.conf";
-    "kitty/current-theme.conf".source = "${config.home.homeDirectory}/theme/kitty.conf";
-    "rofi/colors.rasi".source = "${config.home.homeDirectory}/theme/rofi.rasi";
-    "waybar/colors.css".source = "${config.home.homeDirectory}/theme/waybar.css";
+    "dunst/dunstrc".source = "${config.xdg.configHome}/theme/dunstrc";
+    "hypr/colors.lua".source = "${config.xdg.configHome}/theme/hypr.lua";
+    "hypr/colors.conf".source = "${config.xdg.configHome}/theme/hypr.conf";
+    "kitty/current-theme.conf".source = "${config.xdg.configHome}/theme/kitty.conf";
+    "rofi/colors.rasi".source = "${config.xdg.configHome}/theme/rofi.rasi";
+    "waybar/colors.css".source = "${config.xdg.configHome}/theme/waybar.css";
   };
 
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -180,19 +177,15 @@ in {
       echo "Initializing default wallpaper and theme..."
 
       mkdir -p "$HOME/.config/hypr"
+      mkdir -p "$HOME/.config/theme"
 
-      DEFAULT_WALLPAPER="$HOME/wallpaper/AssassinsCreed.jpg"
+      DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
 
-      if [ -f "$DEFAULT_WALLPAPER" ]; then
-        cp "$DEFAULT_WALLPAPER" "$HOME/.config/hypr/current_wallpaper"
+      cp "$DEFAULT_WALLPAPER" "$HOME/.config/hypr/current_wallpaper"
+      matugen image "$DEFAULT_WALLPAPER" --source-color-index 0
 
-        matugen image "$DEFAULT_WALLPAPER" --source-color-index 0
-
-        touch "$FLAG_FILE"
-        echo "Default wallpapaer and theme initialized!"
-      else
-        echo "WARNING: $DEFAULT_WALLPAPER not found"
-      fi
+      touch "$FLAG_FILE"
+      echo "Default wallpapaer and theme initialized!"
     fi
   '';
 
@@ -517,7 +510,7 @@ in {
 
       -- App-Launcher & Quick-Tools
       hl.bind("ALT + TAB", hl.dsp.exec_cmd("snappy-switcher next --workspace --mod alt"))
-      hl.bind("SUPER + TAB", hl.dsp.exec_cmd("~/scripts/wallpaper.sh"))
+      hl.bind("SUPER + TAB", hl.dsp.exec_cmd("change-wallpaper"))
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("uwsm app -- rofi -show drun -show-icons -disable-history"))
@@ -569,7 +562,7 @@ in {
 
   programs.hyprlock = {
     enable = true;
-    extraConfig = "source = ${config.xdg.configHome}/.config/hypr/colors.conf";
+    extraConfig = "source = \${config.xdg.configHome}/.config/hypr/colors.conf";
 
     settings = {
       general = {
@@ -987,7 +980,7 @@ in {
         };
 
         "custom/weather" = {
-          exec = "${config.xdg.configHome}/scripts/waybar_weather.sh";
+          exec = "waybar-weather";
           format = "{}";
           return-type = "json";
           interval = 1800;

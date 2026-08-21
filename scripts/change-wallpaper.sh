@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="$HOME/wallpaper"
+WALLPAPER_DIR="${./wallpaper}"
 
 if [[ -n "$1" ]]; then
     WALLPAPER_PATH="$1"
@@ -39,7 +39,6 @@ fi
 
 if [[ -n "$WALLPAPER_PATH" ]]; then
     cp "$WALLPAPER_PATH" "$HOME/.config/hypr/current_wallpaper"
-
     matugen image "$WALLPAPER_PATH" --source-color-index 0 >/dev/null 2>&1
 
     if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
