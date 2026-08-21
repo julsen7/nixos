@@ -132,6 +132,7 @@ in {
   home.file = {
     "wallpaper".source = ./wallpaper;
     "scripts".source = ./scripts;
+    # "theme".source = ./theme;
   };
 
   xdg.configFile = {
@@ -157,7 +158,6 @@ in {
 
       [icons]
       theme = Adwaita
-      fallback = hicolor
 
       [font]
       family = JetBrainsMono Nerd Font
