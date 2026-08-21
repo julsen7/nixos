@@ -132,7 +132,6 @@ in {
   home.file = {
     "wallpaper".source = ./wallpaper;
     "scripts".source = ./scripts;
-    # "theme".source = ./theme;
   };
 
   xdg.configFile = {
