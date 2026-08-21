@@ -35,7 +35,7 @@ in {
 
   qt = {
     enable = true;
-    platformTheme = "gtk3";
+    platformTheme.name = "gtk3";
     style.name = "adwaita-dark";
   };
 
@@ -66,7 +66,10 @@ in {
     hyprpolkitagent
     hyprpicker
     hyprshot
-    inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
+    (inputs.snappy-switcher.packages.${pkgs.system}.default.overrideAttrs (oldAttrs: {
+      postPatch = "";
+    }))
     matugen
     btop
     bluetui
@@ -74,7 +77,7 @@ in {
     nvtopPackages.full
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     discord
-    gimp
+    pinta
     krita
     audacity
     obsidian
@@ -104,8 +107,8 @@ in {
     # python ?
     # maven ?
     # gradle
-    bitwig-studio
-    # lmms
+    # bitwig-studio
+    lmms
     # reaper
   ];
 
