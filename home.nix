@@ -166,12 +166,12 @@ in {
     
     # Theme Symlinks
 
-    "dunst/dunstrc".source = ./theme/dunstrc;
-    "hypr/colors.lua".source = ./theme/hypr.lua;
-    "hypr/colors.conf".source = ./theme/hypr.conf;
-    "kitty/current-theme.conf".source = ./theme/kitty.conf;
-    "rofi/colors.rasi".source = ./theme/rofi.rasi;
-    "waybar/colors.css".source = ./theme/waybar.css;
+    "dunst/dunstrc".source = "${config.home.homeDirectory}/theme/dunstrc";
+    "hypr/colors.lua".source = "${config.home.homeDirectory}/theme/hypr.lua";
+    "hypr/colors.conf".source = "${config.home.homeDirectory}/theme/hypr.conf";
+    "kitty/current-theme.conf".source = "${config.home.homeDirectory}/theme/kitty.conf";
+    "rofi/colors.rasi".source = "${config.home.homeDirectory}/theme/rofi.rasi";
+    "waybar/colors.css".source = "${config.home.homeDirectory}/theme/waybar.css";
   };
 
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -570,7 +570,7 @@ in {
 
   programs.hyprlock = {
     enable = true;
-    extraConfig = "source = \${config.xdg.configHome}/.config/hypr/colors.conf";
+    extraConfig = "source = ${config.xdg.configHome}/.config/hypr/colors.conf";
 
     settings = {
       general = {
