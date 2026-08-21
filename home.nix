@@ -66,10 +66,7 @@ in {
     hyprpolkitagent
     hyprpicker
     hyprshot
-    # inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
-    (inputs.snappy-switcher.packages.${pkgs.system}.default.overrideAttrs (oldAttrs: {
-      postPatch = "";
-    }))
+    inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     matugen
     btop
     bluetui
