@@ -107,7 +107,10 @@ in {
     # bitwig-studio
     lmms
     # reaper
-    (writeScriptBin "change-wallpaper" (builtins.readFile ./scripts/change-wallpaper.sh))
+    (writeShellScriptBin "change-wallpaper" (builtins.readFile (pkgs.substituteAll {
+      src = ./scripts/change-wallpaper.sh;
+      wallpaper_dir = ./wallpaper;
+    })))
     (writeScriptBin "waybar-weather" (builtins.readFile ./scripts/waybar-weather.sh))
   ];
 

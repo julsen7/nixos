@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="./wallpaper"
+WALLPAPER_DIR="@wallpaper_dir@"
 
 if [[ -n "$1" ]]; then
     WALLPAPER_PATH="$1"
