@@ -129,6 +129,10 @@ in {
     "${config.home.homeDirectory}/.spicetify"
   ];
 
+  home.file = {
+    "wallpaper".source = ./wallpaper;
+  };
+
   # FILES & CONFIGURATION
 
   xdg.configFile = {
