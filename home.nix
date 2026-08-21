@@ -166,12 +166,12 @@ in {
     
     # Theme Symlinks
 
-    "dunst/dunstrc".source = ~/theme/dunstrc;
-    "hypr/colors.lua".source = ~/theme/hypr.lua;
-    "hypr/colors.conf".source = ~/theme/hypr.conf;
-    "kitty/current-theme.conf".source = ~/theme/kitty.conf;
-    "rofi/colors.rasi".source = ~/theme/rofi.rasi;
-    "waybar/colors.css".source = ~/theme/waybar.css;
+    "dunst/dunstrc".source = ./theme/dunstrc;
+    "hypr/colors.lua".source = ./theme/hypr.lua;
+    "hypr/colors.conf".source = ./theme/hypr.conf;
+    "kitty/current-theme.conf".source = ./theme/kitty.conf;
+    "rofi/colors.rasi".source = ./theme/rofi.rasi;
+    "waybar/colors.css".source = ./theme/waybar.css;
   };
 
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
