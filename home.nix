@@ -162,12 +162,12 @@ in {
     
     # Theme Symlinks
 
-    "dunst/dunstrc".source = "${config.xdg.configHome}/theme/dunstrc";
-    "hypr/colors.lua".source = "${config.xdg.configHome}/theme/hypr.lua";
-    "hypr/colors.conf".source = "${config.xdg.configHome}/theme/hypr.conf";
-    "kitty/current-theme.conf".source = "${config.xdg.configHome}/theme/kitty.conf";
-    "rofi/colors.rasi".source = "${config.xdg.configHome}/theme/rofi.rasi";
-    "waybar/colors.css".source = "${config.xdg.configHome}/theme/waybar.css";
+    "dunst/dunstrc".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/dunstrc";
+    "hypr/colors.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/hypr.lua";
+    "hypr/colors.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/hypr.conf";
+    "kitty/current-theme.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/kitty.conf";
+    "rofi/colors.rasi".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/rofi.rasi";
+    "waybar/colors.css".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/waybar.css";
   };
 
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
