@@ -186,6 +186,8 @@ in {
 
       touch "$FLAG_FILE"
       echo "Default wallpapaer and theme initialized!"
+
+      chown -R julsen:users "$HOME/.config/hypr" "$HOME/.config/theme"
     fi
   '';
 
