@@ -915,25 +915,23 @@ in {
         vscjava.vscode-gradle
         redhat.java
         ms-vscode.cpptools-extension-pack
-        ms-vscode.cpptools-themes
         ms-vscode.cmake-tools
         ms-vscode.cpp-devtools
         ms-vscode.cpptools
-      ] # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-  #       {
-  #         name = "cpp-devtools";
-  #         publisher = "ms-vscode";
-  #         version = "0.5.13";
-  #         sha256 = "sha256-g8ZXdEgKB6okJEVXvFQMGz5oDMsOh5mWzl50B/etVjw=";
-  #       }
-  #       {
-  #         name = "cpptools-themes";
-  #         publisher = "ms-vscode";
-  #         version = "2.0.0";
-  #         sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
-  #       }
-  #     ]
-  ;
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        # {
+        #   name = "cpp-devtools";
+        #   publisher = "ms-vscode";
+        #   version = "0.5.13";
+        #   sha256 = "sha256-g8ZXdEgKB6okJEVXvFQMGz5oDMsOh5mWzl50B/etVjw=";
+        # }
+        {
+          name = "cpptools-themes";
+          publisher = "ms-vscode";
+          version = "2.0.0";
+          sha256 = "sha256-0000000000000000000000000000000000000000000=";
+        }
+       ];
     };
   };
 
