@@ -107,7 +107,7 @@ in {
     # bitwig-studio
     lmms
     # reaper
-    (writeShellScriptBin "change-wallpaper" (builtins.readFile (pkgs.substituteAll {
+    (writeShellScriptBin "change-wallpaper" (builtins.readFile (replaceVars {
       src = ./scripts/change-wallpaper.sh;
       wallpaper_dir = ./wallpaper;
     })))
