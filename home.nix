@@ -111,6 +111,13 @@ in {
       src = ./scripts/change-wallpaper.sh;
       wallpaper_dir = ./wallpaper;
     })))
+    (writeShellApplication {
+      name = "change-wallpaper";
+      text = replaceVars ./scripts/change-wallpaper.sh {
+        wallpaper_dir = ./wallpaper;
+      };
+      runtimeInputs = [ rofi dunst findutils matugen ];
+    })
     (writeScriptBin "waybar-weather" (builtins.readFile ./scripts/waybar-weather.sh))
   ];
 
