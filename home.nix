@@ -178,14 +178,14 @@ in {
     FLAG_FILE="$HOME/.config/hypr/.theme_initialized"
 
     if [ ! -f "$FLAG_FILE" ]; then
-      echo "Initializinf default wallpaper and theme..."
+      echo "Initializing default wallpaper and theme..."
 
       mkdir -p "$HOME/.config/hypr"
 
       DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
 
       if [ -f "$DEFAULT_WALLPAPER" ]; then
-        cp "$DEFAULT_WALLPAPER" "$CONFIG_PATH/hypr/current_wallpaper"
+        cp "$DEFAULT_WALLPAPER" "$HOME/.config/hypr/current_wallpaper"
 
         ${pkgs.matugen}/bin/matugen image "$DEFAULT_WALLPAPER" --source-color-index 0
 
