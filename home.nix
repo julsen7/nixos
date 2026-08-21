@@ -108,7 +108,7 @@ in {
     lmms
     # reaper
     (writeScriptBin "change-wallpaper" (builtins.readFile ./scripts/change-wallpaper.sh))
-    (writeShellApplication "waybar-weather" (builtins.readFile ./scripts/waybar-weather.sh))
+    (writeScriptBin "waybar-weather" (builtins.readFile ./scripts/waybar-weather.sh))
   ];
 
   # SYSTEM
