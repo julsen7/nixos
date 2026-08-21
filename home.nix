@@ -897,6 +897,7 @@ in {
         "files.simpleDialog.enable" = true;
       };
       extensions = with pkgs.vscode-extensions; [
+        pkief.material-icon-theme
         bbenoist.nix
         cweijan.dbclient-jdbc
         cweijan.vscode-database-client2
@@ -904,57 +905,35 @@ in {
         eamodio.gitlens
         ecmel.vscode-html-css
         github.github-vscode-theme
-        haskell.haskell
-        james-yu.latex-workshop
-        ms-python.debugpy
-        ms-python.python
-        ms-python.vscode-pylance
-        ms-vscode.cmake-tools
-        ms-vscode.cpptools
-        ms-vscode.cpptools-extension-pack
-        pkief.material-icon-theme
-        redhat.java
         ritwickdey.liveserver
-        sumneko.lua
         tamasfe.even-better-toml
-        vscjava.vscode-gradle
-        vscjava.vscode-java-debug
-        vscjava.vscode-java-dependency
         vscjava.vscode-java-pack
         vscjava.vscode-java-test
+        vscjava.vscode-java-debug
         vscjava.vscode-maven
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "language-haskell";
-          publisher = "haskell";
-          version = "3.8.0";
-          sha256 = "sha256-wDGvGKI+YDwkbYKV0ijnB3+NwWPZAuwLN4MpFV37KFs=";
-        }
-        {
-          name = "cpp-devtools";
-          publisher = "ms-vscode";
-          version = "0.5.13";
-          sha256 = "sha256-g8ZXdEgKB6okJEVXvFQMGz5oDMsOh5mWzl50B/etVjw=";
-        }
-        {
-          name = "cpptools-themes";
-          publisher = "ms-vscode";
-          version = "2.0.0";
-          sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
-        }
-        {
-          name = "prolog";
-          publisher = "rebornix";
-          version = "0.0.4";
-          sha256 = "sha256-SZAaG3dFlDbA46s+i36CMBOU5vJ+1bgTgk+TTyi+yhA=";
-        }
-        {
-          name = "logo-lang";
-          publisher = "zion-school";
-          version = "0.8.1";
-          sha256 = "sha256-LvM51DKHa9G1/EAelCnB0jQL7bRBLvAgYDHQR/MR6Xc=";
-        }
-      ];
+        vscjava.vscode-java-dependency
+        vscjava.vscode-gradle
+        redhat.java
+        ms-vscode.cpptools-extension-pack
+        ms-vscode.cpptools-themes
+        ms-vscode.cmake-tools
+        ms-vscode.cpp-devtools
+        ms-vscode.cpptools
+      ] # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+  #       {
+  #         name = "cpp-devtools";
+  #         publisher = "ms-vscode";
+  #         version = "0.5.13";
+  #         sha256 = "sha256-g8ZXdEgKB6okJEVXvFQMGz5oDMsOh5mWzl50B/etVjw=";
+  #       }
+  #       {
+  #         name = "cpptools-themes";
+  #         publisher = "ms-vscode";
+  #         version = "2.0.0";
+  #         sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
+  #       }
+  #     ]
+  ;
     };
   };
 
