@@ -193,7 +193,7 @@ in {
 
       echo "Generating initial colors with matugen..."
       ${pkgs.matugen}/bin/matugen \
-        --config "$HOME/.config/matugen/config.toml" \
+        --config "${./dotfiles/matugen/config.toml}" \
         image "$DEFAULT_WALLPAPER" \
         --source-color-index 0
 
