@@ -175,6 +175,7 @@ in {
       mkdir -p "$HOME/.config/hypr"
       
       cp "${./wallpaper/AssassinsCreed.jpg}" "$HOME/.config/hypr/current_wallpaper"
+      ${pkgs.awww}/bin/awww img "$HOME/.config/hypr/current_wallpaper" --transition-type center
       ${pkgs.matugen}/bin/matugen image "$HOME/.config/hypr/current_wallpaper" --config "$HOME/.config/matugen/config.toml" --source-color-index 0
     fi
 
