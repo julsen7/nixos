@@ -202,6 +202,9 @@ in {
         image "$DEFAULT_WALLPAPER" \
         --source-color-index 0
 
+      echo "Cleaning up temporary matugen directory for Home Manager..."
+      rm -rf "$HOME/.config/matugen"
+
       touch "$FLAG_FILE"
       echo "Default wallpaper and theme initialized!"
     fi
