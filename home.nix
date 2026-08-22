@@ -176,6 +176,8 @@ in {
   };
 
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    # --- Default wallpaper and theme ---
+
     FLAG_FILE="$HOME/.config/hypr/.theme_initialized"
 
     if [ ! -f "$FLAG_FILE" ]; then
@@ -207,6 +209,16 @@ in {
 
       touch "$FLAG_FILE"
       echo "Default wallpaper and theme initialized!"
+
+      # --- Prism Launcher ---
+      PRISM_INSTANCE_DIR="$HOME/.local/share/PrismLauncher/instances"
+      
+      if [ ! -d "$PRISM_INSTANCE_DIR/Main_1.0" ]; then
+        echo "Preparing Main_1.0 for Prism Launcher..."
+        mkdir -p "$PRISM_INSTANCE_DIR"
+        
+        cp -f ${./assets/Main_1.0.mrpack} "$PRISM_INSTANCE_DIR/Main_1.0.mrpack"
+      fi
     fi
   '';
 

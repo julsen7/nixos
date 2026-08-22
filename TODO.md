@@ -3,7 +3,6 @@
 ## BUGS & FEATURES
 
 - default wallpaper
-- hyprlock wallpaper
 - darkmode (zen too)
 - configs: rofi, zen-browser, prismlauncher (incl. profiles), obs-profiles
 - xbox-controller bluetooth
