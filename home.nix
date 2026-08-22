@@ -168,13 +168,14 @@ in {
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # --- Default wallpaper and theme ---
 
-    cp -r "${./dotfiles/matugen}" "$HOME/.config/matugen"
-
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
       echo "Initializing default wallpaper and theme..."
-      mkdir -p "$HOME/.config/hypr"
+
+      cp -r "${./dotfiles/matugen}" "$HOME/.config/matugen"
       
+      mkdir -p "$HOME/.config/hypr"
       cp "${./wallpaper/AssassinsCreed.jpg}" "$HOME/.config/hypr/current_wallpaper"
+
       ${pkgs.awww}/bin/awww img "$HOME/.config/hypr/current_wallpaper" --transition-type center
       ${pkgs.matugen}/bin/matugen image "$HOME/.config/hypr/current_wallpaper" --config "$HOME/.config/matugen/config.toml" --source-color-index 0
     fi
@@ -182,10 +183,8 @@ in {
     link_if_needed() {
       src="$1"
       dest="$2"
-      if [ -f "$src" ]; then
-        mkdir -p "$(dirname "$dest")"
-        ln -sf "$src" "$dest"
-      fi
+      mkdir -p "$(dirname "$dest")"
+      ln -sf "$src" "$dest"
     }
 
     link_if_needed "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
