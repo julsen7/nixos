@@ -180,9 +180,9 @@ in {
     link_if_needed() {
       src="$1"
       dest="$2"
-      mkdir -p "$(dirname "$dest")"
-      if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
-          ln -sf "$src" "$dest"
+      if [ -f "$src" ]; then
+        mkdir -p "$(dirname "$dest")"
+        ln -sf "$src" "$dest"
       fi
     }
 
