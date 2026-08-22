@@ -64,7 +64,7 @@ in {
     nerd-fonts.jetbrains-mono
     brightnessctl
     awww
-    # rofi
+    rofi
     udiskie
     cliphist
     wl-clipboard
@@ -144,7 +144,7 @@ in {
   xdg.configFile = {
     "matugen".source = ./dotfiles/matugen;
     "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
-    # "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
+    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
     "snappy-switcher/config.ini".text = ''
       [general]
       mode = overview
@@ -253,7 +253,6 @@ in {
       };
     };
   };
-
 
   services.dunst = {
     enable = true;
@@ -457,13 +456,6 @@ in {
         hl.exec_cmd([[
           if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
             change-wallpaper "$HOME/wallpaper/AssassinsCreed.jpg"
-
-            ln -sf "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
-            ln -sf "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
-            ln -sf "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
-            ln -sf "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
-            ln -sf "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
-            ln -sf "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
           fi
         ]])
 
@@ -658,95 +650,6 @@ in {
       obs-gstreamer
       obs-vkcapture
     ];
-  };
-
-  programs.rofi = {
-    enable = true;
-
-    extraConfig = {
-      modes = [ "drun" "window" ];
-      drun-display-format = "{name}";
-    };
-    theme = {
-      "@import" = "colors.rasi";
-
-      "*" = {
-        font = "JetBrainsMono Nerd Font Propo 12";
-        border-radius = "20px";
-      };
-
-      "window" = {
-        width = "800px";
-        background-color = "@surface";
-        border = 0;
-        children = [ "mainbox" ];
-      };
-
-      "mainbox" = {
-        padding = "24px";
-        spacing = "20px";
-        children = [ "inputbar" "listview" ];
-      };
-
-      "inputbar" = {
-        children = [ "entry" ];
-      };
-
-      "entry" = {
-        padding = "10px 50px";
-        background-color = "@surface-container";
-        placeholder-color = "@on-surface";
-        text-color = "@on-surface";
-        placeholder = "Search...";
-      };
-
-      "listview" = {
-        spacing = "16px";
-        layout = "vertical";
-        border = 0;
-        background-color = "transparent";
-        columns = 4;
-        scrollbar = false;
-        lines = 3;
-        flow = "horizontal";
-        fixed-columns = true;
-      };
-
-      "element" = {
-        padding = "24px 16px";
-        orientation = "vertical";
-        spacing = "16px";
-        border-radius = "20px";
-        children = [ "element-icon" "element-text" ];
-      };
-
-      "element-icon" = {
-        size = "48px";
-        horizontal-align = "0.5";
-      };
-
-      "element-text" = {
-        horizontal-align = "0.5";
-      };
-
-      "element normal.normal, element alternate.normal, element normal.active, element alternate.active" = {
-        background-color = "@surface";
-      };
-
-      "element-text normal.normal, element-text alternate.normal, element-text normal.active, element-text alternate.active" = {
-        text-color = "@on-surface";
-      };
-
-      "element selected.normal, element selected.alternate, element selected.active" = {
-        border = "2px";
-        border-color = "@on-surface";
-        background-color = "@surface-container";
-      };
-
-      "element-text selected.normal, element-text selected.alternate, element-text selected.active" = {
-        text-color = "@on-surface";
-      };
-    };
   };
 
   programs.spicetify = {

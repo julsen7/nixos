@@ -46,6 +46,13 @@ if [[ -n "$WALLPAPER_PATH" ]]; then
     cp "$WALLPAPER_PATH" "$HOME/.config/hypr/current_wallpaper"
     matugen image "$WALLPAPER_PATH" --source-color-index 0 >/dev/null 2>&1
 
+    ln -sf "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
+    ln -sf "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
+    ln -sf "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
+    ln -sf "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
+    ln -sf "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
+    ln -sf "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
+
     if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]] && command -v dunstify &>/dev/null; then
         dunstify "Wallpaper" "Set $SELECTED_NAME as wallpaper" -i "$WALLPAPER_PATH"
     fi

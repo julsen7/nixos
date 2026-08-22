@@ -34,11 +34,13 @@
       wayland.enable = true;
     };
     autoLogin = {
-      enable = false;
+      enable = true;
       user = "julsen";
     };
     defaultSession = "hyprland-uwsm";
   };
+
+  security.pam.services.sddm.enableGnomeKeyring = true;
 
   services.pipewire = {
     enable = true;
@@ -151,12 +153,16 @@
 
   # NIXOS
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nix.settings.auto-optimise-store = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   system.stateVersion = "26.05";
