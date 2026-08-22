@@ -176,17 +176,19 @@ in {
     cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
 
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
-        echo "Initializing default wallpaper and theme..."
-        change-wallpaper "$WALLPAPER_DEST"
+      echo "Initializing default wallpaper and theme..."
+      mkdir -p "$HOME/.config/hypr"
+      cp "$WALLPAPER_DEST" "$HOME/.config/hypr/current_wallpaper"
+      ${pkgs.matugen}/bin/matugen image "$WALLPAPER_DEST" --source-color-index 0 >/dev/null 2>&1
     fi
 
     link_if_needed() {
-        src="$1"
-        dest="$2"
-        mkdir -p "$(dirname "$dest")"
-        if [ ! -L "$dest" ]; then
-            ln -sf "$src" "$dest"
-        fi
+      src="$1"
+      dest="$2"
+      mkdir -p "$(dirname "$dest")"
+      if [ ! -L "$dest" ]; then
+          ln -sf "$src" "$dest"
+      fi
     }
 
     link_if_needed "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
