@@ -185,11 +185,11 @@ in {
       mkdir -p "$HOME/.config/theme"
 
       echo "Copying matugen templates..."
-      cp -r ${./theme}/* "$HOME/.config/theme/"
+      cp -rf ${./theme}/* "$HOME/.config/theme/"
       chmod -R +w "$HOME/.config/theme/"
 
       DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
-      cp "$DEFAULT_WALLPAPER" "$HOME/.config/hypr/current_wallpaper"
+      cp -f "$DEFAULT_WALLPAPER" "$HOME/.config/hypr/current_wallpaper"
 
       echo "Generating initial colors with matugen..."
       ${pkgs.matugen}/bin/matugen \
@@ -199,8 +199,6 @@ in {
 
       touch "$FLAG_FILE"
       echo "Default wallpaper and theme initialized!"
-
-      chown -R julsen:users "$HOME/.config/hypr" "$HOME/.config/theme"
     fi
   '';
 
