@@ -583,48 +583,42 @@ in {
 
   programs.hyprlock = {
     enable = true;
-    extraConfig = "source = ${config.xdg.configHome}/hypr/colors.conf";
+    extraConfig = ''
+      # 1. Variablen zuerst laden
+      source = ${config.xdg.configHome}/hypr/colors.conf
 
-    settings = {
-      general = {
-        hide_cursor = true;
-      };
+      # 2. Die restliche Konfiguration
+      general {
+        hide_cursor = true
+      }
 
-      background = [
-        {
-          monitor = "";
-          path = "$image";
-        }
-      ];
+      background {
+        monitor = 
+        path = $image
+      }
 
-      "input-field" = [
-        {
-          monitor = "";
-          size = "250, 50";
-          outline_thickness = 0;
+      input-field {
+        monitor = 
+        size = 250, 50
+        outline_thickness = 0
+        inner_color = $on_surface
+        font_color = $surface
+        check_color = $primary
+        fail_color = $error
+        capslock_color = $tertiary
+        fade_on_empty = false
+        font_family = JetBrainsMono Nerd Font
+      }
 
-          inner_color = "$on_surface";
-          font_color = "$surface";
-          check_color = "$primary";
-          fail_color = "$error";
-          capslock_color = "$tertiary";
-
-          fade_on_empty = false;
-          font_family = "JetBrainsMono Nerd Font";
-        }
-      ];
-
-      label = [
-        {
-          monitor = "";
-          text = "$TIME"; 
-          color = "$primary";
-          font_size = 55;
-          font_family = "Noto Sans";
-          position = "0, 80";
-        }
-      ];
-    };
+      label {
+        monitor = 
+        text = $TIME
+        color = $primary
+        font_size = 55
+        font_family = Noto Sans
+        position = 0, 80
+      }
+    '';
   };
 
   programs.kitty = {
