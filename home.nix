@@ -952,7 +952,7 @@ in {
         spacing = 5;
 
         modules-left = [
-          "custom/arch-icon"
+          "custom/nixos-icon"
           "mpris"
           "custom/weather"
           "tray"
@@ -962,8 +962,8 @@ in {
           "hyprland/workspaces"
         ];
         modules-right = [
-          "group/audio"
           "bluetooth"
+          "group/audio"
           # "network"
           # "battery"
         ];
@@ -971,8 +971,9 @@ in {
         # =========================================================================
         # MODULES LEFT
         # =========================================================================
-        "custom/arch-icon" = {
-          format = "󱄅"; # 󰣇
+
+        "custom/nixos-icon" = {
+          format = "󱄅";
           on-click = "uwsm app -- kitty";
           tooltip = false;
         };
@@ -1007,6 +1008,7 @@ in {
         # =========================================================================
         # MODULES CENTER
         # =========================================================================
+
         "hyprland/workspaces" = {
           format = "{windows}";
           on-click = "activate";
@@ -1039,6 +1041,15 @@ in {
         # =========================================================================
         # MODULES RIGHT
         # =========================================================================
+
+        bluetooth = {
+          format = "󰂯 {num_connections}";
+          format-no-controller = "{}";
+          on-click = "uwsm app -- kitty --title=bluetui -e bluetui";
+          tooltip-format-connected = "{controller_alias}\t{controller_address}\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}";
+        };
+
         "group/audio" = {
           orientation = "horizontal";
           modules = [
@@ -1076,13 +1087,6 @@ in {
           tooltip-format = "{source_desc}";
           on-click = "wpctl set-mute @DEFAULT_SOURCE@ toggle";
           on-click-right = "uwsm app -- kitty --title=wiremix -e wiremix";
-        };
-
-        bluetooth = {
-          format-connected = "󰂯 {num_connections}";
-          on-click = "uwsm app -- kitty --title=bluetui -e bluetui";
-          tooltip-format-connected = "{controller_alias}\t{controller_address}\n{device_enumerate}";
-          tooltip-format-enumerate-connected = "{device_alias}";
         };
 
         network = {
@@ -1125,7 +1129,7 @@ in {
         background-color: transparent;
       }
 
-      #custom-arch-icon,
+      #custom-nixos-icon,
       #mpris,
       #custom-weather,
       #tray,
