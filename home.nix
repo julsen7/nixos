@@ -172,10 +172,7 @@ in {
     WALLPAPER_DEST="$HOME/wallpaper/AssassinsCreed.jpg"
     DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
 
-    mkdir -p "$HOME/wallpaper"
-    if [ ! -f "$WALLPAPER_DEST" ]; then
-        cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
-    fi
+    cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
 
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
         echo "Initializing default wallpaper and theme..."
