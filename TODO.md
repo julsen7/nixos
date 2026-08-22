@@ -2,6 +2,7 @@
 
 ## BUGS & FEATURES
 
+- vscode-extension errors
 - sddm (look and autologin without keyring)
 - QuickShell (waybar, dunst, rofi, snappy-switcher, hyprlock)
 
