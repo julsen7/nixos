@@ -185,7 +185,7 @@ in {
       mkdir -p "$HOME/.config/theme"
 
       echo "Copying matugen templates..."
-      cp -r ${./dotfiles/theme}/* "$HOME/.config/theme/"
+      cp -r ${./theme}/* "$HOME/.config/theme/"
       chmod -R +w "$HOME/.config/theme/"
 
       DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
