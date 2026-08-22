@@ -1044,7 +1044,7 @@ in {
           format = "";
           format-connected = "󰂯 {num_connections}";
           on-click = "uwsm app -- kitty --title=bluetui -e bluetui";
-          tooltip-format-connected = "{controller_alias}\t{controller_address}\n{device_enumerate}";
+          tooltip-format-connected = "{device_enumerate}";
           tooltip-format-enumerate-connected = "{device_alias}";
         };
 
