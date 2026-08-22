@@ -583,7 +583,7 @@ in {
 
   programs.hyprlock = {
     enable = true;
-    extraConfig = "source = ${config.xdg.configHome}/.config/hypr/colors.conf";
+    extraConfig = "source = ${config.xdg.configHome}/hypr/colors.conf";
 
     settings = {
       general = {
