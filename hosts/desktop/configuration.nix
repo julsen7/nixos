@@ -96,12 +96,18 @@
       settings = {
         General = {
           Experimental = true;
+
+          # for xbox controller
+          Privacy = "device";
+          JustWorksRepairing = "always";
+          Class = "0x000100";
           FastConnectable = true;
         };
       };
     };
-    xpadneo.enable = true;
+    xpadneo.enable = true; # for xbox controller
   };
+  services.blueman.enable = true; # for xbox controller
 
   # VIRTUALISATION
 
