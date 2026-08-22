@@ -166,37 +166,8 @@ in {
   };
 
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    # --- Default wallpaper and theme ---
-
-    if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
-      echo "Initializing default wallpaper and theme..."
-
-      cp -r "${./dotfiles/matugen}" "$HOME/.config/matugen"
-      
-      mkdir -p "$HOME/.config/hypr"
-      cp "${./wallpaper/AssassinsCreed.jpg}" "$HOME/.config/hypr/current_wallpaper"
-
-      ${pkgs.awww}/bin/awww img "$HOME/.config/hypr/current_wallpaper" --transition-type center
-      ${pkgs.matugen}/bin/matugen image "$HOME/.config/hypr/current_wallpaper" --config "$HOME/.config/matugen/config.toml" --source-color-index 0
-    fi
-
-    link_if_needed() {
-      src="$1"
-      dest="$2"
-      mkdir -p "$(dirname "$dest")"
-      ln -sf "$src" "$dest"
-    }
-
-    link_if_needed "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
-    link_if_needed "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
-    link_if_needed "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
-    link_if_needed "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
-    link_if_needed "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
-    link_if_needed "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
-
-    echo "Default wallpaper and theme initialized!"
-
     # --- Prism Launcher ---
+
     PRISM_INSTANCE_DIR="$HOME/.local/share/PrismLauncher/instances"
     
     if [ ! -d "$PRISM_INSTANCE_DIR/Main_1.0" ]; then
@@ -428,6 +399,7 @@ in {
       -- =========================================================================
       -- Monitor-Setups
       -- =========================================================================
+
       hl.monitor({
         output   = "HDMI-A-1",
         mode     = "2560x1440@144",
@@ -453,6 +425,7 @@ in {
       -- =========================================================================
       -- Workspaces
       -- =========================================================================
+
       for i = 1, 3 do
         hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", persistent = true })
       end
@@ -464,6 +437,7 @@ in {
       -- =========================================================================
       -- Autostart / Startup Events
       -- =========================================================================
+
       hl.on("hyprland.start", function()
         -- Clipboard & Daemons
         hl.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist store")
@@ -471,6 +445,20 @@ in {
         hl.exec_cmd("uwsm app -- udiskie")
         hl.exec_cmd("uwsm app -- snappy-switcher --daemon")
         hl.exec_cmd("uwsm app -- awww-daemon")
+
+        -- Default Wallpaper
+        hl.exec_cmd([[
+          if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
+            change-wallpaper "$HOME/wallpaper/AssassinsCreed.jpg"
+
+            ln -sf "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
+            ln -sf "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
+            ln -sf "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
+            ln -sf "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
+            ln -sf "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
+            ln -sf "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
+          fi
+        ]])
 
         -- Apps
         hl.exec_cmd("uwsm app -- discord --start-minimized")
@@ -486,6 +474,7 @@ in {
       -- =========================================================================
       -- General configuration
       -- =========================================================================
+
       hl.config({
         general = {
           border_size      = 0,
@@ -509,6 +498,7 @@ in {
       -- =========================================================================
       -- Keybindings
       -- =========================================================================
+
       -- System & Fenstersteuerung
       hl.bind("CTRL + ALT + Delete", hl.dsp.exit())
       hl.bind("ALT + F4", hl.dsp.window.close())
@@ -568,6 +558,7 @@ in {
       -- =========================================================================
       -- Animations
       -- =========================================================================
+
       hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0 }, { 0.35, 1 } } })
       hl.curve("rubber", { type = "spring", mass = 1, stiffness = 40, dampening = 10 })
 
