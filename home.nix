@@ -172,6 +172,7 @@ in {
     WALLPAPER_DEST="$HOME/wallpaper/AssassinsCreed.jpg"
     DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
 
+    mkdir -p "$(dirname "$WALLPAPER_DEST")"
     cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
 
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
