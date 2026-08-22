@@ -40,8 +40,6 @@
     defaultSession = "hyprland-uwsm";
   };
 
-  security.pam.services.sddm.enableGnomeKeyring = true;
-
   services.pipewire = {
     enable = true;
     alsa.enable = true;

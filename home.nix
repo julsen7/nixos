@@ -142,9 +142,9 @@ in {
   # FILES & CONFIGURATION
 
   xdg.configFile = {
-    "matugen".source = ./dotfiles/matugen;
-    "obs-studio/basic".source = ./dotfiles/obs-studio/basic;
-    "rofi/config.rasi".source = ./dotfiles/rofi/config.rasi;
+    "matugen".source = ./assets/matugen;
+    "obs-studio/basic".source = ./assets/obs-studio/basic;
+    "rofi/config.rasi".source = ./assets/rofi/config.rasi;
     "snappy-switcher/config.ini".text = ''
       [general]
       mode = overview
