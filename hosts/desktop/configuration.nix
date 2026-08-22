@@ -100,6 +100,7 @@
         };
       };
     };
+    xpadneo.enable = true;
   };
 
   # VIRTUALISATION
