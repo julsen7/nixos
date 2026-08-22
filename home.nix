@@ -169,13 +169,6 @@ in {
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # --- Default wallpaper and theme ---
 
-    ln -sf "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
-    ln -sf "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
-    ln -sf "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
-    ln -sf "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
-    ln -sf "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
-    ln -sf "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
-
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
       echo "Initializing default wallpaper and theme..."
       mkdir -p "$HOME/.config/hypr"
@@ -183,6 +176,13 @@ in {
       cp "${./wallpaper/AssassinsCreed.jpg}" "$HOME/.config/hypr/current_wallpaper"
       ${pkgs.matugen}/bin/matugen image "$HOME/.config/hypr/current_wallpaper" --source-color-index 0 >/dev/null 2>&1
     fi
+
+    ln -sf "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
+    ln -sf "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
+    ln -sf "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
+    ln -sf "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
+    ln -sf "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
+    ln -sf "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
 
     echo "Default wallpaper and theme initialized!"
 
