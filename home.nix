@@ -177,7 +177,7 @@ in {
 
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
         echo "Initializing default wallpaper and theme..."
-        change-wallpaper "$WALLPAPER_DEST"
+        $HOME/.nix-profile/bin/change-wallpaper "$WALLPAPER_DEST"
     fi
 
     link_if_needed() {
