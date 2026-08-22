@@ -2,8 +2,8 @@
 
 ## BUGS & FEATURES
 
-- darkmode (zen too)
-- configs: rofi, zen-browser, obs-profiles
+- configs: rofi, zen-browser
+- sddm (look and autologin without keyring)
 - QuickShell (waybar, dunst, rofi, snappy-switcher, hyprlock)
 
 ## MISSING PACKAGES
