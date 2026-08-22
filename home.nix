@@ -173,7 +173,7 @@ in {
       echo "Initializing default wallpaper and theme..."
       mkdir -p "$HOME/.config/hypr"
       
-      cp "$HOME/wallpaper/AssassinsCreed.jpg" "$HOME/.config/hypr/current_wallpaper"
+      cp "${./wallpaper/AssassinsCreed.jpg}" "$HOME/.config/hypr/current_wallpaper"
       ${pkgs.matugen}/bin/matugen image "$HOME/wallpaper/AssassinsCreed.jpg" --source-color-index 0 >/dev/null 2>&1
     fi
 
