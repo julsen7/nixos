@@ -181,7 +181,7 @@ in {
       src="$1"
       dest="$2"
       mkdir -p "$(dirname "$dest")"
-      if [ ! -L "$dest" ]; then
+      if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
           ln -sf "$src" "$dest"
       fi
     }
