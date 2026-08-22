@@ -177,7 +177,7 @@ in {
 
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
         echo "Initializing default wallpaper and theme..."
-        $HOME/.nix-profile/bin/change-wallpaper "$WALLPAPER_DEST"
+        change-wallpaper "$WALLPAPER_DEST"
     fi
 
     link_if_needed() {
@@ -189,12 +189,12 @@ in {
         fi
     }
 
-    link_if_needed "/home/julsen/.config/theme/dunstrc" "/home/julsen/.config/dunst/dunstrc"
-    link_if_needed "/home/julsen/.config/theme/hypr.lua" "/home/julsen/.config/hypr/colors.lua"
-    link_if_needed "/home/julsen/.config/theme/hypr.conf" "/home/julsen/.config/hypr/colors.conf"
-    link_if_needed "/home/julsen/.config/theme/kitty.conf" "/home/julsen/.config/kitty/current-theme.conf"
-    link_if_needed "/home/julsen/.config/theme/rofi.rasi" "/home/julsen/.config/rofi/colors.rasi"
-    link_if_needed "/home/julsen/.config/theme/waybar.css" "/home/julsen/.config/waybar/colors.css"
+    link_if_needed "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
+    link_if_needed "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
+    link_if_needed "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
+    link_if_needed "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
+    link_if_needed "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
+    link_if_needed "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
 
     echo "Default wallpaper and theme initialized!"
 
