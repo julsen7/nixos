@@ -7,14 +7,18 @@ if [[ -n "$1" ]]; then
     SELECTED_NAME=$(basename "$WALLPAPER_PATH")
 else
     if [[ ! -d "$WALLPAPER_DIR" ]]; then
-        dunstify "Wallpaper Error" "Folder $WALLPAPER_DIR does not exist!" -u critical
+        if command -v dunstify &>/dev/null; then
+            dunstify "Wallpaper Error" "Folder $WALLPAPER_DIR does not exist!" -u critical
+        fi
         exit 1
     fi
 
     mapfile -t WALLPAPERS < <(find -L "$WALLPAPER_DIR" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \))
 
     if (( ${#WALLPAPERS[@]} == 0 )); then
-        dunstify "Wallpaper Error" "Folder $WALLPAPER_DIR does not contain any images!" -u critical
+        if command -v dunstify &>/dev/null; then
+            dunstify "Wallpaper Error" "Folder $WALLPAPER_DIR does not contain any images!" -u critical
+        fi
         exit 1
     fi
 
@@ -38,10 +42,11 @@ else
 fi
 
 if [[ -n "$WALLPAPER_PATH" ]]; then
+    mkdir -p "$HOME/.config/hypr"
     cp "$WALLPAPER_PATH" "$HOME/.config/hypr/current_wallpaper"
     matugen image "$WALLPAPER_PATH" --source-color-index 0 >/dev/null 2>&1
 
-    if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
+    if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]] && command -v dunstify &>/dev/null; then
         dunstify "Wallpaper" "Set $SELECTED_NAME as wallpaper" -i "$WALLPAPER_PATH"
     fi
 fi

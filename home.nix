@@ -107,8 +107,8 @@ in {
     # bitwig-studio
     lmms
     # reaper
-    (writeShellScriptBin "change-wallpaper" (builtins.readFile ./scripts/change-wallpaper.sh))
-    (writeScriptBin "waybar-weather" (builtins.readFile ./scripts/waybar-weather.sh))
+    (writeShellScriptBin "change-wallpaper" (builtins.readFile ./assets/scripts/change-wallpaper.sh))
+    (writeScriptBin "waybar-weather" (builtins.readFile ./assets/scripts/waybar-weather.sh))
   ];
 
   # SYSTEM
@@ -164,61 +164,49 @@ in {
       family = JetBrainsMono Nerd Font
     '';
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
-    
-    # Theme Symlinks
-
-    "dunst/dunstrc".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/dunstrc";
-    "hypr/colors.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/hypr.lua";
-    "hypr/colors.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/hypr.conf";
-    "kitty/current-theme.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/kitty.conf";
-    "rofi/colors.rasi".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/rofi.rasi";
-    "waybar/colors.css".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/theme/waybar.css";
   };
 
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # --- Default wallpaper and theme ---
 
-    FLAG_FILE="$HOME/.config/hypr/.theme_initialized"
+    WALLPAPER_DEST="$HOME/wallpaper/AssassinsCreed.jpg"
+    DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
 
-    if [ ! -f "$FLAG_FILE" ]; then
-      echo "Initializing default wallpaper and theme..."
+    mkdir -p "$HOME/wallpaper"
+    if [ ! -f "$WALLPAPER_DEST" ]; then
+        cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
+    fi
 
-      mkdir -p "$HOME/.config/hypr"
-      mkdir -p "$HOME/.config/theme"
-      mkdir -p "$HOME/.config/matugen"
+    if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
+        echo "Initializing default wallpaper and theme..."
+        change-wallpaper "$WALLPAPER_DEST"
+    fi
 
-      echo "Pre-copying matugen config and templates..."
-      cp -rf ${./dotfiles/matugen}/* "$HOME/.config/matugen/"
-      chmod -R +w "$HOME/.config/matugen/"
+    link_if_needed() {
+        src="$1"
+        dest="$2"
+        mkdir -p "$(dirname "$dest")"
+        if [ ! -L "$dest" ]; then
+            ln -sf "$src" "$dest"
+        fi
+    }
 
-      echo "Copying matugen templates..."
-      cp -rf ${./theme}/* "$HOME/.config/theme/"
-      chmod -R +w "$HOME/.config/theme/"
+    link_if_needed "/home/julsen/.config/theme/dunstrc" "/home/julsen/.config/dunst/dunstrc"
+    link_if_needed "/home/julsen/.config/theme/hypr.lua" "/home/julsen/.config/hypr/colors.lua"
+    link_if_needed "/home/julsen/.config/theme/hypr.conf" "/home/julsen/.config/hypr/colors.conf"
+    link_if_needed "/home/julsen/.config/theme/kitty.conf" "/home/julsen/.config/kitty/current-theme.conf"
+    link_if_needed "/home/julsen/.config/theme/rofi.rasi" "/home/julsen/.config/rofi/colors.rasi"
+    link_if_needed "/home/julsen/.config/theme/waybar.css" "/home/julsen/.config/waybar/colors.css"
 
-      DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
-      cp -f "$DEFAULT_WALLPAPER" "$HOME/.config/hypr/current_wallpaper"
+    echo "Default wallpaper and theme initialized!"
 
-      echo "Generating initial colors with matugen..."
-      ${pkgs.matugen}/bin/matugen \
-        --config "${./dotfiles/matugen/config.toml}" \
-        image "$DEFAULT_WALLPAPER" \
-        --source-color-index 0
-
-      echo "Cleaning up temporary matugen directory for Home Manager..."
-      rm -rf "$HOME/.config/matugen"
-
-      touch "$FLAG_FILE"
-      echo "Default wallpaper and theme initialized!"
-
-      # --- Prism Launcher ---
-      PRISM_INSTANCE_DIR="$HOME/.local/share/PrismLauncher/instances"
-      
-      if [ ! -d "$PRISM_INSTANCE_DIR/Main_1.0" ]; then
-        echo "Preparing Main_1.0 for Prism Launcher..."
-        mkdir -p "$PRISM_INSTANCE_DIR"
-        
-        cp -f ${./assets/Main_1.0.mrpack} "$PRISM_INSTANCE_DIR/Main_1.0.mrpack"
-      fi
+    # --- Prism Launcher ---
+    PRISM_INSTANCE_DIR="$HOME/.local/share/PrismLauncher/instances"
+    
+    if [ ! -d "$PRISM_INSTANCE_DIR/Main_1.0" ]; then
+      echo "Preparing Main_1.0 for Prism Launcher..."
+      mkdir -p "$PRISM_INSTANCE_DIR"
+      cp -f ${./assets/Main_1.0.mrpack} "$PRISM_INSTANCE_DIR/Main_1.0.mrpack"
     fi
   '';
 
