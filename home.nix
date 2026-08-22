@@ -169,18 +169,12 @@ in {
   home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
     # --- Default wallpaper and theme ---
 
-    WALLPAPER_DEST="$HOME/wallpaper/AssassinsCreed.jpg"
-    DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
-
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
       echo "Initializing default wallpaper and theme..."
-
-      mkdir -p "$(dirname "$WALLPAPER_DEST")"
-      cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
-      
       mkdir -p "$HOME/.config/hypr"
-      cp "$WALLPAPER_DEST" "$HOME/.config/hypr/current_wallpaper"
-      ${pkgs.matugen}/bin/matugen image "$WALLPAPER_DEST" --source-color-index 0 >/dev/null 2>&1
+      
+      cp "$HOME/wallpaper/AssassinsCreed.jpg" "$HOME/.config/hypr/current_wallpaper"
+      ${pkgs.matugen}/bin/matugen image "$HOME/wallpaper/AssassinsCreed.jpg" --source-color-index 0 >/dev/null 2>&1
     fi
 
     link_if_needed() {
