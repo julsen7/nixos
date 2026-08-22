@@ -229,7 +229,6 @@ in {
       lla = "eza -lha --icons --group-directories-first";
       cd = "z";
       cl = "clear";
-      update = "sudo nixos-rebuild switch --flake ~/nixos-config#$(hostname)";
     };
 
     completionInit = ''
