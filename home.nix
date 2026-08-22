@@ -174,15 +174,24 @@ in {
       mkdir -p "$HOME/.config/hypr"
       
       cp "${./wallpaper/AssassinsCreed.jpg}" "$HOME/.config/hypr/current_wallpaper"
-      ${pkgs.matugen}/bin/matugen image "$HOME/.config/hypr/current_wallpaper" --source-color-index 0 >/dev/null 2>&1
+      ${pkgs.matugen}/bin/matugen image --config "${./dotfiles/matugen/config.toml}" "$HOME/.config/hypr/current_wallpaper" --source-color-index 0 >/dev/null 2>&1
     fi
 
-    ln -sf "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
-    ln -sf "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
-    ln -sf "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
-    ln -sf "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
-    ln -sf "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
-    ln -sf "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
+    link_if_needed() {
+      src="$1"
+      dest="$2"
+      mkdir -p "$(dirname "$dest")"
+      if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
+          ln -sf "$src" "$dest"
+      fi
+    }
+
+    link_if_needed "$HOME/.config/theme/dunstrc" "$HOME/.config/dunst/dunstrc"
+    link_if_needed "$HOME/.config/theme/hypr.lua" "$HOME/.config/hypr/colors.lua"
+    link_if_needed "$HOME/.config/theme/hypr.conf" "$HOME/.config/hypr/colors.conf"
+    link_if_needed "$HOME/.config/theme/kitty.conf" "$HOME/.config/kitty/current-theme.conf"
+    link_if_needed "$HOME/.config/theme/rofi.rasi" "$HOME/.config/rofi/colors.rasi"
+    link_if_needed "$HOME/.config/theme/waybar.css" "$HOME/.config/waybar/colors.css"
 
     echo "Default wallpaper and theme initialized!"
 
