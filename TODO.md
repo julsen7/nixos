@@ -2,10 +2,8 @@
 
 ## BUGS & FEATURES
 
-- default wallpaper
 - darkmode (zen too)
-- configs: rofi, zen-browser, prismlauncher (incl. profiles), obs-profiles
-- xbox-controller bluetooth
+- configs: rofi, zen-browser, obs-profiles
 - QuickShell (waybar, dunst, rofi, snappy-switcher, hyprlock)
 
 ## MISSING PACKAGES

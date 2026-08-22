@@ -33,6 +33,12 @@ in {
     };
   };
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
   qt = {
     enable = true;
     platformTheme.name = "gtk3";
@@ -571,10 +577,8 @@ in {
   programs.hyprlock = {
     enable = true;
     extraConfig = ''
-      # 1. Variablen zuerst laden
       source = ${config.xdg.configHome}/hypr/colors.conf
 
-      # 2. Die restliche Konfiguration
       general {
         hide_cursor = true
       }

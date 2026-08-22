@@ -34,7 +34,7 @@
       wayland.enable = true;
     };
     autoLogin = {
-      enable = true;
+      enable = false;
       user = "julsen";
     };
     defaultSession = "hyprland-uwsm";
@@ -107,7 +107,6 @@
     };
     xpadneo.enable = true; # for xbox controller
   };
-  services.blueman.enable = true; # for xbox controller
 
   # VIRTUALISATION
 
