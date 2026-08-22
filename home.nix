@@ -183,6 +183,11 @@ in {
 
       mkdir -p "$HOME/.config/hypr"
       mkdir -p "$HOME/.config/theme"
+      mkdir -p "$HOME/.config/matugen"
+
+      echo "Pre-copying matugen config and templates..."
+      cp -rf ${./dotfiles/matugen}/* "$HOME/.config/matugen/"
+      chmod -R +w "$HOME/.config/matugen/"
 
       echo "Copying matugen templates..."
       cp -rf ${./theme}/* "$HOME/.config/theme/"
