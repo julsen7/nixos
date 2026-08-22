@@ -172,11 +172,12 @@ in {
     WALLPAPER_DEST="$HOME/wallpaper/AssassinsCreed.jpg"
     DEFAULT_WALLPAPER="${./wallpaper/AssassinsCreed.jpg}"
 
-    mkdir -p "$(dirname "$WALLPAPER_DEST")"
-    cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
-
     if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
       echo "Initializing default wallpaper and theme..."
+
+      mkdir -p "$(dirname "$WALLPAPER_DEST")"
+      cp "$DEFAULT_WALLPAPER" "$WALLPAPER_DEST"
+      
       mkdir -p "$HOME/.config/hypr"
       cp "$WALLPAPER_DEST" "$HOME/.config/hypr/current_wallpaper"
       ${pkgs.matugen}/bin/matugen image "$WALLPAPER_DEST" --source-color-index 0 >/dev/null 2>&1
