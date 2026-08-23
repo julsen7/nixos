@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Services.Applications
 
 Scope {
     id: launcherScope
@@ -86,14 +87,14 @@ Scope {
                     clip: true
                     spacing: 8
 
-                    // Nutzt das eingebaute Applications-Singleton von Quickshell
-                    model: Applications.list
+                    // Nutzt die DesktopEntries von Quickshell
+                    model: DesktopEntries.applications
 
                     delegate: Rectangle {
                         required property var modelData
-                        
-                        // Einfacher Suchfilter
-                        visible: searchInput.text === "" || modelData.name.toLowerCase().includes(searchInput.text.toLowerCase())
+
+                        // Suchfilter
+                        visible: searchInput.text === "" || (modelData.name && modelData.name.toLowerCase().includes(searchInput.text.toLowerCase()))
                         height: visible ? 50 : 0
 
                         width: appList.width
@@ -114,7 +115,7 @@ Scope {
                             }
 
                             Text {
-                                text: modelData.name
+                                text: modelData.name ?? "Unbekannt"
                                 color: "#cdd6f4"
                                 font.pixelSize: 14
                                 font.bold: true
