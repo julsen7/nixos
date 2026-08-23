@@ -5,6 +5,7 @@ import Caelestia.Config
 
 Scope {
     Component.onCompleted: {
+        // Flush signals on completion so toasts are shown
         GlobalConfig.flushLoadSignals();
         TokenConfig.flushLoadSignals();
     }
