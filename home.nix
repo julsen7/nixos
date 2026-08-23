@@ -922,7 +922,8 @@ in {
             "class<steam>" = "";
             "class<krita>" = "";
             "class<gimp>" = "";
-            "class<.*virtu.*>" = "󰍺";
+            "class<obsidian>" = "";
+            "class<.*virtual.*>" = "󰍺";
             "class<.*prism.*>" = "";
             "title<.*minecraft.*>" = "󰍳";
             "class<zen> title<.*youtube.*>" = "";
