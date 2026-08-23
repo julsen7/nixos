@@ -172,11 +172,11 @@ Singleton {
         objects: [root.sink, root.source, ...root.sinks, ...root.sources, ...root.streams].filter(n => n)
     }
 
-    CavaProvider {
-        id: cava
+    // CavaProvider {
+    //     id: cava
 
-        bars: GlobalConfig.services.visualiserBars
-    }
+    //     bars: GlobalConfig.services.visualiserBars
+    // }
 
     BeatTracker {
         id: beatTracker
