@@ -13,10 +13,10 @@ ShellRoot {
 
     IpcHandler {
         target: "launcher"
-        onMessageReceived: (message) => {
-            if (message === "toggle") {
-                launcher.toggle()
-            }
+
+        // Exponierte Funktion für den IPC-Aufruf
+        function toggle(): void {
+            launcher.toggle()
         }
     }
 }
