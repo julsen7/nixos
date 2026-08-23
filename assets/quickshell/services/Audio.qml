@@ -178,9 +178,9 @@ Singleton {
     //     bars: GlobalConfig.services.visualiserBars
     // }
 
-    BeatTracker {
-        id: beatTracker
-    }
+    // BeatTracker {
+    //     id: beatTracker
+    // }
 
     IpcHandler {
         function cycleOutput(): void {
