@@ -917,12 +917,12 @@ in {
             "class<code>" = "󰨞";
             "class<spotify>" = "";
             "class<discord>" = "";
-            "class<obs>" = "󱜠";
-            "class<blender>" = "󰂫";
-            "class<steam>" = "";
-            "class<krita>" = "";
-            "class<gimp>" = "";
             "class<obsidian>" = "";
+            "class<obs>" = "󱜠";
+            "class<steam>" = "";
+            "class<blender>" = "󰂫";
+            "class<pinta>" = "";
+            "class<krita>" = "";
             "class<.*virtual.*>" = "󰍺";
             "class<.*prism.*>" = "";
             "title<.*minecraft.*>" = "󰍳";
