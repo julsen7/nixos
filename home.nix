@@ -172,18 +172,6 @@ in {
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
-  home.activation.initTheme = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    # --- Prism Launcher ---
-
-    PRISM_INSTANCE_DIR="$HOME/.local/share/PrismLauncher/instances"
-    
-    if [ ! -d "$PRISM_INSTANCE_DIR/Main_1.0" ]; then
-      echo "Preparing Main_1.0 for Prism Launcher..."
-      mkdir -p "$PRISM_INSTANCE_DIR"
-      cp -f ${./assets/Main_1.0.mrpack} "$PRISM_INSTANCE_DIR/Main_1.0.mrpack"
-    fi
-  '';
-
   # PROGRAMS
 
   programs.zsh = {
