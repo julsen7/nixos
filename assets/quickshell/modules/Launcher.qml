@@ -3,12 +3,10 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Services.Applications
 
 Scope {
     id: launcherScope
 
-    // Steuert, ob der Launcher sichtbar ist
     property bool open: false
 
     function toggle() {
@@ -19,7 +17,6 @@ Scope {
         id: window
         visible: launcherScope.open || anim.running
 
-        // Überdeckt den gesamten Bildschirm, um Klicks außerhalb abzufangen
         anchors {
             top: true
             bottom: true
@@ -31,13 +28,11 @@ Scope {
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: launcherScope.open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-        // Schließen, wenn man im Hintergrund ins Leere klickt
         MouseArea {
             anchors.fill: parent
             onClicked: launcherScope.open = false
         }
 
-        // Das eigentliche Fenster des Launchers
         Rectangle {
             id: panel
             width: 500
@@ -48,7 +43,6 @@ Scope {
             border.color: "#313244"
             border.width: 1
 
-            // Animation: Startet außerhalb (unten) und gleitet nach oben
             property real targetY: launcherScope.open ? parent.height - height - 40 : parent.height + 50
             y: targetY
 
@@ -60,7 +54,6 @@ Scope {
                 }
             }
 
-            // Stoppt Klick-Events, damit Klicks auf den Launcher ihn nicht schließen
             MouseArea {
                 anchors.fill: parent
             }
@@ -70,7 +63,6 @@ Scope {
                 anchors.margins: 20
                 spacing: 15
 
-                // Suchfeld
                 TextField {
                     id: searchInput
                     Layout.fillWidth: true
@@ -84,17 +76,9 @@ Scope {
                         radius: 10
                     }
 
-                    onTextChanged: appList.model.filter = text
-
-                    // ESC schließt den Launcher
                     Keys.onEscapePressed: launcherScope.open = false
-                    
-                    Component.onCompleted: {
-                        if (launcherScope.open) forceActiveFocus()
-                    }
                 }
 
-                // App-Liste
                 ListView {
                     id: appList
                     Layout.fillWidth: true
@@ -102,14 +86,17 @@ Scope {
                     clip: true
                     spacing: 8
 
-                    model: ApplicationModel {
-                        id: appModel
-                    }
+                    // Nutzt das eingebaute Applications-Singleton von Quickshell
+                    model: Applications.list
 
                     delegate: Rectangle {
                         required property var modelData
+                        
+                        // Einfacher Suchfilter
+                        visible: searchInput.text === "" || modelData.name.toLowerCase().includes(searchInput.text.toLowerCase())
+                        height: visible ? 50 : 0
+
                         width: appList.width
-                        height: 50
                         color: itemMouse.containsMouse ? "#313244" : "transparent"
                         radius: 10
 
@@ -119,14 +106,12 @@ Scope {
                             anchors.rightMargin: 10
                             spacing: 12
 
-                            // Icon
                             IconImage {
                                 source: modelData.icon ?? "application-x-executable"
                                 Layout.preferredWidth: 32
                                 Layout.preferredHeight: 32
                             }
 
-                            // App-Name
                             Text {
                                 text: modelData.name
                                 color: "#cdd6f4"
