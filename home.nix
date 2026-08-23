@@ -798,7 +798,6 @@ in {
         github.github-vscode-theme
         ritwickdey.liveserver
         tamasfe.even-better-toml
-        theqtcompany.qt-qml
         tomoki1207.pdf
         vscjava.vscode-java-pack
         vscjava.vscode-java-test
