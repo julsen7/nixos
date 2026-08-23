@@ -11,7 +11,6 @@ ShellRoot {
         id: launcher
     }
 
-    // Ermöglicht das Triggern per IPC
     IpcHandler {
         target: "launcher"
         onMessageReceived: (message) => {

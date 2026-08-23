@@ -3,7 +3,6 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Services.Applications
 
 Scope {
     id: launcherScope
@@ -29,6 +28,7 @@ Scope {
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: launcherScope.open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
+        // Klick außerhalb schließt den Launcher
         MouseArea {
             anchors.fill: parent
             onClicked: launcherScope.open = false
@@ -44,6 +44,7 @@ Scope {
             border.color: "#313244"
             border.width: 1
 
+            // Y-Animation von unten nach oben
             property real targetY: launcherScope.open ? parent.height - height - 40 : parent.height + 50
             y: targetY
 
@@ -55,6 +56,7 @@ Scope {
                 }
             }
 
+            // Verhindert Schließen beim Klick IN das Panel
             MouseArea {
                 anchors.fill: parent
             }
@@ -69,7 +71,6 @@ Scope {
                     Layout.fillWidth: true
                     placeholderText: "App suchen..."
                     font.pixelSize: 14
-                    font.family: "JetBrainsMono Nerd Font"
                     color: "#cdd6f4"
 
                     background: Rectangle {
@@ -87,17 +88,20 @@ Scope {
                     clip: true
                     spacing: 8
 
-                    // Nutzt die DesktopEntries von Quickshell
+                    // DesktopEntries kommt direkt aus `import Quickshell`
                     model: DesktopEntries.applications
 
                     delegate: Rectangle {
                         required property var modelData
 
-                        // Suchfilter
-                        visible: searchInput.text === "" || (modelData.name && modelData.name.toLowerCase().includes(searchInput.text.toLowerCase()))
+                        // Filtere Einträge ohne Namen oder noDisplay heraus
+                        property bool matchesSearch: searchInput.text === "" || 
+                            (modelData.name && modelData.name.toLowerCase().includes(searchInput.text.toLowerCase()))
+                        
+                        visible: !modelData.noDisplay && matchesSearch
                         height: visible ? 50 : 0
-
                         width: appList.width
+
                         color: itemMouse.containsMouse ? "#313244" : "transparent"
                         radius: 10
 
@@ -115,7 +119,7 @@ Scope {
                             }
 
                             Text {
-                                text: modelData.name ?? "Unbekannt"
+                                text: modelData.name ?? "Unbekannte App"
                                 color: "#cdd6f4"
                                 font.pixelSize: 14
                                 font.bold: true
