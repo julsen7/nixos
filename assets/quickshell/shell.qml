@@ -1,33 +1,37 @@
+//@ pragma DefaultEnv QSG_RENDER_LOOP=threaded
+//@ pragma DefaultEnv QT_QUICK_FLICKABLE_WHEEL_DECELERATION=10000
+
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
 
 import "./modules"
+import "./modules/background"
 
 ShellRoot {
-    // Erzeugt die Bar auf allen verbundenen Monitoren
-    Variants {
-        model: Quickshell.screens
+    id: root
 
-        PanelWindow {
-            required property var modelData
-            screen: modelData
+    setting.watchFiles: true
 
-            // Wayland Layer-Shell Konfiguration
-            anchors {
-                top: true
-                left: true
-                right: true
-            }
-            implicitHeight: 40
-
-            color: "transparent"
-
-            exclusionMode: PanelWindow.ExclusionMode.Exclusive
-
-            TopBar {
-                anchors.fill: parent
-            }
-        }
+    Binding {
+        target: ShellState
+        property: "shellRoot"
+        value: root
     }
+    
+    // Services and Backend-Loader
+    GSFLoader {}
+    ServiceLoader {}
+
+    // UI
+    Background {}
+    Drawers {}
+    AreaPicker {}
+    Lock { id: lock }
+
+    // Global functionality
+    ConfigToasts {}
+    Shortcuts {}
+    BatteryMonitor {}
+    IdleMonitors { lock: lock }
 }
