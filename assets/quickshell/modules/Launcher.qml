@@ -106,10 +106,11 @@ Scope {
                             anchors.rightMargin: 10
                             spacing: 12
 
-                            IconImage {
-                                source: modelData.icon ?? "application-x-executable"
+                            Image {
+                                source: modelData.icon ? ("image://icon/" + modelData.icon) : ""
                                 Layout.preferredWidth: 32
                                 Layout.preferredHeight: 32
+                                fillMode: Image.PreserveAspectFit
                             }
 
                             Text {
