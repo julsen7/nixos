@@ -19,15 +19,12 @@ ShellRoot {
                 left: true
                 right: true
             }
-            height: 40
+            implicitHeight: 40
 
-            // Transparentes Fenster für schwebendes Design
             color: "transparent"
 
-            // Reserviert Platz in Hyprland (wie Waybar)
-            exclusionMode: ExclusionMode.Exclusive
+            exclusionMode: PanelWindow.ExclusionMode.Exclusive
 
-            // Lade die eigentliche Bar-Komponente
             TopBar {
                 anchors.fill: parent
             }
