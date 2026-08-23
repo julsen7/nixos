@@ -808,6 +808,7 @@ in {
         github.github-vscode-theme
         ritwickdey.liveserver
         tamasfe.even-better-toml
+        tomoki1207.pdf
         vscjava.vscode-java-pack
         vscjava.vscode-java-test
         vscjava.vscode-java-debug
