@@ -59,6 +59,7 @@ in {
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     noto-fonts
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
@@ -142,6 +143,7 @@ in {
   # FILES & CONFIGURATION
 
   xdg.configFile = {
+    "quickshell".source = ./assets/quickshell;
     "matugen".source = ./assets/matugen;
     "obs-studio/basic".source = ./assets/obs-studio/basic;
     "rofi/config.rasi".source = ./assets/rofi/config.rasi;
@@ -796,6 +798,7 @@ in {
         github.github-vscode-theme
         ritwickdey.liveserver
         tamasfe.even-better-toml
+        theqtcompany.qt-qml
         tomoki1207.pdf
         vscjava.vscode-java-pack
         vscjava.vscode-java-test
