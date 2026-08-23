@@ -823,6 +823,12 @@ in {
           version = "0.5.14";
           sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
         }
+        {
+          name = "qt-qml";
+          publisher = "theqtcompany";
+          version = "1.14.0";
+          sha256 = "sha256-0000000000000000000000000000000000000000000=";
+        }
        ];
     };
   };
