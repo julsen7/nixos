@@ -9,10 +9,8 @@ Scope {
 
     GlobalShortcut {
         name: "applist"
-        description: "View AppList"
         
         onPressed: {
-
             console.log("Shortcut gedrückt!");
 
             // shortcuts.isOpen = !shortcuts.isOpen;

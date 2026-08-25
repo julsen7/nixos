@@ -65,7 +65,7 @@ in {
     nerd-fonts.jetbrains-mono
     brightnessctl
     awww
-    # rofi
+    rofi
     udiskie
     cliphist
     wl-clipboard
@@ -143,10 +143,10 @@ in {
   # FILES & CONFIGURATION
 
   xdg.configFile = {
-    "quickshell".source = ./assets/quickshell;
+    # "quickshell".source = ./assets/quickshell;
     "matugen".source = ./assets/matugen;
     "obs-studio/basic".source = ./assets/obs-studio/basic;
-    # "rofi/config.rasi".source = ./assets/rofi/config.rasi;
+    "rofi/config.rasi".source = ./assets/rofi/config.rasi;
     "snappy-switcher/config.ini".text = ''
       [general]
       mode = overview
@@ -508,8 +508,8 @@ in {
       hl.bind("SUPER + TAB", hl.dsp.exec_cmd("change-wallpaper"))
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
-      -- hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("uwsm app -- rofi -show drun -show-icons -disable-history"))
-      hl.bind("SUPER + ALT_L", "global", "quickshell:applist")
+      hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("uwsm app -- rofi -show drun -show-icons -disable-history"))
+      -- hl.bind("SUPER + ALT_L", "global", "quickshell:applist")
       hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- hyprshot -m region --clipboard-only"))
       hl.bind("SUPER + L", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
       hl.bind("SUPER + P", hl.dsp.exec_cmd("uwsm app -- hyprpicker -a"))
