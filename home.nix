@@ -509,7 +509,7 @@ in {
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       -- hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("uwsm app -- rofi -show drun -show-icons -disable-history"))
-      hl.bind("SUPER + ALT_L", hl.dsp.exec_cmd("quickshell ipc target launcher toggle"))
+      hl.bind("SUPER + ALT_L", "global", "quickshell:applist")
       hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- hyprshot -m region --clipboard-only"))
       hl.bind("SUPER + L", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
       hl.bind("SUPER + P", hl.dsp.exec_cmd("uwsm app -- hyprpicker -a"))

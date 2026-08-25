@@ -1,22 +1,19 @@
+//@ pragma DefaultEnv QS_NO_RELOAD_POPUP=1 
+
 import QtQuick
 import Quickshell
-import Quickshell.Io
 
-import "./modules"
+import "./components"
+import "./services"
+import "./modules/background"
 
 ShellRoot {
-    id: root
+  id: root
 
-    Launcher {
-        id: launcher
-    }
+  // Players {}
 
-    IpcHandler {
-        target: "launcher"
+  Background {}
+  Shortcuts {}
 
-        // Exponierte Funktion für den IPC-Aufruf
-        function toggle(): void {
-            launcher.toggle()
-        }
-    }
+  // DynamicIsland {}
 }
