@@ -15,6 +15,8 @@ PanelWindow {
     anchors.bottom: true
     exclusionMode: ExclusionMode.Ignore
 
+    focusable: true
+
     implicitWidth: 1600
     implicitHeight: hoverHandler.hovered ? 250 : 0
     color: "transparent"

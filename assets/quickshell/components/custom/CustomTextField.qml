@@ -20,7 +20,7 @@ Rectangle {
     property alias inputMethodHints: textfield.inputMethodHints
     property alias cursorDelegate: textfield.cursorDelegate
 
-    property alias text: textfield.text 
+    property alias text: textfield.text
 
     implicitHeight: 50
     radius: 12
@@ -55,7 +55,7 @@ Rectangle {
             Component.onCompleted: forceActiveFocus()
 
             onAccepted: {
-                console.log("Eingegebener Text: " + text)
+                console.log(text)
             }
         }
 

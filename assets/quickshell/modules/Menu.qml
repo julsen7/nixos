@@ -10,8 +10,12 @@ import "./../components/custom"
 PanelWindow {
     id: root
 
+    property var entries: DesktopEntries.applications.values
+
     anchors.bottom: true
     exclusionMode: ExclusionMode.Ignore
+
+    focusable: true
 
     implicitWidth: 600
     implicitHeight: hoverHandler.hovered ? 600 : 0
@@ -44,7 +48,7 @@ PanelWindow {
                 clip: true
                 spacing: 10
 
-                model: DesktopEntries.applications.values
+                model: entries.sort((a, b) => (a.name ?? "").toLowerCase().localeCompare((b.name ?? "").toLowerCase()))
 
                 delegate: CustomListViewElement {
                     imageSource: Quickshell.iconPath(icon)
