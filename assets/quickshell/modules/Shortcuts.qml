@@ -9,15 +9,10 @@ Scope {
 
     GlobalShortcut {
         name: "applist"
-        
+
         onPressed: {
             console.log("Shortcut gedrückt!");
-
-            // shortcuts.isOpen = !shortcuts.isOpen;
-            
-            // if (shortcuts.isOpen) {
-            //     shortcuts.requestActivate();
-            // }
+            // open Menu
         }
     }
 }
