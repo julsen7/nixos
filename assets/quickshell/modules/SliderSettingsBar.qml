@@ -2,12 +2,13 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
-import Quickshell.Services.Pipewire
 
 import "./../"
 import "./../components"
 import "./../components/custom"
+import "./../services"
 
 Rectangle {
     id: root
@@ -50,10 +51,6 @@ Rectangle {
         }
     }
 
-    PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink]
-    }
-
     RowLayout {
         id: sliderSettingsRow
 
@@ -76,30 +73,58 @@ Rectangle {
             }
         }
 
-        Workspaces { }
+        RowLayout {
+            spacing: 20
+
+            Repeater {
+                model: Hyprland.workspaces
+
+                Rectangle {
+                    implicitWidth: modelData.active ? 14 : 8
+                    implicitHeight: implicitWidth
+
+                    color: modelData.active ? Theme.accent : Theme.bg3
+                    radius: height / 2
+
+                    Behavior on implicitWidth { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = '" + modelData.name + "' })")
+                    }
+                }
+            }
+        }
 
         RowLayout {
             spacing: 10
 
             CustomText {
-                text: ""
+                text: PipewireService.sourceMuted ? "" : ""
                 font.pixelSize: 20
+
+                MouseArea {
+                    id: mouseArea2
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: PipewireService.toggleSourceMuted()
+                }
             }
 
             CustomSlider {
-                icon: (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio.muted) ? "󰖁" : ""
+                icon: PipewireService.muted ? "󰖁" : ""
                 maxValue: 100
+                sliderValue: PipewireService.source ? Math.round(PipewireService.volume * 100) : 50
+                onMoved: PipewireService.setVolume(value / 100.0)
 
-                sliderValue: Pipewire.defaultAudioSink ? Math.round(Pipewire.defaultAudioSink.audio.volume * 100) : 50
-
-                onMoved: {
-                    if (Pipewire.defaultAudioSink) {
-                        try {
-                            Pipewire.defaultAudioSink.audio.volume = value / 100.0
-                        } catch (e) {
-                            console.log("Pipewire node not fully bound yet.")
-                        }
-                    }
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.RightButton
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: PipewireService.toggleMuted()
                 }
             }
 
@@ -107,7 +132,6 @@ Rectangle {
                 icon: "󰃞"
                 maxValue: 100
                 sliderValue: root.currentBrightness
-
                 onMoved: {
                     brightnessSetProcess.command = ["brightnessctl", "set", Math.round(value) + "%"]
                     brightnessSetProcess.running = true

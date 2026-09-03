@@ -43,10 +43,5 @@ Slider {
             font.pixelSize: 18
             anchors.centerIn: parent
         }
-
-        HoverHandler {
-            id: hoverHandler
-            cursorShape: Qt.PointingHandCursor
-        }
     }
 }

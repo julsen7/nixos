@@ -16,7 +16,7 @@ Item {
     signal itemClicked(int idx, bool wasAlreadyCurrent)
 
     implicitWidth: 200
-    implicitHeight: 120 
+    implicitHeight: 120
 
     Rectangle {
         id: visualContainer
@@ -25,7 +25,7 @@ Item {
         width: root.isCurrentItem ? 200 : 170
         height: root.isCurrentItem ? 120 : 90
         opacity: root.isCurrentItem ? 1.0 : 0.5
-        
+
         radius: 20
         clip: true
 
@@ -33,7 +33,7 @@ Item {
 
         Behavior on width { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
         Behavior on height { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
-        Behavior on opacity { NumberAnimation { duration: 250 } }
+        Behavior on opacity { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
 
         border.color: root.isCurrentItem ? "white" : "transparent"
         border.width: root.isCurrentItem ? 2 : 0
@@ -46,9 +46,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
-            onClicked: {
-                root.itemClicked(root.itemIndex, root.isCurrentItem)
-            }
+            onClicked: root.itemClicked(root.itemIndex, root.isCurrentItem)
         }
     }
 }
