@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Wayland
 
 import "./../"
 import "./../components/custom"
@@ -271,7 +272,7 @@ WlSessionLock {
                                 model: DesktopEntries.applications.values
 
                                 delegate: CustomListViewElement {
-                                    imageSource: "https://www.gstatic.com/youtube/img/promos/40c9bda47270818ac91a3bb3b791c405272d6f7bc364a89faa079ee5648e0962_122x56.webp"
+                                    imageSource: ""
                                     titleText: "Notification"
                                     contentText: "Content"
 
@@ -281,6 +282,11 @@ WlSessionLock {
 
                                 ScrollBar.vertical: ScrollBar {
                                     policy: ScrollBar.AsNeeded
+                                    contentItem: Rectangle {
+                                        implicitWidth: 6
+                                        radius: width / 2
+                                        color: Theme.accent
+                                    }
                                 }
                             }
                         }

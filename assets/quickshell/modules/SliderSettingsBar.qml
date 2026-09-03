@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Pipewire
 
 import "./../"
@@ -21,6 +22,8 @@ Rectangle {
     color: Theme.bg
     bottomRightRadius: height / 2
 
+    property int currentBrightness: 50
+
     HoverHandler {
         id: hoverHandler
         margin: root.height
@@ -29,6 +32,27 @@ Rectangle {
     y: hoverHandler.hovered ? 0 : -height
 
     Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
+
+    Process {
+        id: brightnessSetProcess
+    }
+
+    Process {
+        running: true
+        command: ["sh", "-c", "brightnessctl -m | cut -d, -f4 | tr -d %"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                let val = parseInt(this.text.trim())
+                if (!isNaN(val)) {
+                    root.currentBrightness = val
+                }
+            }
+        }
+    }
+
+    PwObjectTracker {
+        objects: [Pipewire.defaultAudioSink]
+    }
 
     RowLayout {
         id: sliderSettingsRow
@@ -65,19 +89,29 @@ Rectangle {
             CustomSlider {
                 icon: (Pipewire.defaultAudioSink && Pipewire.defaultAudioSink.audio.muted) ? "󰖁" : ""
                 maxValue: 100
-                sliderValue: 50
+
+                sliderValue: Pipewire.defaultAudioSink ? Math.round(Pipewire.defaultAudioSink.audio.volume * 100) : 50
 
                 onMoved: {
                     if (Pipewire.defaultAudioSink) {
-                        Pipewire.defaultAudioSink.audio.volume = value / 100.0
+                        try {
+                            Pipewire.defaultAudioSink.audio.volume = value / 100.0
+                        } catch (e) {
+                            console.log("Pipewire node not fully bound yet.")
+                        }
                     }
                 }
             }
 
             CustomSlider {
                 icon: "󰃞"
-                sliderValue: 50
                 maxValue: 100
+                sliderValue: root.currentBrightness
+
+                onMoved: {
+                    brightnessSetProcess.command = ["brightnessctl", "set", Math.round(value) + "%"]
+                    brightnessSetProcess.running = true
+                }
             }
         }
     }

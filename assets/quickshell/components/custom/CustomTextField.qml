@@ -8,22 +8,23 @@ import "./../../"
 Rectangle {
     id: root
 
-    property alias color: root.color
+    property alias leftIcon: lefticon.text
+    property alias rightIcon: rightIcon.text
+    property alias text: textfield.text
 
-    property string leftIcon: ""
-    property string rightIcon: ""
-    property int pixelSize: 18
-    property string placeholderText: ""
-    property color textFieldColor: Theme.fg
+    property color textColor: Theme.fg
 
+    property alias placeholderText: textfield.placeholderText
     property alias echoMode: textfield.echoMode
     property alias inputMethodHints: textfield.inputMethodHints
     property alias cursorDelegate: textfield.cursorDelegate
 
-    property alias text: textfield.text
-
     implicitHeight: 50
+
+    color: Theme.bg
     radius: 12
+
+    focus: true
 
     RowLayout {
         anchors.fill: parent
@@ -32,9 +33,9 @@ Rectangle {
         spacing: 10
 
         CustomText {
-            text: root.leftIcon
-            color: textFieldColor
-            font.pixelSize: root.pixelSize
+            id: lefticon
+            color: textColor
+            font.pixelSize: 18
             Layout.alignment: Qt.AlignVCenter
         }
 
@@ -45,10 +46,9 @@ Rectangle {
             Layout.alignment: Qt.AlignVCenter
 
             font.pixelSize: root.pixelSize
-            color: textFieldColor
+            color: textColor
 
-            placeholderText: root.placeholderText
-            placeholderTextColor: Qt.alpha(textFieldColor, 0.5)
+            placeholderTextColor: Qt.alpha(color, 0.5)
 
             background: Item { }
 
@@ -60,8 +60,8 @@ Rectangle {
         }
 
         CustomText {
-            text: root.rightIcon
-            color: textFieldColor
+            id: rightIcon
+            color: textColor
             font.pixelSize: root.pixelSize
             Layout.alignment: Qt.AlignVCenter
         }

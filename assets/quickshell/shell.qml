@@ -24,7 +24,6 @@ ShellRoot {
 
   // --- Panels ---
   TopBar { }
-  Menu { }
-  // WallpaperSelector { }
+  BottomMenu { }
   // LockScreen { }
 }
