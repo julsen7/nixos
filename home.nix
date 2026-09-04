@@ -64,7 +64,6 @@ in {
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
     brightnessctl
-    awww
     udiskie
     cliphist
     wl-clipboard
@@ -140,7 +139,7 @@ in {
   # FILES & CONFIGURATION
 
   xdg.configFile = {
-    # "quickshell".source = ./assets/quickshell;
+    "quickshell".source = ./assets/quickshell;
     "matugen".source = ./assets/matugen;
     "obs-studio/basic".source = ./assets/obs-studio/basic;
     "snappy-switcher/config.ini".text = ''
@@ -436,14 +435,7 @@ in {
         hl.exec_cmd("uwsm app -- wl-paste --type image --watch cliphist store")
         hl.exec_cmd("uwsm app -- udiskie")
         hl.exec_cmd("uwsm app -- snappy-switcher --daemon")
-        hl.exec_cmd("uwsm app -- awww-daemon")
-
-        -- Default Wallpaper
-        hl.exec_cmd([[
-          if [ ! -f "$HOME/.config/hypr/current_wallpaper" ]; then
-            change-wallpaper "$HOME/wallpaper/AssassinsCreed.jpg"
-          fi
-        ]])
+        hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
 
         -- Apps
         hl.exec_cmd("uwsm app -- discord --start-minimized")
@@ -504,7 +496,7 @@ in {
       hl.bind("SUPER + TAB", hl.dsp.exec_cmd("change-wallpaper"))
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
-      hl.bind("SUPER + ALT_L", hl.dsp.global("quickshell:menu"))
+      hl.bind("SUPER + ALT", hl.dsp.global("quickshell:menu"))
       hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- hyprshot -m region --clipboard-only"))
       hl.bind("SUPER + L", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
       hl.bind("SUPER + P", hl.dsp.exec_cmd("uwsm app -- hyprpicker -a"))

@@ -1,9 +1,5 @@
 [config]
 
-[config.wallpaper]
-set = true
-command = "awww img {{ image }} --transition-type center"
-
 [templates.dunst]
 input_path = '~/.config/matugen/templates/dunstrc-colors'
 output_path = '~/.config/theme/dunstrc'
