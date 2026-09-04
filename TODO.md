@@ -4,7 +4,7 @@
 
 - prism launcher: profile (+ image)
 - sddm (look and autologin without keyring)
-- QuickShell (waybar, dunst, snappy-switcher, hyprlock)
+- QuickShell (dunst, snappy-switcher, hyprlock)
 
 ## MISSING PACKAGES
 
