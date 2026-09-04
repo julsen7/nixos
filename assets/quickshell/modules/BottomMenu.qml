@@ -11,8 +11,13 @@ import "./../components/custom"
 PanelWindow {
     id: root
 
+    signal requestWallpaperChange(url newWallpaperUrl)
+
     property bool appMode: customTextField.text !== ">"
     property var entries: DesktopEntries.applications.values
+    
+    property bool shortcutOpen: false
+    property bool isOpen: hoverHandler.hovered || shortcutOpen
 
     FolderListModel {
         id: wallpaperModel
@@ -27,10 +32,12 @@ PanelWindow {
     focusable: true
 
     implicitWidth: appMode ? 600 : 1600
-    implicitHeight: hoverHandler.hovered ? (appMode ? 600 : 250) : 0
+    implicitHeight: isOpen ? (appMode ? 600 : 250) : 1
     color: "transparent"
 
     Behavior on implicitHeight { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
+
+    Keys.onEscapePressed: root.shortcutOpen = false
 
     HoverHandler {
         id: hoverHandler
@@ -38,6 +45,9 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
+
+        opacity: root.isOpen ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: 200 } }
 
         color: Theme.bg
         topLeftRadius: 20
@@ -76,6 +86,8 @@ PanelWindow {
                         hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
+                            root.shortcutOpen = false
+                            
                             if (runInTerminal) {
                                 let termCommand = ["kitty", "-e"].concat(command)
                                 Quickshell.execDetached(termCommand)
@@ -137,8 +149,8 @@ PanelWindow {
 
                 onCurrentItemChanged: {
                     if (currentItem && currentItem.wallpaperUrl !== "") {
-                        console.log("Neues Wallpaper ausgewählt:", currentItem.wallpaperUrl)
-                        Background.wallpaperPath = currentItem.wallpaperUrl
+                        console.log("Neues Wallpaper im Menü gewählt:", currentItem.wallpaperUrl)
+                        root.requestWallpaperChange(currentItem.wallpaperUrl)
                     }
                 }
             }
@@ -148,8 +160,13 @@ PanelWindow {
                 leftIcon: ""
                 placeholderText: 'Type ">" for commands'
                 color: Theme.bg2
-
                 Layout.fillWidth: true
+                
+                onVisibleChanged: {
+                    if (visible && root.shortcutOpen) {
+                        forceActiveFocus()
+                    }
+                }
             }
         }
     }

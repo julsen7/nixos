@@ -8,7 +8,7 @@ import "./../components/custom"
 Item {
     id: root
 
-    property string wallpaperUrl: ""
+    property url wallpaperUrl: ""
     
     property bool isCurrentItem: PathView.isCurrentItem 
     property int itemIndex: index

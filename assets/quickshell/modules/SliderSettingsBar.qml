@@ -69,7 +69,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: console.log("")
+                onClicked: Quickshell.execDetached(["kitty"])
             }
         }
 

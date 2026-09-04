@@ -18,12 +18,18 @@ ShellRoot {
 
   // --- Core ---
   Background {
-    wallpaperPath: "file:///home/julsen/wallpaper/AssassinsCreedOrigins.jpg"
+    id: myBackground
   }
   Shortcuts { }
 
   // --- Panels ---
   TopBar { }
-  BottomMenu { }
+  BottomMenu {
+    id: myBottomMenu
+
+    onRequestWallpaperChange: (newUrl) => {
+      myBackground.wallpaperPath = newUrl
+    }
+  }
   // LockScreen { }
 }

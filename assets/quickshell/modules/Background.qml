@@ -42,6 +42,7 @@ Scope {
                     anchors.fill: wallpaper
                     radius: 20
                     layer.enabled: true
+                    visible: false
                 }
 
                 Image {
@@ -56,9 +57,14 @@ Scope {
                     visible: false
                     opacity: 0
 
+                    onSourceChanged: {
+                        opacity = 0
+                    }
+
                     onStatusChanged: {
-                        if (status === Image.Ready)
-                            anim.start()
+                        if (status === Image.Ready) {
+                            anim.restart()
+                        }
                     }
 
                     NumberAnimation on opacity {

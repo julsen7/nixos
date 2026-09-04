@@ -3,16 +3,15 @@ import Quickshell
 import Quickshell.Hyprland
 
 Scope {
-    id: shortcuts
-    
-    property bool isOpen: false 
+    id: root
+
+    BottomMenu {
+        id: myBottomMenu
+    }
 
     GlobalShortcut {
-        name: "applist"
-
-        onPressed: {
-            console.log("Shortcut gedrückt!");
-            // open Menu
-        }
+        name: "menu"
+        description: "Open menu"
+        onPressed: myBottomMenu.shortcutOpen = !myBottomMenu.shortcutOpen;
     }
 }
