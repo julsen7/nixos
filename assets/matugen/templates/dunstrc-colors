@@ -8,7 +8,6 @@
     frame_width = 0
     gap_size = 5
     font = JetBrainsMono Nerd Font Propo 10
-    dmenu = /usr/bin/rofi -dmenu -p dunst:
     corner_radius = 20
     icon_path = "/usr/share/icons/Adwaita/16x16/devices/"
     icon_theme = "Adwaita, breeze"
