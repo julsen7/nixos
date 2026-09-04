@@ -3,6 +3,7 @@
 - Appitem onclick schließt menu
 - quickshell.marginwrapper nutzen
 - einstellungen, um tuis zu ersetzen (+ einbindung an topbar etc.)
+- wallpaper/settings for reusability in global config files
 
 topbar:
     - tray
