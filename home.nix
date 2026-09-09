@@ -89,7 +89,7 @@ in {
     heroic
     vlc
     libbluray
-    libreoffice-fresh
+    libreoffice-stable
     keepassxc
     github-cli
     _7zz
