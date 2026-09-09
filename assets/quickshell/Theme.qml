@@ -11,4 +11,5 @@ QtObject {
     readonly property color fg2: "#888888"
     readonly property color accent: "#24bd5c"
     readonly property color ph: "#303030"
+    readonly property color red: "#ff5555"
 }

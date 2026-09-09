@@ -11,7 +11,7 @@ Scope {
             required property var modelData
             screen: modelData
 
-            implicitHeight: Math.max(33, island.implicitHeight)
+            implicitHeight: island.implicitHeight
             exclusiveZone: 40
             color: "transparent"
 
@@ -22,7 +22,6 @@ Scope {
             }
 
             SliderSettingsBar {
-                id: sliderSettingsBar
                 anchors.left: parent.left
             }
 
@@ -32,7 +31,6 @@ Scope {
             }
 
             ControlCenterBar {
-                id: controlCenterBar
                 anchors.right: parent.right
             }
         }

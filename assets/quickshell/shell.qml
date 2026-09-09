@@ -24,7 +24,6 @@ ShellRoot {
       myBackground.wallpaperPath = newUrl
     }
   }
-  SettingsApp { }
-
-  // LockScreen { }
+  // SettingsApp { }
+  LockScreen { }
 }

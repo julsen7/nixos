@@ -11,7 +11,7 @@ import "./../services"
 WlSessionLock {
     id: root
 
-    Component.onCompleted: root.locked = true
+    Component.onCompleted: root.locked = false
 
     WlSessionLockSurface {
         color: "white"

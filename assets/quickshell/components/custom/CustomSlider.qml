@@ -23,8 +23,8 @@ Slider {
         radius: height / 2
 
         Rectangle {
-            width: root.visualPosition * parent.width
-            height: parent.height
+            implicitWidth: root.visualPosition * parent.width
+            implicitHeight: parent.height
             color: Theme.accent
             radius: parent.radius
         }

@@ -22,7 +22,6 @@ Rectangle {
 
     HoverHandler {
         id: hoverHandler
-        margin: root.height
     }
 
     y: hoverHandler.hovered ? 0 : -height
@@ -71,15 +70,15 @@ Rectangle {
 
         CustomText {
             text: ""
-            font.pixelSize: 24
-            color: mouseArea.containsMouse ? "#ff5555" : Theme.fg
+            font.pixelSize: 22
+            color: mouseArea.containsMouse ? Theme.red : Theme.fg
 
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: console.log("test")
+                onClicked: LockScreen.locked = true
             }
         }
     }

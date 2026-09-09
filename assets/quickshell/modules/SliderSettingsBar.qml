@@ -58,10 +58,6 @@ Rectangle {
     Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
 
     Process {
-        id: brightnessSetProcess
-    }
-
-    Process {
         running: true
         command: ["sh", "-c", "brightnessctl -m | cut -d, -f4 | tr -d %"]
         stdout: StdioCollector {
@@ -97,34 +93,24 @@ Rectangle {
         }
 
         RowLayout {
-            spacing: 20
+            spacing: 10
 
             Repeater {
                 model: Hyprland.workspaces
 
                 Rectangle {
-                    id: workspaceItem
-
                     implicitWidth: contentRow.implicitWidth + 28
                     implicitHeight: 28
 
                     color: modelData.active ? Theme.accent : Theme.bg3
                     radius: height / 2
 
-                    Behavior on implicitWidth { 
-                        NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } 
-                    }
+                    Behavior on implicitWidth { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
 
-                    Row {
+                    RowLayout {
                         id: contentRow
                         anchors.centerIn: parent
                         spacing: 6
-
-                        CustomText {
-                            visible: iconRepeater.count === 0
-                            text: modelData.name
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
 
                         Repeater {
                             id: iconRepeater
@@ -144,9 +130,6 @@ Rectangle {
                             }
 
                             CustomText {
-                                anchors.verticalCenter: parent.verticalCenter
-                                font.pixelSize: 18
-
                                 text: {
                                     let top = modelData;
                                     let rawClass = top.lastIpcObject ? (top.lastIpcObject["class"] || "") : "";
@@ -165,6 +148,8 @@ Rectangle {
 
                                     return icon || root.appIcons["fallback"];
                                 }
+                                color: Theme.bg
+                                font.pixelSize: 18
                             }
                         }
                     }
@@ -218,13 +203,15 @@ Rectangle {
             }
 
             CustomSlider {
-                icon: "󰃞"
+                icon: {
+                    let brightness = Math.round(root.currentBrightness)
+                    if (brightness === 0) return "󰃞"
+                    if (brightness < 50) return "󰃝"
+                    return "󰃠"
+                }
                 maxValue: 100
                 sliderValue: root.currentBrightness
-                onMoved: {
-                    brightnessSetProcess.command = ["brightnessctl", "set", Math.round(value) + "%"]
-                    brightnessSetProcess.running = true
-                }
+                onMoved: Quickshell.execDetached(["brightnessctl", "set", Math.round(value) + "%"])
             }
         }
     }
