@@ -113,7 +113,6 @@ in {
     lmms
     # reaper
     thunar
-    vscodium
   ];
 
   # SYSTEM
@@ -747,8 +746,8 @@ in {
     };
   };
 
-  programs.vscode = {
-    enable = false;
+  programs.vscodium = {
+    enable = true;
     profiles.default = {
       userSettings = {
         "explorer.confirmDelete" = false;
