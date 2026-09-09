@@ -99,8 +99,9 @@ in {
       collection-fontsrecommended
     ]))
     tex-fmt
-    gcc
+    # gcc
     # gnumake
+    # make
     # cmake
     # binutils
     # pkg-config
