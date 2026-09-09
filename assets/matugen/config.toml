@@ -1,17 +1,8 @@
 [config]
 
-[templates.dunst]
-input_path = '~/.config/matugen/templates/dunstrc-colors'
-output_path = '~/.config/theme/dunstrc'
-post_hook = 'dunstctl reload'
-
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland-colors.lua'
 output_path = '~/.config/theme/hypr.lua'
-
-[templates.hyprlock]
-input_path = '~/.config/matugen/templates/hyprland-colors.conf'
-output_path = '~/.config/theme/hypr.conf'
 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty-colors.conf'

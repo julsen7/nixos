@@ -240,49 +240,6 @@ in {
     };
   };
 
-  services.dunst = {
-    enable = true;
-    settings = {
-      global = {
-        enable_posix_regex = true;
-        width = 400;
-        height = "(0, 300)";
-        offset = "(4, 10)";
-        icon_corner_radius = 10;
-        frame_width = 0;
-        gap_size = 5;
-        font = "JetBrainsMono Nerd Font Propo 10";
-        corner_radius = 20;
-        enable_recursive_icon_lookup = true;
-        max_icon_size = 64;
-        fullscreen = "suppress";
-      };
-      
-      fullscreen_critical = {
-        msg_urgency = "critical";
-        fullscreen = "show";
-      };
-
-      urgency_low = {
-        background = "#19120d";
-        foreground = "#f0dfd7";
-      };
-
-      urgency_normal = {
-        background = "#19120d";
-        foreground = "#f0dfd7";
-        override_pause_level = 30;
-      };
-
-      urgency_critical = {
-        background = "#19120d";
-        foreground = "#f0dfd7";
-        timeout = 0;
-        override_pause_level = 60;
-      };
-    };
-  };
-
   programs.fastfetch = {
     enable = true;
     settings = {
@@ -499,7 +456,6 @@ in {
 
       hl.bind("SUPER + ALT", hl.dsp.global("quickshell:menu"))
       hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- hyprshot -m region --clipboard-only"))
-      hl.bind("SUPER + L", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
       hl.bind("SUPER + P", hl.dsp.exec_cmd("uwsm app -- hyprpicker -a"))
       -- hl.bind("SUPER + V", hl.dsp.exec_cmd("uwsm app -- cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"))
 
@@ -543,44 +499,6 @@ in {
 
       hl.animation({ leaf = "windows", enabled = true, speed = 2, bezier = "easeInOutCubic", style = "slide" })
       hl.animation({ leaf = "workspaces", enabled = true, speed = 2, spring = "rubber", style = "slide" })
-    '';
-  };
-
-  programs.hyprlock = {
-    enable = true;
-    extraConfig = ''
-      source = ${config.xdg.configHome}/hypr/colors.conf
-
-      general {
-        hide_cursor = true
-      }
-
-      background {
-        monitor = 
-        path = $image
-      }
-
-      input-field {
-        monitor = 
-        size = 250, 50
-        outline_thickness = 0
-        inner_color = $on_surface
-        font_color = $surface
-        check_color = $primary
-        fail_color = $error
-        capslock_color = $tertiary
-        fade_on_empty = false
-        font_family = JetBrainsMono Nerd Font
-      }
-
-      label {
-        monitor = 
-        text = $TIME
-        color = $primary
-        font_size = 55
-        font_family = Noto Sans
-        position = 0, 80
-      }
     '';
   };
 
