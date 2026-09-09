@@ -748,7 +748,7 @@ in {
   };
 
   programs.vscode = {
-    enable = true;
+    enable = false;
     profiles.default = {
       userSettings = {
         "explorer.confirmDelete" = false;
