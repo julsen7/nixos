@@ -10,7 +10,7 @@ Text {
     verticalAlignment: Text.AlignVCenter
 
     color: Theme.fg
-    font.family: "JetBrainsMono Nerd Font"
+    font.family: "JetBrainsMono Nerd Font Propo"
     font.pixelSize: 14
     font.weight: Font.Medium
     elide: Text.ElideRight
