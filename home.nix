@@ -505,7 +505,7 @@ in {
 
       -- Quickstart-Shortcuts
       hl.bind("SUPER + Q", hl.dsp.exec_cmd("uwsm app -- kitty"))
-      hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm app -- kitty -e yazi"))
+      hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm app -- thunar"))
       hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm app -- zen"))
     udiskie
       hl.bind("SUPER + M", hl.dsp.exec_cmd("uwsm app -- spotify"))
@@ -823,7 +823,7 @@ in {
   };
 
   programs.yazi = {
-    enable = true;
+    enable = false;
     enableZshIntegration = true;
 
     settings = {
