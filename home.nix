@@ -463,7 +463,6 @@ in {
       hl.bind("SUPER + Q", hl.dsp.exec_cmd("uwsm app -- kitty"))
       hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm app -- thunar"))
       hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm app -- zen"))
-    udiskie
       hl.bind("SUPER + M", hl.dsp.exec_cmd("uwsm app -- spotify"))
       hl.bind("SUPER + D", hl.dsp.exec_cmd("uwsm app -- discord"))
       hl.bind("SUPER + C", hl.dsp.exec_cmd("uwsm app -- code"))
