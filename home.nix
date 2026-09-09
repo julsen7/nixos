@@ -123,7 +123,7 @@ in {
   };
 
   home.sessionVariables = {
-    EDITOR = "code";
+    EDITOR = "codim";
     HYPRCURSOR_THEME = "Bibata-Modern-Ice";
     HYPRCURSOR_SIZE = "24";
   };
@@ -465,7 +465,7 @@ in {
       hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm app -- zen"))
       hl.bind("SUPER + M", hl.dsp.exec_cmd("uwsm app -- spotify"))
       hl.bind("SUPER + D", hl.dsp.exec_cmd("uwsm app -- discord"))
-      hl.bind("SUPER + C", hl.dsp.exec_cmd("uwsm app -- code"))
+      hl.bind("SUPER + C", hl.dsp.exec_cmd("uwsm app -- codium"))
 
       -- Workspaces 1-6
       for i = 1, 6 do
@@ -736,34 +736,6 @@ in {
           sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
         }
        ];
-    };
-  };
-
-  programs.yazi = {
-    enable = false;
-    enableZshIntegration = true;
-
-    settings = {
-      mgr = {
-        show_hidden = true;
-      };
-      opener = {
-        vscode = [
-          {
-            run = "uwsm app -- code %s";
-            orphan = true;
-            for = "unix";
-          }
-        ];
-      };
-      open = {
-        rules = [
-          {
-            url = "*";
-            use = "vscode";
-          }
-        ];
-      };
     };
   };
 }
