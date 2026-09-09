@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Services.SystemTray
+import Quickshell.Widgets
 
 import "./../"
 import "./../components/custom"
@@ -39,23 +41,32 @@ Rectangle {
         RowLayout {
             spacing: 10
 
-            CustomTopSetting {
-                icon: "󰂯"
-                command: "bluetoothctl devices connected | wc -l"
-                interval: 5000
-            }
+            Repeater {
+                model: SystemTray.items
 
-            CustomTopSetting {
-                icon: ""
-                command: "nmcli -t -f NAME connection show --active | head -n1"
-                interval: 5000
+                CustomImage {
+                    required property SystemTrayItem modelData
+                    source: modelData.icon
+                    implicitWidth: 20
+                    implicitHeight: 20
+                }
             }
+        }
 
-            CustomTopSetting {
-                icon: ""
-                command: "cat /sys/class/power_supply/BAT1/capacity"
-                interval: 5000
-            }
+        CustomTopSetting {
+            icon: "󰂯"
+            command: "bluetoothctl devices connected | wc -l"
+            interval: 5000
+        }
+
+        CustomTopSetting {
+            command: "nmcli -t -f TYPE,NAME connection show --active | head -n1 | awk -F: 'BEGIN{i=\"\"; v=\"Keine Verbindung\"} {if($1 ~ \"ethernet\"){i=\"󰌗\"; v=\"LAN\"} else if($1 ~ \"wireless\"){i=\"\"; v=$2}} END{print i\"\\t\"v}'"
+            interval: 5000
+        }
+
+        CustomTopSetting {
+            command: "cat /sys/class/power_supply/BAT1/capacity | awk '{c=$1; if(c<20)i=\"\"; else if(c<40)i=\"\"; else if(c<60)i=\"\"; else if(c<80)i=\"\"; else i=\"\"; print i\"\\t\"c\"%\"}'"
+            interval: 5000
         }
 
         CustomText {

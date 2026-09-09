@@ -11,15 +11,13 @@ Rectangle {
 
     color: Theme.bg_hov
     radius: 20
-
     clip: true
 
     property alias backgroundContent: bgContainer.data
+    default property alias content: innerLayout.data
 
     implicitWidth: innerLayout.implicitWidth + 40
     implicitHeight: innerLayout.implicitHeight + 40
-
-    default property alias content: innerLayout.data
 
     Item {
         id: bgContainer
@@ -31,6 +29,6 @@ Rectangle {
         id: innerLayout
         anchors.fill: parent
         anchors.margins: 20
-        spacing: 0
+        z: 1
     }
 }

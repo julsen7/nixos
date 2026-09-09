@@ -28,63 +28,161 @@ WlSessionLock {
             RowLayout {
                 anchors.fill: parent
                 anchors.margins: 20
-                spacing: 80
+                spacing: 60
 
                 // ==========================================
-                // Column 1
+                // COLUMN 1: Weather | System Info | Media
                 // ==========================================
                 ColumnLayout {
+                    Layout.preferredWidth: 1
                     spacing: 20
 
-                    // 1. Wetter Modul
+                    // 1. Weather Module
                     CustomLockScreenModule {
                         Layout.fillHeight: true
-                        RowLayout {
+
+                        CustomText {
+                            text: WeatherService.description
+                            font.pixelSize: 18
+                            font.bold: true
                             Layout.alignment: Qt.AlignHCenter
+                        }
 
-                            CustomText {
-                                text: WeatherService.temperature
-                                font.pixelSize: 32
-                            }
+                        CustomText {
+                            text: WeatherService.temp + " " + WeatherService.icon
+                            font.pixelSize: 36
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
 
-                            CustomText {
-                                text: WeatherService.weatherIcon
-                                font.pixelSize: 32
+                        CustomText {
+                            text: "Feels like " + WeatherService.feelsLike
+                            opacity: 0.8
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+
+                        CustomText {
+                            text: "High " + WeatherService.tempHigh + " • Low " + WeatherService.tempLow
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+
+                        Rectangle {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            color: Theme.bg2
+                            radius: 16
+
+                            ColumnLayout {
+                                anchors.fill: parent
+                                anchors.margins: 10
+
+                                CustomText {
+                                    text: "󰥔 Hourly forecast"
+                                    font.bold: true
+                                }
+
+                                RowLayout {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    spacing: 8
+
+                                    Repeater {
+                                        model: WeatherService.hourlyForecast
+
+                                        ColumnLayout {
+                                            spacing: 2
+                                            Layout.alignment: Qt.AlignHCenter
+
+                                            CustomText {
+                                                text: modelData.tempC + "°"
+                                                font.bold: true
+                                                Layout.alignment: Qt.AlignHCenter
+                                            }
+
+                                            CustomText {
+                                                text: modelData.icon
+                                                font.pixelSize: 20
+                                                Layout.alignment: Qt.AlignHCenter
+                                            }
+
+                                            CustomText {
+                                                text: modelData.precipChance + "%"
+                                                opacity: 0.7
+                                                color: modelData.precipChance > 30 ? "#89b4fa" : Theme.fg
+                                                Layout.alignment: Qt.AlignHCenter
+                                            }
+
+                                            CustomText {
+                                                text: modelData.hour
+                                                font.bold: index === 0
+                                                Layout.alignment: Qt.AlignHCenter
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
 
-                    // 2. System Info Modul
+                    // 2. System Info Module
                     CustomLockScreenModule {
                         Layout.preferredHeight: 300
+
+                        CustomText {
+                            text: " julsen.sh"
+                            font.pixelSize: 18
+                            opacity: 0.6
+                        }
+
                         RowLayout {
-                            Layout.alignment: Qt.AlignHCenter
-                            spacing: 60
+                            spacing: 40
+                            Layout.alignment: Qt.AlignVCenter
 
                             CustomText {
                                 text: ""
-                                font.pixelSize: 100
+                                font.pixelSize: 120
+                                font.bold: true
+                                color: Theme.accent
                             }
 
                             ColumnLayout {
+                                spacing: 4
                                 CustomText {
-                                    text: "OS: Nixos"
-                                    font.pixelSize: 24
+                                    text: "OS   : " + OSService.osName
+                                    font.bold: true
+                                    font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "WM: Hyprland"
-                                    font.pixelSize: 24
+                                    text: "WM   : " + OSService.wmName
+                                    font.bold: true
+                                    font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "USER: julsen"
-                                    font.pixelSize: 24
+                                    text: "USER : " + OSService.username
+                                    font.bold: true
+                                    font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "UPTIME: <ZEIT>"
-                                    font.pixelSize: 24
+                                    text: "UP   : " + OSService.uptime
+                                    font.bold: true
+                                    font.pixelSize: 22
+                                }
+                            }
+                        }
+
+                        RowLayout {
+                            Layout.alignment: Qt.AlignHCenter
+                            spacing: 10
+                            Repeater {
+                                model: ["#f38ba8", "#fab387", "#f9e2af", "#a6e3a1", "#89dceb", "#b4befe", "#cba6f7"]
+                                Rectangle {
+                                    width: 16
+                                    height: 16
+                                    radius: 6
+                                    color: modelData
                                 }
                             }
                         }
@@ -92,63 +190,58 @@ WlSessionLock {
 
                     // 3. Media Player Modul
                     CustomLockScreenModule {
-                        Layout.preferredHeight: 260
+                        Layout.preferredHeight: 240
 
                         backgroundContent: [
                             CustomImage {
                                 source: MprisService.artUrl
                                 anchors.fill: parent
+                                opacity: 0.25
                             },
                             Rectangle {
                                 anchors.fill: parent
-                                color: "#80000000"
+                                color: Qt.rgba(0, 0, 0, 0.06)
                             }
                         ]
 
                         CustomText {
                             text: MprisService.trackTitle
                             color: Theme.accent
-                            font.pixelSize: 32
+                            font.pixelSize: 18
                             font.bold: true
-                            Layout.maximumWidth: 300
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
                             text: MprisService.trackArtist
-                            color: Theme.ph
-                            Layout.maximumWidth: 150
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         RowLayout {
                             Layout.alignment: Qt.AlignHCenter
-                            Layout.topMargin: 10
+                            spacing: 10
 
                             CustomButton {
                                 buttonText: ""
-                                radius: 10
-                                color: Theme.bg3
-                                Layout.preferredWidth: 50
-                                Layout.preferredHeight: 30
+                                backgroundColor: Theme.bg
+                                Layout.preferredWidth: 40
+                                Layout.preferredHeight: 40
                                 onClicked: MprisService.player.previous()
                             }
 
                             CustomButton {
                                 buttonText: MprisService.isPlaying ? "" : ""
-                                radius: 10
-                                color: Theme.bg3
-                                Layout.preferredWidth: 50
-                                Layout.preferredHeight: 30
-                                onClicked: MprisService.player.togglePlaying();
+                                radius: 12
+                                Layout.preferredWidth: 60
+                                Layout.preferredHeight: 40
+                                onClicked: MprisService.player.togglePlaying()
                             }
 
                             CustomButton {
                                 buttonText: ""
-                                radius: 10
-                                color: Theme.bg3
-                                Layout.preferredWidth: 50
-                                Layout.preferredHeight: 30
+                                backgroundColor: Theme.bg
+                                Layout.preferredWidth: 40
+                                Layout.preferredHeight: 40
                                 onClicked: MprisService.player.next()
                             }
                         }
@@ -156,23 +249,54 @@ WlSessionLock {
                 }
 
                 // ==========================================
-                // Column 2 (Zentrale Elemente - Unverändert)
+                // COLUMN 2: Clock | Avatar | Unlock Bar
                 // ==========================================
                 ColumnLayout {
-                    Layout.alignment: Qt.AlignHCenter
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    
+                    Layout.preferredWidth: 400
+                    Layout.minimumWidth: 400
                     Layout.maximumWidth: 400
+
                     spacing: 50
 
-                    Layout.topMargin: 100
-                    Layout.bottomMargin: 100
+                    // Clock & Date
+                    ColumnLayout {
+                        Layout.alignment: Qt.AlignHCenter
 
-                    CustomText {
-                        Layout.fillWidth: true
-                        text: DateTimeService.time
-                        font.pixelSize: 100
-                        font.bold: true
+                        CustomText {
+                            text: DateTimeService.time
+                            font.pixelSize: 110
+                            font.bold: true
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+
+                        CustomText {
+                            text: Qt.formatDate(new Date(), "dddd • d MMM").toUpperCase()
+                            font.bold: true
+                            opacity: 0.7
+                            Layout.alignment: Qt.AlignHCenter
+                        }
                     }
 
+                    // Avatar / Icon
+                    Rectangle {
+                        Layout.preferredWidth: 150
+                        Layout.preferredHeight: 150
+                        Layout.alignment: Qt.AlignHCenter
+                        color: Theme.bg2
+                        radius: height / 2
+                        border.color: Qt.rgba(1, 1, 1, 0.15)
+                        border.width: 4
+
+                        CustomText {
+                            anchors.centerIn: parent
+                            text: ""
+                            font.pixelSize: 50
+                        }
+                    }
+
+                    // Passwort field
                     CustomTextField {
                         leftIcon: "󰌾"
                         rightIcon: ""
@@ -184,109 +308,173 @@ WlSessionLock {
                         inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
 
                         Layout.fillWidth: true
+                        Layout.preferredHeight: 48
+                        onAccepted: root.locked = false
                     }
 
                     CustomButton {
-                        onClicked: root.locked = false
                         buttonText: "Unlock"
-                        Layout.fillWidth: true
-                        Layout.maximumWidth: 300
+                        onClicked: root.locked = false
+                        Layout.preferredWidth: 300
                         Layout.alignment: Qt.AlignHCenter
                     }
                 }
 
                 // ==========================================
-                // Column 3
+                // COLUMN 3: Hardware | Notifications
                 // ==========================================
                 ColumnLayout {
+                    Layout.preferredWidth: 1 
                     spacing: 20
 
                     // 1. Hardware Monitor Modul
                     CustomLockScreenModule {
+                        Layout.preferredHeight: 125
+
                         RowLayout {
-                            id: row
-                            Layout.alignment: Qt.AlignHCenter
-                            spacing: 20
+                            anchors.fill: parent
+                            anchors.margins: 14
+                            spacing: 12
 
+                            // CPU
                             Rectangle {
-                                Layout.preferredWidth: 120
-                                Layout.preferredHeight: 120
-                                radius: 20
-                                color: "red"
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                radius: 14
+                                color: Qt.rgba(1, 1, 1, 0.05)
 
-                                CustomText {
+                                ColumnLayout {
                                     anchors.centerIn: parent
-                                    text: "CPU"
+
+                                    CustomText { 
+                                        text: "󰍛 64°C"
+                                        font.pixelSize: 13
+                                        font.bold: true
+                                        color: "#a6e3a1"
+                                    }
+
+                                    CustomText { 
+                                        text: "2%"
+                                        font.pixelSize: 22
+                                        font.bold: true
+                                    }
                                 }
                             }
 
+                            // RAM
                             Rectangle {
-                                Layout.preferredWidth: 120
-                                Layout.preferredHeight: 120
-                                radius: 20
-                                color: "blue"
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                radius: 14
+                                color: Qt.rgba(1, 1, 1, 0.05)
 
-                                CustomText {
+                                ColumnLayout {
                                     anchors.centerIn: parent
-                                    text: "RAM"
+
+                                    CustomText { 
+                                        text: "󰘚 RAM"
+                                        font.pixelSize: 13
+                                        font.bold: true
+                                    }
+
+                                    CustomText {
+                                        text: "56%"
+                                        font.pixelSize: 22
+                                        font.bold: true
+                                    }
                                 }
                             }
 
+                            // Battery
                             Rectangle {
-                                Layout.preferredWidth: 120
-                                Layout.preferredHeight: 120
-                                radius: 20
-                                color: "yellow"
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                radius: 14
+                                color: Qt.rgba(1, 1, 1, 0.05)
 
-                                CustomText {
+                                ColumnLayout {
                                     anchors.centerIn: parent
-                                    text: "ROM"
+                                    CustomText {
+                                        text: "󰁹 BAT"
+                                        font.pixelSize: 13
+                                        font.bold: true
+                                        color: "#a6e3a1"
+                                    }
+
+                                    CustomText {
+                                        text: "39%"
+                                        font.pixelSize: 22
+                                        font.bold: true
+                                        color: "#a6e3a1"
+                                    }
                                 }
                             }
                         }
                     }
 
-                    // 2. Notifications Modul
+                    // 2. Notification Module
                     CustomLockScreenModule {
                         Layout.fillHeight: true
 
                         ColumnLayout {
-                            Layout.alignment: Qt.AlignTop
-                            spacing: 10
+                            anchors.fill: parent
 
                             CustomText {
                                 text: "Notifications"
                                 font.bold: true
-                                font.pixelSize: 22
+                                font.pixelSize: 18
+                                Layout.alignment: Qt.AlignTop
                             }
 
-                            ListView {
-                                id: notificationList
+                            // ListView {
+                            //     id: notificationList
 
-                                Layout.fillWidth: true
-                                Layout.fillHeight: true
+                            //     Layout.fillWidth: true
+                            //     Layout.fillHeight: true
 
-                                clip: true
-                                spacing: 10
+                            //     clip: true
+                            //     spacing: 10
 
-                                model: DesktopEntries.applications.values
+                            //     visible: count > 0 
 
-                                delegate: CustomListViewElement {
-                                    imageSource: ""
-                                    titleText: "Notification"
-                                    contentText: "Content"
+                            //     model: DesktopEntries.applications.values
 
-                                    implicitWidth: appList.width
-                                    implicitHeight: 60
+                            //     delegate: CustomListViewElement {
+                            //         imageSource: ""
+                            //         titleText: "Notification"
+                            //         contentText: "Content"
+
+                            //         implicitWidth: notificationList.width
+                            //         implicitHeight: 60
+                            //     }
+
+                            //     ScrollBar.vertical: ScrollBar {
+                            //         policy: ScrollBar.AsNeeded
+                            //         contentItem: Rectangle {
+                            //             implicitWidth: 6
+                            //             radius: width / 2
+                            //             color: Theme.accent
+                            //         }
+                            //     }
+                            // }
+
+                            ColumnLayout {
+                                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                                
+                                visible: notificationList.count === 0
+
+                                CustomText {
+                                    text: "󰂛"
+                                    font.pixelSize: 55
+                                    opacity: 0.3
+                                    Layout.alignment: Qt.AlignHCenter
                                 }
 
-                                ScrollBar.vertical: ScrollBar {
-                                    policy: ScrollBar.AsNeeded
-                                    contentItem: Rectangle {
-                                        implicitWidth: 6
-                                        radius: width / 2
-                                        color: Theme.accent
-                                    }
+                                CustomText {
+                                    text: "No Notifications"
+                                    font.pixelSize: 15
+                                    opacity: 0.5
+                                    Layout.alignment: Qt.AlignHCenter
                                 }
                             }
                         }

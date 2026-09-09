@@ -8,6 +8,8 @@ import "./../../"
 Rectangle {
     id: root
 
+    signal accepted()
+
     property alias leftIcon: lefticon.text
     property alias rightIcon: rightIcon.text
     property alias text: textfield.text
@@ -55,7 +57,7 @@ Rectangle {
             Component.onCompleted: forceActiveFocus()
 
             onAccepted: {
-                console.log(text)
+                root.accepted()
             }
         }
 

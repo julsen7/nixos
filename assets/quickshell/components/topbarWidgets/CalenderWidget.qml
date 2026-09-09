@@ -13,6 +13,7 @@ ColumnLayout {
         text: DateTimeService.time
         font.pixelSize: 36
         font.bold: true
+        Layout.alignment: Qt.AlignHCenter
     }
 
     RowLayout {

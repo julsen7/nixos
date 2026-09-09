@@ -9,44 +9,44 @@ import "./../../services"
 ColumnLayout {
     id: root
 
+    spacing: 20
+
     RowLayout {
-        spacing: 10
+        spacing: 30
 
-        Rectangle {
-            implicitWidth: 160
-            implicitHeight: 80
+        CustomText {
+            text: WeatherService.icon
+            font.pixelSize: 60
+            font.bold: true
+        }
 
-            color: Theme.ph
-            radius: 20
+        ColumnLayout {
+            CustomText {
+                text: WeatherService.temp
+                font.pixelSize: 34
+                font.bold: true
+            }
 
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 10
-
-                CustomText {
-                    text: WeatherService.weatherIcon
-                    font.pixelSize: 60
-                    font.bold: true
-                    Layout.alignment: Qt.AlignVCenter
-                }
-
-                CustomText {
-                    text: WeatherService.temperature
-                    font.bold: true
-                    font.pixelSize: 26
-                    Layout.alignment: Qt.AlignVCenter
-                }
+            CustomText {
+                text: WeatherService.description
+                font.bold: true
             }
         }
     }
 
     RowLayout {
+        Layout.alignment: Qt.AlignHCenter
+
+        spacing: 10
+
         CustomText {
-            text: "Sunrise"
+            text: "  " + WeatherService.sunrise
+            font.pixelSize: 16
         }
 
         CustomText {
-            text: "Sunset"
+            text: "  " + WeatherService.sunset
+            font.pixelSize: 16
         }
     }
 }

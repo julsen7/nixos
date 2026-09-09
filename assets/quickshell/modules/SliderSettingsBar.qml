@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
+import Quickshell.Wayland
 
 import "./../"
 import "./../components"
@@ -24,6 +25,28 @@ Rectangle {
     bottomRightRadius: height / 2
 
     property int currentBrightness: 50
+
+    property var appIcons: {
+        "fallback": "",
+        "kitty": "",
+        "zen": "",
+        "code": "󰨞",
+        "spotify": "",
+        "discord": "",
+        "obsidian": "",
+        "obs": "󱜠",
+        "steam": "",
+        "blender": "󰂫",
+        "krita": "",
+        "pinta": "",
+        "virtual": "󰍺",
+        "prism": "",
+        "minecraft": "󰍳",
+        "youtube": "",
+        "twitch": "",
+        "github": "󰊫",
+        "moodle": ""
+    }
 
     HoverHandler {
         id: hoverHandler
@@ -80,13 +103,71 @@ Rectangle {
                 model: Hyprland.workspaces
 
                 Rectangle {
-                    implicitWidth: modelData.active ? 14 : 8
-                    implicitHeight: implicitWidth
+                    id: workspaceItem
+
+                    implicitWidth: contentRow.implicitWidth + 28
+                    implicitHeight: 28
 
                     color: modelData.active ? Theme.accent : Theme.bg3
                     radius: height / 2
 
-                    Behavior on implicitWidth { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
+                    Behavior on implicitWidth { 
+                        NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } 
+                    }
+
+                    Row {
+                        id: contentRow
+                        anchors.centerIn: parent
+                        spacing: 6
+
+                        CustomText {
+                            visible: iconRepeater.count === 0
+                            text: modelData.name
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+
+                        Repeater {
+                            id: iconRepeater
+
+                            model: {
+                                let list = [];
+                                let toplevels = Hyprland.toplevels.values;
+                                if (!toplevels) return list;
+
+                                for (let i = 0; i < toplevels.length; i++) {
+                                    let top = toplevels[i];
+                                    if (top.workspace && top.workspace.id === modelData.id) {
+                                        list.push(top);
+                                    }
+                                }
+                                return list;
+                            }
+
+                            CustomText {
+                                anchors.verticalCenter: parent.verticalCenter
+                                font.pixelSize: 18
+
+                                text: {
+                                    let top = modelData;
+                                    let rawClass = top.lastIpcObject ? (top.lastIpcObject["class"] || "") : "";
+                                    let appClass = rawClass.toLowerCase();
+
+                                    let icon = root.appIcons[appClass];
+
+                                    if (!icon) {
+                                        for (let key in root.appIcons) {
+                                            if (key !== "fallback" && appClass.includes(key)) {
+                                                icon = root.appIcons[key];
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    return icon || root.appIcons["fallback"];
+                                }
+                            }
+                        }
+                    }
 
                     MouseArea {
                         anchors.fill: parent
@@ -115,7 +196,15 @@ Rectangle {
             }
 
             CustomSlider {
-                icon: PipewireService.muted ? "󰖁" : ""
+                icon: {
+                    if (PipewireService.muted) return "󰖁";
+
+                    let vol = Math.round(PipewireService.volume * 100);
+                    if (vol === 0) return "";
+                    if (vol < 33) return "";
+                    if (vol < 66) return "";
+                    return "";
+                }
                 maxValue: 100
                 sliderValue: PipewireService.source ? Math.round(PipewireService.volume * 100) : 50
                 onMoved: PipewireService.setVolume(value / 100.0)

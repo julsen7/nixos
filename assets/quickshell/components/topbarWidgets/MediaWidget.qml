@@ -24,14 +24,14 @@ RowLayout {
             text: MprisService.trackTitle
             font.pixelSize: 18
             font.bold: true
-            Layout.maximumWidth: 150
+            Layout.maximumWidth: 200
             Layout.alignment: Qt.AlignLeft
         }
 
         CustomText {
             text: MprisService.trackArtist
             color: Theme.ph
-            Layout.maximumWidth: 150
+            Layout.maximumWidth: 200
             Layout.alignment: Qt.AlignLeft
         }
 

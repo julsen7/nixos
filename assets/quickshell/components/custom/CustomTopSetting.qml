@@ -15,14 +15,23 @@ RowLayout {
     property string value: ""
 
     property alias interval: timer.interval
-    property alias icon: icon.text
+    property alias icon: iconText.text
 
     Process {
         id: process
         command: ["sh", "-c", root.command]
         running: true
         stdout: StdioCollector {
-            onStreamFinished: root.value = text.trim()
+            onStreamFinished: {
+                let raw = text.trim()
+                if (raw.includes("\t")) {
+                    let parts = raw.split("\t")
+                    iconText.text = parts[0]
+                    root.value = parts[1]
+                } else {
+                    root.value = raw
+                }
+            }
         }
     }
 
@@ -34,7 +43,7 @@ RowLayout {
     }
 
     CustomText {
-        id: icon
+        id: iconText
         color: Theme.accent
         font.pixelSize: 18
         Layout.alignment: Qt.AlignVCenter
