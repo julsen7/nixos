@@ -30,7 +30,7 @@ Rectangle {
         "fallback": "",
         "kitty": "",
         "zen": "",
-        "code": "󰨞",
+        "codium": "󰨞",
         "spotify": "",
         "discord": "",
         "obsidian": "",

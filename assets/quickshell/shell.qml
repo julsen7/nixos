@@ -6,15 +6,10 @@
 import QtQuick
 import Quickshell
 
-import "./components"
-import "./services"
 import "./modules"
 
 ShellRoot {
   id: root
-
-  // --- Services ---
-
 
   // --- Core ---
   Background {
@@ -25,11 +20,11 @@ ShellRoot {
   // --- Panels ---
   TopBar { }
   BottomMenu {
-    id: myBottomMenu
-
     onRequestWallpaperChange: (newUrl) => {
       myBackground.wallpaperPath = newUrl
     }
   }
+  SettingsApp { }
+
   // LockScreen { }
 }
