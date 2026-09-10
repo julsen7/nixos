@@ -1,19 +1,21 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Notifications
+
+import "./../"
 
 Scope {
     id: root
 
     NotificationServer {
         id: server
-
-        bodyImagesSupported: true
         actionsSupported: true
+        bodySupported: true
         imageSupported: true
 
         onNotification: n => {
-            console.log("got: " + n.summary + "---" + n.body)
+            console.log("got: ", n.summary, "---", n.body)
             n.tracked = true
         }
     }
@@ -34,5 +36,27 @@ Scope {
 
         exclusionMode: ExclusionMode.Ignore
 
+        ColumnLayout {
+            id: column
+            width: parent.width
+            spacing: 10
+
+            Repeater {
+                model: server.trackedNotifications
+
+                delegate: Rectangle {
+                    id: card
+                    required property var modelData
+
+                    Layout.fillWidth: true
+                    // Layout.preferredHeight: layout.implicitHeight + 20
+                    radius: 8
+                    color: Theme.bg
+                    border.width: 2
+                    border.color: modelData.urgency === NotificationUrgency.Critical ? Theme.red : Theme.accent
+
+                }
+            }
+        }
     }
 }

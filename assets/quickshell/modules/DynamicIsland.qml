@@ -10,14 +10,10 @@ import "./../services"
 Rectangle {
   id: root
 
-  anchors.top: parent.top
-
-  readonly property int collapsedWidth: 140
-  readonly property int collapsedHeight: 40
   readonly property int padding: 40
 
-  implicitWidth: hoverHandler.hovered ? (contentLayout.implicitWidth + padding) : collapsedWidth
-  implicitHeight: hoverHandler.hovered ? (contentLayout.implicitHeight + padding) : collapsedHeight
+  implicitWidth: hoverHandler.hovered ? (contentLayout.implicitWidth + padding) : 140
+  implicitHeight: hoverHandler.hovered ? (contentLayout.implicitHeight + padding) : 40
 
   color: Theme.bg
   bottomLeftRadius: 20

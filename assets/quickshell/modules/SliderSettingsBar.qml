@@ -14,8 +14,6 @@ import "./../services"
 Rectangle {
     id: root
 
-    anchors.left: parent.left
-
     readonly property int padding: 40
 
     implicitWidth: sliderSettingsRow.implicitWidth + padding
