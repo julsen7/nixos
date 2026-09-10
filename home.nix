@@ -22,8 +22,8 @@ in {
       package = pkgs.gnome-themes-extra;
     };
     iconTheme = {
-      package = pkgs.adwaita-icon-theme;
       name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
     };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
@@ -33,15 +33,15 @@ in {
     };
   };
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
-  };
+  # dconf.settings = {
+  #   "org/gnome/desktop/interface" = {
+  #     color-scheme = "prefer-dark";
+  #   };
+  # };
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk3";
+    platformTheme.name = "gtk";
     style.name = "adwaita-dark";
   };
 
