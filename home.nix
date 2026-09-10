@@ -33,15 +33,15 @@ in {
     };
   };
 
-  # dconf.settings = {
-  #   "org/gnome/desktop/interface" = {
-  #     color-scheme = "prefer-dark";
-  #   };
-  # };
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "gtk3";
     style.name = "adwaita-dark";
   };
 
@@ -72,7 +72,7 @@ in {
     hyprshot
     inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     matugen
-    btop
+    btop-cuda
     bluetui
     wiremix
     nvtopPackages.full
@@ -123,7 +123,7 @@ in {
   };
 
   home.sessionVariables = {
-    EDITOR = "codim";
+    EDITOR = "codium";
     HYPRCURSOR_THEME = "Bibata-Modern-Ice";
     HYPRCURSOR_SIZE = "24";
   };
