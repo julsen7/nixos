@@ -72,7 +72,7 @@ in {
     hyprshot
     inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     matugen
-    btop-cuda
+    btop
     bluetui
     wiremix
     nvtopPackages.full
