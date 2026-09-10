@@ -7,9 +7,12 @@ import QtQuick
 import Quickshell
 
 import "./modules"
+import "./services"
 
 ShellRoot {
   id: root
+
+  NotificationService { }
 
   // --- Core ---
   Background {

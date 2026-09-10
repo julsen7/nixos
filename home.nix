@@ -113,6 +113,7 @@ in {
     lmms
     # reaper
     thunar
+    libnotify
   ];
 
   # SYSTEM
