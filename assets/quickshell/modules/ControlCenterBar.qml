@@ -10,8 +10,6 @@ import "./../components/custom"
 Rectangle {
     id: root
 
-    anchors.right: parent.right
-
     readonly property int padding: 40
 
     implicitWidth: controlCenterRow.implicitWidth + padding
@@ -22,6 +20,7 @@ Rectangle {
 
     HoverHandler {
         id: hoverHandler
+        margin: root.height
     }
 
     y: hoverHandler.hovered ? 0 : -height
