@@ -91,6 +91,7 @@ in {
     libreoffice-stable
     keepassxc
     github-cli
+    git-lfs
     _7zz
     (texliveMedium.withPackages (ps: with ps; [
       biber
