@@ -361,7 +361,7 @@ in {
       hl.monitor({
         output   = "eDP-1",
         mode     = "1920x1080@144",
-        position = "2560x500",
+        position = "-2560x500",
         scale    = 1,
       })
 
@@ -378,11 +378,11 @@ in {
       -- =========================================================================
 
       for i = 1, 3 do
-        hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", persistent = true })
+        hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1", persistent = true })
       end
 
       for i = 4, 6 do
-        hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1", persistent = true })
+        hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", persistent = true })
       end
 
       -- =========================================================================
@@ -399,10 +399,10 @@ in {
 
         -- Apps
         hl.exec_cmd("uwsm app -- discord --start-minimized")
-        hl.exec_cmd("uwsm app -- spotify", { workspace = "6 silent" })
+        hl.exec_cmd("uwsm app -- spotify", { workspace = "3 silent" })
 
         -- Fokus auf Workspace 1
-        hl.dispatch(hl.dsp.focus({ workspace = "1" }))
+        hl.dispatch(hl.dsp.focus({ workspace = "4" }))
 
         -- Default monitor
         hl.exec_cmd("xrandr --output HDMI-A-1 --primary")
