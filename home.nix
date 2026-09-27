@@ -83,7 +83,7 @@ in {
     audacity
     obsidian
     easyeffects
-    davinci-resolve
+    # davinci-resolve
     prismlauncher
     heroic
     vlc
