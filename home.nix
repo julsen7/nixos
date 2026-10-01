@@ -205,82 +205,32 @@ in {
       };
       modules = [
         {
-          type = "custom";
-          key = "╭────────────╮";
-        }
-        {
-          type = "title";
-          key = "│ {#34}  user    {#keys}│";
-          format = "{user-name}";
-        }
-        {
-          type = "title";
-          key = "│ {#34}󰇅  hname   {#keys}│";
-          format = "{host-name}";
-        }
-        {
-          type = "uptime";
-          key = "│ {#34}󰅐  uptime  {#keys}│";
+          "julsen@desktop"
         }
         {
           type = "os";
-          key = "│ {#34}{icon}  distro  {#keys}│";
+          key = "os  {#keys}│";
         }
         {
-          type = "kernel";
-          key = "│ {#34}  kernel  {#keys}│";
-        }
-        {
-          type = "wm";
-          key = "│ {#34}  wm      {#keys}│";
-        }
-        {
-          type = "de";
-          key = "│ {#34}󰇄  desktop {#keys}│";
-        }
-        {
-          type = "terminal";
-          key = "│ {#34}  term    {#keys}│";
-        }
-        {
-          type = "shell";
-          key = "│ {#34}  shell   {#keys}│";
+          type = "host";
+          key = "host {#keys}";
         }
         {
           type = "packages";
-          key = "│ {#34}󰏓  pkgs    {#keys}│";
+          key = "pkgs {#keys}";
         }
         {
-          type = "cpu";
-          key = "│ {#34}󰍛  cpu     {#keys}│";
-          showPeCoreCount = true;
-        }
-        {
-          type = "gpu";
-          key = "│ {#34}󰍛  gpu     {#keys}│";
-          showPeCoreCount = true;
-        }
-        {
-          type = "disk";
-          key = "│ {#34}󰉉  disk    {#keys}│";
-          folders = "/";
+          type = "uptime";
+          key = "uptime {#keys}";
         }
         {
           type = "memory";
-          key = "│ {#34}  memory  {#keys}│";
-        }
-        {
-          type = "custom";
-          key = "├────────────┤";
+          key = "memory {#keys}";
         }
         {
           type = "colors";
-          key = "│ {#34} colors   {#keys}│";
-          symbol = "circle";
-        }
-        {
-          type = "custom";
-          key = "╰────────────╯";
+          key = "{#keys}";
+          symbol = "square";
         }
       ];
     };
@@ -638,7 +588,6 @@ in {
         bbenoist.nix
         davidanson.vscode-markdownlint
         eamodio.gitlens
-        ecmel.vscode-html-css
         github.github-vscode-theme
       ];
     };
