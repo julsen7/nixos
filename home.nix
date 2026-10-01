@@ -198,7 +198,7 @@ in {
     enable = true;
     settings = {
       logo = {
-        source = "arch-minimal";
+        source = "arch";
       };
       display = {
         separator = " ";
