@@ -198,9 +198,7 @@ in {
     enable = true;
     settings = {
       logo = {
-        source = "~/Downloads/nixos.txt";
-        width = 65;
-        height = 35;
+        source = "nixos";
       };
       display = {
         separator = " ";
