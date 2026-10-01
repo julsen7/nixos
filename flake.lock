@@ -95,28 +95,8 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "quickshell": "quickshell",
-        "snappy-switcher": "snappy-switcher",
         "spicetify-nix": "spicetify-nix",
         "zen-browser": "zen-browser"
-      }
-    },
-    "snappy-switcher": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1788878136,
-        "narHash": "sha256-UO9tWTCNkpX011xrrxop2FU5Sw5yWcVXDuOVXuxmkxk=",
-        "owner": "OpalAayan",
-        "repo": "snappy-switcher",
-        "rev": "e12ad51aca77e16913723769849804b2a1efb849",
-        "type": "github"
-      },
-      "original": {
-        "owner": "OpalAayan",
-        "repo": "snappy-switcher",
-        "type": "github"
       }
     },
     "spicetify-nix": {

@@ -70,7 +70,6 @@ in {
     hyprpolkitagent
     hyprpicker
     hyprshot
-    inputs.snappy-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
     matugen
     btop
     bluetui
@@ -80,39 +79,16 @@ in {
     discord
     pinta
     krita
-    audacity
-    obsidian
     easyeffects
-    # davinci-resolve
+    davinci-resolve
     prismlauncher
     heroic
-    vlc
-    libbluray
     libreoffice-stable
-    keepassxc
     github-cli
     git-lfs
     _7zz
-    (texliveMedium.withPackages (ps: with ps; [
-      biber
-      collection-latexextra
-      collection-fontsrecommended
-    ]))
-    tex-fmt
-    # gcc
-    # gnumake
-    # make
-    # cmake
-    # binutils
-    # pkg-config
-    jdk
-    # jdk26 ?
-    # python ?
-    # maven ?
-    # gradle
-    # bitwig-studio
+    audacity
     lmms
-    # reaper
     thunar
     libnotify
   ];
@@ -145,30 +121,6 @@ in {
     "quickshell".source = ./assets/quickshell;
     "matugen".source = ./assets/matugen;
     "obs-studio/basic".source = ./assets/obs-studio/basic;
-    "snappy-switcher/config.ini".text = ''
-      [general]
-      mode = overview
-      follow_monitor = true
-      show_workspace_badge = false
-
-      [theme]
-      background = #000000
-      card_bg = #000000
-      card_selected = #313131
-      text_color = #ffffff
-      border_color = #ffffff
-      corner_radius = 20
-
-      [layout]
-      icon_size = 64
-      icon_radius = 20
-
-      [icons]
-      theme = Adwaita
-
-      [font]
-      family = JetBrainsMono Nerd Font
-    '';
     "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
@@ -394,7 +346,6 @@ in {
         hl.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist store")
         hl.exec_cmd("uwsm app -- wl-paste --type image --watch cliphist store")
         hl.exec_cmd("uwsm app -- udiskie")
-        hl.exec_cmd("uwsm app -- snappy-switcher --daemon")
         hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
 
         -- Apps
@@ -452,14 +403,11 @@ in {
       hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
       -- App-Launcher & Quick-Tools
-      hl.bind("ALT + TAB", hl.dsp.exec_cmd("snappy-switcher next --workspace --mod alt"))
-      hl.bind("SUPER + TAB", hl.dsp.exec_cmd("change-wallpaper"))
       hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       hl.bind("SUPER + ALT", hl.dsp.global("quickshell:menu"))
       hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- hyprshot -m region --clipboard-only"))
       hl.bind("SUPER + P", hl.dsp.exec_cmd("uwsm app -- hyprpicker -a"))
-      -- hl.bind("SUPER + V", hl.dsp.exec_cmd("uwsm app -- cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy"))
 
       -- Quickstart-Shortcuts
       hl.bind("SUPER + Q", hl.dsp.exec_cmd("uwsm app -- kitty"))
@@ -680,7 +628,6 @@ in {
         "files.simpleDialog.enable" = true;
         "git.autofetch" = true;
         "git.confirmSync" = false;
-        # "qt-core.showWelcomePageOnActivation" = false;
         "workbench.colorTheme" = "GitHub Dark Default";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.secondarySideBar.defaultVisibility" = "hidden";
@@ -689,44 +636,11 @@ in {
       extensions = with pkgs.vscode-extensions; [
         pkief.material-icon-theme
         bbenoist.nix
-        cweijan.dbclient-jdbc
-        cweijan.vscode-database-client2
         davidanson.vscode-markdownlint
         eamodio.gitlens
         ecmel.vscode-html-css
         github.github-vscode-theme
-        ritwickdey.liveserver
-        tomoki1207.pdf
-        vscjava.vscode-java-pack
-        vscjava.vscode-java-test
-        vscjava.vscode-java-debug
-        vscjava.vscode-maven
-        vscjava.vscode-java-dependency
-        vscjava.vscode-gradle
-        redhat.java
-        ms-vscode.cpptools-extension-pack
-        ms-vscode.cmake-tools
-        ms-vscode.cpptools
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "cpptools-themes";
-          publisher = "ms-vscode";
-          version = "2.0.0";
-          sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
-        }
-        {
-          name = "cpp-devtools";
-          publisher = "ms-vscode";
-          version = "0.5.14";
-          sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
-        }
-        # {
-        #   name = "qt-qml";
-        #   publisher = "theqtcompany";
-        #   version = "1.14.0";
-        #   sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
-        # }
-       ];
+      ];
     };
   };
 }

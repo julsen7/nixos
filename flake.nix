@@ -11,7 +11,6 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    snappy-switcher.url = "github:OpalAayan/snappy-switcher";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +21,7 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, spicetify-nix, snappy-switcher, ... } @ inputs: {
+  outputs = { nixpkgs, home-manager, spicetify-nix, ... } @ inputs: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
