@@ -208,11 +208,13 @@ in {
         {
           type = "os";
           key = "os    ";
+          keyColor = "33";
         }
         {
           type = "host";
           format = "{5} {1}";
           key = "host  ";
+          keyColor = "33";
         }
         {
           type = "packages";
