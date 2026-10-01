@@ -680,7 +680,7 @@ in {
         "files.simpleDialog.enable" = true;
         "git.autofetch" = true;
         "git.confirmSync" = false;
-        "qt-core.showWelcomePageOnActivation" = false;
+        # "qt-core.showWelcomePageOnActivation" = false;
         "workbench.colorTheme" = "GitHub Dark Default";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.secondarySideBar.defaultVisibility" = "hidden";
@@ -720,12 +720,12 @@ in {
           version = "0.5.14";
           sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
         }
-        {
-          name = "qt-qml";
-          publisher = "theqtcompany";
-          version = "1.14.0";
-          sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
-        }
+        # {
+        #   name = "qt-qml";
+        #   publisher = "theqtcompany";
+        #   version = "1.14.0";
+        #   sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
+        # }
        ];
     };
   };
