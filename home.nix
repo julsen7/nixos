@@ -407,8 +407,6 @@ in {
     };
 
     settings = {
-      background = colors.special.background;
-      foreground = colors.special.foreground;
       color0 = "#100a19";
       color1 = "#4E6468";
       color2 = "#458A78";
