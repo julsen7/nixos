@@ -401,42 +401,53 @@ in {
   programs.kitty = {
     enable = true;
 
-    # -- Schriftart-Konfiguration --
     font = {
-      name = "JetBrains Mono";
+      name = "JetBrainsMono Nerd Font";
       size = 12;
     };
 
-    # -- Fenster & Layout --
     settings = {
-      # Entspricht 'window_margin_width 10 15'
+      background = colors.special.background;
+      foreground = colors.special.foreground;
+      color0 = #100a19;
+      color1 = #4E6468;
+      color2 = #458A78;
+      color3 = #4F7985;
+      color4 = #33908F;
+      color5 = #3DA19C;
+      color6 = #51A192;
+      color7 = #c3c1c5;
+
       window_margin_width = "10 15";
       window_resize_step_cells = 5;
       window_resize_step_lines = 2;
       confirm_os_window_close = 0;
 
-      # -- Farbschema / Transparenz --
       background_opacity = "0.9";
       background_blur = 0;
 
-      # -- Verschiedenes --
-      enable_audio_bell = "no";
-      force_ltr = "no";
-      detect_urls = "yes";
+      disable_ligatures = "never";
+
+      cursor_stop_blinking_after = 0;
+      cursor_trail = 10;
+
+      mouse_hide_wait = "3.0";
+      
+      enable_audio_bell = false;
+      force_ltr = false;
+      detect_urls = true;
+
+      window_padding_width = 30;
+      confirm_os_window_close = 0;
+
+      shell = "zsh";
     };
 
-    # Zusätzliche rohe Konfiguration für das ASCII-Banner und automatische Fonts
     extraConfig = ''
-      #   _____ __ _____ _____ __ __ 
-      #  |  |  |__|_   _|_   _|  |  |
-      #  |    -|  | | |   | | |_   _|
-      #  |__|__|__| |_|   |_|   |_|  
-      #                           
-      #  by Bina
-
-      bold_font          auto
-      italic_font        auto
-      bold_italic_font   auto
+      include current-theme.conf
+      bold_font auto
+      italic_font auto
+      bold_italic_font auto
     '';
   };
 
