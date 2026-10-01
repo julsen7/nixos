@@ -220,17 +220,26 @@ in {
           type = "packages";
           format = "{}";
           key = "pkgs  ";
+          keyColor = "33";
         }
         {
           type = "uptime";
           format = "{2}h {3}m";
           key = "uptime";
+          keyColor = "33";
         }
         {
           type = "memory";
           key = "memory";
+          keyColor = "33";
         }
-        "colors"
+        {
+          type = "colors";
+          block = {
+            range = [ 0 7 ];
+          };
+          keyColor = "33";
+        }
       ];
     };
   };
