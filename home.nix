@@ -91,7 +91,6 @@ in {
     lmms
     thunar
     libnotify
-    fastfetch
   ];
 
   # SYSTEM
@@ -196,7 +195,7 @@ in {
   };
 
   programs.fastfetch = {
-    enable = false;
+    enable = true;
     settings = {
       logo = {
         source = "nixos";
