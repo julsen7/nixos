@@ -198,7 +198,7 @@ in {
     enable = true;
     settings = {
       logo = {
-        source = "~/Downloads/arch.txt";
+        source = "nixos_small";
       };
       display = {
         separator = " ";
