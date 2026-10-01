@@ -668,34 +668,25 @@ in {
   programs.vscodium = {
     enable = true;
     profiles.default = {
-      userSettings = {
-        "explorer.confirmDelete" = false;
-        "workbench.iconTheme" = "material-icon-theme";
-        "workbench.secondarySideBar.defaultVisibility" = "hidden";
-        "explorer.confirmDragAndDrop" = false;
-        "git.confirmSync" = false;
-        "git.autofetch" = true;
-        "editor.fontFamily" = "'JetBrainsMono Nerd Font Propo', 'Droid Sans Mono', monospace";
-        "explorer.confirmPasteNative" = false;
-        "latex-workshop.latex.autoBuild.run" = "onFileChange";
-        "files.autoSave" = "afterDelay";
-        "workbench.startupEditor" = "none";
-        "files.exclude" = {
-          "**/.git" = false;
-        };
-        "latex-workshop.formatting.latex" = "tex-fmt";
-        "github.copilot.enable" = {
-          "*" = false;
-          "plaintext" = false;
-          "markdown" = false;
-          "scminput" = false;
-        };
-        "workbench.colorTheme" = "GitHub Dark Default";
-        "Lua.workspace.library" = [
-          "/usr/share/hypr/stubs"
-        ];
-        "files.simpleDialog.enable" = true;
-      };
+      # userSettings = {
+      #   "editor.fontFamily" = "'JetBrainsMono Nerd Font Propo'";
+      #   "explorer.confirmDelete" = false;
+      #   "explorer.confirmDragAndDrop" = false;
+      #   "explorer.confirmPasteNative" = false;
+      #   "files.autoSave" = "afterDelay";
+      #   "files.exclude" = {
+      #     "**/.git" = false;
+      #   };
+      #   "files.simpleDialog.enable" = true;
+      #   "git.autofetch" = true;
+      #   "git.confirmSync" = false;
+      #   # "latex-workshop.latex.autoBuild.run" = "onFileChange";
+      #   # "latex-workshop.formatting.latex" = "tex-fmt";
+      #   "workbench.iconTheme" = "material-icon-theme";
+      #   "workbench.secondarySideBar.defaultVisibility" = "hidden";
+      #   "workbench.startupEditor" = "none";
+      #   "workbench.colorTheme" = "GitHub Dark Default";
+      # };
       extensions = with pkgs.vscode-extensions; [
         pkief.material-icon-theme
         bbenoist.nix
@@ -719,18 +710,18 @@ in {
         ms-vscode.cmake-tools
         ms-vscode.cpptools
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "cpptools-themes";
-          publisher = "ms-vscode";
-          version = "2.0.0";
-          sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
-        }
-        {
-          name = "cpp-devtools";
-          publisher = "ms-vscode";
-          version = "0.5.14";
-          sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
-        }
+        # {
+        #   name = "cpptools-themes";
+        #   publisher = "ms-vscode";
+        #   version = "2.0.0";
+        #   sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
+        # }
+        # {
+        #   name = "cpp-devtools";
+        #   publisher = "ms-vscode";
+        #   version = "0.5.14";
+        #   sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
+        # }
         {
           name = "qt-qml";
           publisher = "theqtcompany";
