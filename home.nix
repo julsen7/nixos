@@ -438,7 +438,6 @@ in {
       detect_urls = true;
 
       window_padding_width = 30;
-      confirm_os_window_close = 0;
 
       shell = "zsh";
     };
