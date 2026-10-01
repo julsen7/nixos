@@ -409,14 +409,14 @@ in {
     settings = {
       background = colors.special.background;
       foreground = colors.special.foreground;
-      color0 = #100a19;
-      color1 = #4E6468;
-      color2 = #458A78;
-      color3 = #4F7985;
-      color4 = #33908F;
-      color5 = #3DA19C;
-      color6 = #51A192;
-      color7 = #c3c1c5;
+      color0 = "#100a19";
+      color1 = "#4E6468";
+      color2 = "#458A78";
+      color3 = "#4F7985";
+      color4 = "#33908F";
+      color5 = "#3DA19C";
+      color6 = "#51A192";
+      color7 = "#c3c1c5";
 
       window_margin_width = "10 15";
       window_resize_step_cells = 5;
