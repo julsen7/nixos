@@ -232,6 +232,7 @@ in {
           type = "memory";
           key = "memory";
           keyColor = "33";
+          "outputColor" = "32";
         }
         {
           type = "colors";
