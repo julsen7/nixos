@@ -195,47 +195,44 @@ in {
     };
   };
 
-  # programs.fastfetch = {
-  #   enable = false;
-  #   settings = {
-  #     logo = {
-  #       source = "nixos";
-  #     };
-  #     display = {
-  #       separator = " ";
-  #     };
-  #     modules = [
-  #       {
-  #         "custom" = "julsen@desktop";
-  #       }
-  #       {
-  #         type = "os";
-  #         key = "os  {#keys}│";
-  #       }
-  #       {
-  #         type = "host";
-  #         key = "host {#keys}";
-  #       }
-  #       {
-  #         type = "packages";
-  #         key = "pkgs {#keys}";
-  #       }
-  #       {
-  #         type = "uptime";
-  #         key = "uptime {#keys}";
-  #       }
-  #       {
-  #         type = "memory";
-  #         key = "memory {#keys}";
-  #       }
-  #       {
-  #         type = "colors";
-  #         key = "{#keys}";
-  #         symbol = "square";
-  #       }
-  #     ];
-  #   };
-  # };
+  programs.fastfetch = {
+    enable = false;
+    settings = {
+      logo = {
+        source = "nixos";
+      };
+      display = {
+        separator = " ";
+      };
+      modules = [
+        "title"
+        {
+          type = "os";
+          key = "os    ";
+        }
+        {
+          type = "host";
+          format = "{5} {1}";
+          key = "host  ";
+        }
+        {
+          type = "packages";
+          format = "{} (pacman)";
+          key = "pkgs  ";
+        }
+        {
+          type = "uptime";
+          format = "{2}h {3}m";
+          key = "uptime";
+        }
+        {
+          type = "memory";
+          key = "memory";
+        }
+        colors
+      ];
+    };
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
