@@ -198,7 +198,7 @@ in {
     enable = true;
     settings = {
       logo = {
-        source = "nixos_old";
+        source = "nixos_old_small";
       };
       display = {
         separator = " ";
@@ -232,7 +232,6 @@ in {
           type = "memory";
           key = "memory";
           keyColor = "33";
-          outputColor = "32";
         }
         {
           type = "colors";
