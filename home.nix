@@ -198,7 +198,7 @@ in {
     enable = true;
     settings = {
       logo = {
-        source = "nixos_old_small";
+        source = "NixOS2";
       };
       display = {
         separator = " ";
