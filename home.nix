@@ -228,7 +228,7 @@ in {
           type = "memory";
           key = "memory";
         }
-        colors
+        "colors"
       ];
     };
   };
