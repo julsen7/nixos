@@ -198,7 +198,7 @@ in {
     enable = true;
     settings = {
       logo = {
-        source = "arch";
+        source = "~/Downloads/arch.txt";
       };
       display = {
         separator = " ";
