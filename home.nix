@@ -250,8 +250,9 @@ in {
         }
         {
           type = "packages";
-          format = "{}";
-          key = "pkgs  ";
+          format = "{} (nix)";
+          # key = "pkgs  ";
+          nix = "all";
           keyColor = "33";
         }
         {
@@ -452,8 +453,6 @@ in {
       detect_urls = true;
 
       window_padding_width = 30;
-
-      shell = "zsh";
     };
 
     extraConfig = ''
