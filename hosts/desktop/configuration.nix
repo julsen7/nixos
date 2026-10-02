@@ -11,7 +11,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # GENERAL
+  # NETWORKING & LOCALIZATION
 
   networking = {
     hostName = "desktop";
@@ -19,78 +19,13 @@
     firewall.enable = true;
   };
 
-  zramSwap.enable = true;
-
-  # SERVICES
-
-  services.openssh.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  services.fwupd.enable = true;
-  services.power-profiles-daemon.enable = true;
-
-  services.udisks2 = {
-    enable = true;
-    mountOnMedia = true;
-    settings = {
-      "udisks2.conf" = {
-        defaults = {
-          encryption = "luks2";
-        };
-      };
-      "WDC-WD10EZEX-60M2NA0-WD-WCC3F3SJ0698.conf" = {
-        ATA = {
-          StandbyTimeout = 50;
-        };
-      };
-    };
-  };
-
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      theme = "sddm-astronaut";
-      autoNumlock = true;
-      wayland.enable = true;
-    };
-    autoLogin = {
-      enable = false;
-      user = "julsen";
-    };
-    defaultSession = "hyprland-uwsm";
-  };
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
-  };
-
-  # LOCALISATION
-
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
 
-  # HARDWARE
+  zramSwap.enable = true;
 
-  services.xserver = {
-    xkb = {
-      layout = "de";
-      variant = "";
-      options = "eurosign:e,caps:escape";
-    };
-    videoDrivers = [
-      "amdgpu"
-      "nvidia"
-    ];
-  };
+  # HARDWARE & GRAPHICS
 
   hardware = {
     enableRedistributableFirmware = true;
@@ -116,8 +51,6 @@
       settings = {
         General = {
           Experimental = true;
-
-          # for xbox controller
           Privacy = "device";
           JustWorksRepairing = "always";
           Class = "0x000100";
@@ -125,7 +58,66 @@
         };
       };
     };
-    xpadneo.enable = true; # for xbox controller
+    xpadneo.enable = true;
+  };
+
+  services.xserver = {
+    videoDrivers = [ "amdgpu" "nvidia" ];
+    xkb = {
+      layout = "de";
+      variant = "";
+      options = "eurosign:e,caps:escape";
+    };
+  };
+
+  # SERVICES & SECURITY
+
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
+  };
+
+  services = {
+    openssh.enable = true;
+    gnome.gnome-keyring.enable = true;
+    fwupd.enable = true;
+    power-profiles-daemon.enable = true;
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+
+    udisks2 = {
+      enable = true;
+      mountOnMedia = true;
+      settings = {
+        "udisks2.conf".defaults.encryption = "luks2";
+        "WDC-WD10EZEX-60M2NA0-WD-WCC3F3SJ0698.conf".ATA.StandbyTimeout = 50;
+      };
+    };
+
+    displayManager = {
+      sddm = {
+        enable = true;
+        theme = "sddm-astronaut";
+        autoNumlock = true;
+        wayland.enable = true;
+      };
+      autoLogin = {
+        enable = false;
+        user = "julsen";
+      };
+      defaultSession = "hyprland-uwsm";
+    };
   };
 
   # VIRTUALISATION
@@ -142,9 +134,12 @@
 
   # USER
 
+  programs.zsh.enable = true;
+
   users.users.julsen = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "libvirtd" "kvm" ];
+    shell = pkgs.zsh;
+    extraGroups = [ "wheel" "networkmanager" "libvirtd" "kvm" "video" "audio" "input" ];
     hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
   };
 
@@ -152,9 +147,14 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  security = {
-    rtkit.enable = true;
-    polkit.enable = true;
+  environment.systemPackages = with pkgs; [
+    sddm-astronaut
+  ];
+
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
   };
 
   programs.steam = {
@@ -162,12 +162,6 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
-  };
-
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
   };
 
   # NIXOS

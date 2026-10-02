@@ -25,20 +25,12 @@ in {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
     };
-    cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
     font = {
       name = "Sans";
       size = 11;
     };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
   dconf.settings = {
@@ -58,16 +50,12 @@ in {
     style.name = "adwaita-dark";
   };
 
-  fonts = {
-
-    fontconfig = {
-      enable = true;
-
-      defaultFonts = {
-        monospace = [ "pkgs.nerd-fonts.ubuntu-mono" ];
-        sansSerif = [ "pkgs.nerd-fonts.ubuntu-sans" ];
-        serif = [ "pkgs.nerd-fonts.ubuntu" ];
-      };
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [ "pkgs.nerd-fonts.ubuntu-mono" ];
+      sansSerif = [ "pkgs.nerd-fonts.ubuntu-sans" ];
+      serif = [ "pkgs.nerd-fonts.ubuntu" ];
     };
   };
 
@@ -88,9 +76,10 @@ in {
     noto-fonts
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
-    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
 
+    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     thunar
     discord
     pinta
@@ -168,12 +157,12 @@ in {
     };
 
     shellAliases = {
-      ls = "eza --icons --group-directories-first --color=always";
-      ll = "eza -lh --icons --group-directories-first";
-      lt = "eza --tree --level=2 --icons";
-      la = "eza -a --icons";
-      lla = "eza -lha --icons --group-directories-first";
-      cd = "z";
+      # ls = "eza --icons --group-directories-first --color=always";
+      # ll = "eza -lh --icons --group-directories-first";
+      # lt = "eza --tree --level=2 --icons";
+      # la = "eza -a --icons";
+      # lla = "eza -lha --icons --group-directories-first";
+      # cd = "z";
       cl = "clear";
     };
 
@@ -200,6 +189,9 @@ in {
     enable = true;
     enableZshIntegration = true;
     git = true;
+    extraOptions = [
+      "--group-directories-first"
+    ];
   };
 
   programs.zoxide = {
@@ -290,22 +282,12 @@ in {
     systemd.enable = false;
     
     extraConfig = ''
-      local success, colors = pcall(require, "colors")
-
-      if not success then
-        colors = {
-          primary_container = "0xee1a1a1a"
-        }
-      end
-
-      -- =========================================================================
       -- Monitor-Setups
-      -- =========================================================================
 
       hl.monitor({
         output   = "HDMI-A-1",
         mode     = "2560x1440@144",
-        position = "1920x500",
+        position = "1920x-500",
         scale    = 1,
       })
 
@@ -324,9 +306,7 @@ in {
         scale    = 1,
       })
 
-      -- =========================================================================
       -- Workspaces
-      -- =========================================================================
 
       for i = 1, 3 do
         hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", persistent = true })
@@ -336,29 +316,21 @@ in {
         hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1", persistent = true })
       end
 
-      -- =========================================================================
       -- Autostart / Startup Events
-      -- =========================================================================
 
       hl.on("hyprland.start", function()
-        -- Clipboard & Daemons
         hl.exec_cmd("uwsm app -- udiskie")
         hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
 
-        -- Apps
         hl.exec_cmd("uwsm app -- discord --start-minimized")
         hl.exec_cmd("uwsm app -- spotify", { workspace = "6 silent" })
 
-        -- Fokus auf Workspace 1
         -- hl.dispatch(hl.dsp.focus({ workspace = "4" }))
 
-        -- Default monitor
         -- hl.exec_cmd("xrandr --output HDMI-A-1 --primary")
       end)
 
-      -- =========================================================================
       -- General configuration
-      -- =========================================================================
 
       hl.config({
         general = {
@@ -380,18 +352,14 @@ in {
         },
       })
 
-      -- =========================================================================
       -- Keybindings
-      -- =========================================================================
 
-      -- System & Fenstersteuerung
       hl.bind("CTRL + ALT + Delete", hl.dsp.exit())
       hl.bind("ALT + F4", hl.dsp.window.close())
       hl.bind("F11", hl.dsp.window.fullscreen())
       hl.bind("SUPER + F", hl.dsp.window.float({ action = "toggle" }))
       hl.bind("SUPER + S", hl.dsp.layout("togglesplit"))
 
-      -- Navigation & Drag/Resize
       hl.bind("SUPER + up", hl.dsp.window.move({ direction = "up" }))
       hl.bind("SUPER + down", hl.dsp.window.move({ direction = "down" }))
       hl.bind("SUPER + right", hl.dsp.window.move({ direction = "right" }))
@@ -399,14 +367,12 @@ in {
       hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
       hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-      -- App-Launcher & Quick-Tools
-      -- hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
+      -- hl.bind("SUPER + SVHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       hl.bind("SUPER + ALT", hl.dsp.global("quickshell:menu"))
       hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- hyprshot -m region --clipboard-only"))
       hl.bind("SUPER + P", hl.dsp.exec_cmd("uwsm app -- hyprpicker -a"))
 
-      -- Quickstart-Shortcuts
       hl.bind("SUPER + Q", hl.dsp.exec_cmd("uwsm app -- kitty"))
       hl.bind("SUPER + E", hl.dsp.exec_cmd("uwsm app -- thunar"))
       hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm app -- zen"))
@@ -414,7 +380,6 @@ in {
       hl.bind("SUPER + D", hl.dsp.exec_cmd("uwsm app -- discord"))
       hl.bind("SUPER + C", hl.dsp.exec_cmd("uwsm app -- codium"))
 
-      -- Workspaces 1-6
       for i = 1, 6 do
         hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = i }))
         hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
@@ -423,10 +388,8 @@ in {
       hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
       hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-      -- Gestures
       hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 
-      -- Multimedia & Hardware-Tasten
       hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
       hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
       hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
@@ -439,9 +402,7 @@ in {
       hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
       hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
-      -- =========================================================================
       -- Animations
-      -- =========================================================================
 
       hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0 }, { 0.35, 1 } } })
       hl.curve("rubber", { type = "spring", mass = 1, stiffness = 40, dampening = 10 })
@@ -473,6 +434,8 @@ in {
       window_resize_step_cells = 5;
       window_resize_step_lines = 2;
       confirm_os_window_close = 0;
+
+      startup_mode = "normal";
 
       background_opacity = "0.9";
       background_blur = 0;
@@ -541,7 +504,6 @@ in {
         "$git_status"
         "$fill"
         "$all"
-        "$cmd_duration"
         "$time"
         "$line_break"
         "$character"
@@ -578,41 +540,41 @@ in {
         style = "white";
       };
       maven = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "";
         style = "#c31e3d";
       };
       gradle = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "";
         style = "#02303a";
       };
       java = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "󰬷";
         style = "#ed8b00";
       };
       c = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "󰙱";
         style = "#3848a9";
       };
       cpp = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "󰙲";
         style = "#00599c";
       };
       haskell = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "󰲒";
         style = "#5e5086";
       };
       kotlin = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "󱈙";
       };
       python = {
-        format = " [\${symbol} (\${version})]($style) ";
+        format = " [$symbol ($version)]($style) ";
         symbol = "󰌠";
         style = "#ffd43b";
       };
