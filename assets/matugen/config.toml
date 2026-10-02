@@ -1,9 +1,5 @@
 [config]
 
-[templates.hyprland]
-input_path = '~/.config/matugen/templates/hyprland-colors.lua'
-output_path = '~/.config/theme/hypr.lua'
-
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty-colors.conf'
 output_path = '~/.config/theme/kitty.conf'

@@ -29,4 +29,7 @@ nixos-install --flake github:julsen7/nixos#HOST --root /mnt
 
 ## Other information
 
-Wallpapers: <https://www.wallpaperflare.com/>
+Wallpapers:
+
+- <https://www.wallpaperflare.com/>
+- <https://4kwallpapers.com/>
