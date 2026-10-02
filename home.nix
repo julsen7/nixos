@@ -250,8 +250,8 @@ in {
         }
         {
           type = "packages";
-          format = "{} (nix)";
-          # key = "pkgs  ";
+          format = "{}";
+          key = "pkgs  ";
           nix = "all";
           keyColor = "33";
         }
@@ -507,12 +507,6 @@ in {
         "$line_break"
         "$character"
       ];
-
-      character = {
-        success_symbol = "[➜](bold green)";
-        error_symbol = "[➜](bold red)";
-      };
-
       os = {
         format = "[$symbol]($style) ";
         disabled = false;
