@@ -60,10 +60,6 @@ in {
 
   fonts = {
 
-    packages = with pkgs; [
-      pkgs.nerd-fonts.ubuntu
-    ];
-
     fontconfig = {
       enable = true;
 
