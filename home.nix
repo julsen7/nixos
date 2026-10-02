@@ -59,7 +59,6 @@ in {
   };
 
   fonts = {
-    enableDefaultPackages = true;
 
     packages = with pkgs; [
       pkgs.nerd-fonts.ubuntu
