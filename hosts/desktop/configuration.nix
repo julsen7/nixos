@@ -16,6 +16,7 @@
   networking = {
     hostName = "desktop";
     networkmanager.enable = true;
+    firewall.enable = true;
   };
 
   zramSwap.enable = true;
@@ -24,17 +25,35 @@
 
   services.openssh.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  services.udisks2.enable = true;
   services.fwupd.enable = true;
   services.power-profiles-daemon.enable = true;
+
+  services.udisks2 = {
+    enable = true;
+    mountOnMedia = true;
+    settings = {
+      "udisks2.conf" = {
+        defaults = {
+          encryption = "luks2";
+        };
+      };
+      "WDC-WD10EZEX-60M2NA0-WD-WCC3F3SJ0698.conf" = {
+        ATA = {
+          StandbyTimeout = 50;
+        };
+      };
+    };
+  };
 
   services.displayManager = {
     sddm = {
       enable = true;
+      theme = "sddm-astronaut";
+      autoNumlock = true;
       wayland.enable = true;
     };
     autoLogin = {
-      enable = true;
+      enable = false;
       user = "julsen";
     };
     defaultSession = "hyprland-uwsm";
@@ -64,6 +83,7 @@
   services.xserver = {
     xkb = {
       layout = "de";
+      variant = "";
       options = "eurosign:e,caps:escape";
     };
     videoDrivers = [
@@ -141,6 +161,7 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
   };
 
   programs.hyprland = {

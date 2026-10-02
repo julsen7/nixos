@@ -25,6 +25,14 @@ in {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
     };
+    cursorTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    font = {
+      name = "Sans";
+      size = 11;
+    };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
     };
@@ -36,6 +44,11 @@ in {
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+      gtk-theme = "Adwaita-dark";
+    };
+    "org/gnome/shell/extensions/just-perfection" = {
+      app-menu = false;
+      activities-button = false;
     };
   };
 
@@ -43,6 +56,24 @@ in {
     enable = true;
     platformTheme.name = "gtk3";
     style.name = "adwaita-dark";
+  };
+
+  fonts = {
+    enableDefaultPackages = true;
+
+    packages = with pkgs; [
+      pkgs.nerd-fonts.ubuntu
+    ];
+
+    fontconfig = {
+      enable = true;
+
+      defaultFonts = {
+        monospace = [ "pkgs.nerd-fonts.ubuntu-mono" ];
+        sansSerif = [ "pkgs.nerd-fonts.ubuntu-sans" ];
+        serif = [ "pkgs.nerd-fonts.ubuntu" ];
+      };
+    };
   };
 
   home.pointerCursor = {
@@ -59,41 +90,44 @@ in {
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     noto-fonts
     noto-fonts-color-emoji
     nerd-fonts.jetbrains-mono
-    brightnessctl
-    cliphist
-    wl-clipboard
-    playerctl
-    hyprpolkitagent
-    hyprpicker
-    hyprshot
-    matugen
-    btop
-    bluetui
-    wiremix
-    nvtopPackages.full
+    inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    thunar
     discord
     pinta
     krita
-    easyeffects
     davinci-resolve
+    easyeffects
     prismlauncher
     heroic
     libreoffice-stable
-    github-cli
-    git-lfs
-    _7zz
     audacity
     lmms
-    thunar
+
+    btop
+    _7zz
+    github-cli
+
+    hyprpolkitagent
+    brightnessctl
+    hyprpicker
+    hyprshot
+    matugen
+    cliphist
+    wl-clipboard
+    playerctl
     libnotify
+    bluetui
+    wiremix
+    nvtopPackages.full
   ];
 
   # SYSTEM
+  xdg.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -129,7 +163,6 @@ in {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
@@ -138,7 +171,7 @@ in {
       saveNoDups = true;
       size = 10000;
     };
-    
+
     shellAliases = {
       ls = "eza --icons --group-directories-first --color=always";
       ll = "eza -lh --icons --group-directories-first";
@@ -156,6 +189,12 @@ in {
       autoload -U compinit && compinit
     '';
 
+     oh-my-zsh = {
+      enable = true;
+      theme = "robbyrussell";
+      plugins = [ "git" "sudo" ];
+    };
+
     initContent = ''
       bindkey '^[[3~' delete-char
       fastfetch
@@ -165,6 +204,7 @@ in {
   programs.eza = {
     enable = true;
     enableZshIntegration = true;
+    git = true;
   };
 
   programs.zoxide = {
@@ -181,6 +221,11 @@ in {
     enable = true;
     settings = {
       init.defaultBranch = "main";
+      pull.rebase = true;
+      alias = {
+        co = "checkout";
+        st = "status";
+      };
       user = {
         name  = "julsen7";
         email = "263753131+julsen7@users.noreply.github.com";
@@ -233,6 +278,7 @@ in {
           key = "memory";
           keyColor = "33";
         }
+        "break"
         {
           type = "colors";
           block = {
@@ -264,14 +310,14 @@ in {
       hl.monitor({
         output   = "HDMI-A-1",
         mode     = "2560x1440@144",
-        position = "0x0",
+        position = "1920x500",
         scale    = 1,
       })
 
       hl.monitor({
         output   = "eDP-1",
         mode     = "1920x1080@144",
-        position = "-2560x500",
+        position = "0x0",
         scale    = 1,
       })
 
@@ -288,11 +334,11 @@ in {
       -- =========================================================================
 
       for i = 1, 3 do
-        hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1", persistent = true })
+        hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", persistent = true })
       end
 
       for i = 4, 6 do
-        hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", persistent = true })
+        hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1", persistent = true })
       end
 
       -- =========================================================================
@@ -301,20 +347,18 @@ in {
 
       hl.on("hyprland.start", function()
         -- Clipboard & Daemons
-        hl.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist store")
-        hl.exec_cmd("uwsm app -- wl-paste --type image --watch cliphist store")
         hl.exec_cmd("uwsm app -- udiskie")
         hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
 
         -- Apps
         hl.exec_cmd("uwsm app -- discord --start-minimized")
-        hl.exec_cmd("uwsm app -- spotify", { workspace = "3 silent" })
+        hl.exec_cmd("uwsm app -- spotify", { workspace = "6 silent" })
 
         -- Fokus auf Workspace 1
-        hl.dispatch(hl.dsp.focus({ workspace = "4" }))
+        -- hl.dispatch(hl.dsp.focus({ workspace = "4" }))
 
         -- Default monitor
-        hl.exec_cmd("xrandr --output HDMI-A-1 --primary")
+        -- hl.exec_cmd("xrandr --output HDMI-A-1 --primary")
       end)
 
       -- =========================================================================
@@ -333,7 +377,7 @@ in {
           shadow   = {
             enabled = true,
             range   = 10,
-            color   = colors.primary_container,
+            color   = "rgba(000000ee)",
           },
         },
         input = {
@@ -353,15 +397,15 @@ in {
       hl.bind("SUPER + S", hl.dsp.layout("togglesplit"))
 
       -- Navigation & Drag/Resize
-      hl.bind("SUPER + left", hl.dsp.window.move({ direction = "left" }))
-      hl.bind("SUPER + right", hl.dsp.window.move({ direction = "right" }))
       hl.bind("SUPER + up", hl.dsp.window.move({ direction = "up" }))
       hl.bind("SUPER + down", hl.dsp.window.move({ direction = "down" }))
+      hl.bind("SUPER + right", hl.dsp.window.move({ direction = "right" }))
+      hl.bind("SUPER + left", hl.dsp.window.move({ direction = "left" }))
       hl.bind("SUPER + mouse:272", hl.dsp.window.drag(), { mouse = true })
       hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
       -- App-Launcher & Quick-Tools
-      hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
+      -- hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd("uwsm app -- kitty --title=wiremix -e wiremix"))
 
       hl.bind("SUPER + ALT", hl.dsp.global("quickshell:menu"))
       hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("uwsm app -- hyprshot -m region --clipboard-only"))
@@ -380,6 +424,9 @@ in {
         hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = i }))
         hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({ workspace = i }))
       end
+
+      hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+      hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
       -- Gestures
       hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
@@ -453,20 +500,15 @@ in {
 
     extraConfig = ''
       include current-theme.conf
-      bold_font auto
-      italic_font auto
-      bold_italic_font auto
     '';
   };
 
   programs.obs-studio = {
     enable = true;
 
-    package = (
-      pkgs.obs-studio.override {
-        cudaSupport = true;
-      }
-    );
+    package = pkgs.obs-studio.override {
+      cudaSupport = true;
+    };
 
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
@@ -493,6 +535,8 @@ in {
     enable = true;
     enableZshIntegration = true;
 
+    presets = [ "no-runtime-versions" ];
+
     settings = {
       add_newline = true;
       format = lib.concatStrings [
@@ -507,6 +551,11 @@ in {
         "$line_break"
         "$character"
       ];
+
+      character = {
+        success_symbol = "[➜](bold green)";
+        error_symbol = "[➜](bold red)";
+      };
 
       os = {
         format = "[$symbol]($style) ";
@@ -586,8 +635,13 @@ in {
     enable = true;
     settings = {
       program_options = {
-        file_manager = "${pkgs.kitty}/bin/kitty -e ${pkgs.yazi}/bin/yazi";
+        file_manager = "${pkgs.thunar}/bin/thunar";
         terminal = "${pkgs.kitty}/bin/kitty";
+        tray = true;
+        udisks_version = 2;
+      };
+      icon_names = {
+        media = [ "media-optical" ];
       };
     };
   };
