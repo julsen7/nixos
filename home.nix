@@ -634,7 +634,7 @@ in {
           name = "qt-qml";
           publisher = "theqtcompany";
           version = "1.16.0";
-          sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
+          sha256 = "sha256-QWjUSbBtHIdxYZyRBDn64HXhvSwhgzm7DjDaed6lNds=";
         }
       ];
     };
