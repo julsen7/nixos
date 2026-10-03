@@ -611,6 +611,7 @@ in {
         "files.simpleDialog.enable" = true;
         "git.autofetch" = true;
         "git.confirmSync" = false;
+        "qt-core.showWelcomePageOnActivation" = false;
         "workbench.colorTheme" = "GitHub Dark Default";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.secondarySideBar.defaultVisibility" = "hidden";
@@ -622,6 +623,19 @@ in {
         davidanson.vscode-markdownlint
         eamodio.gitlens
         github.github-vscode-theme
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "qt-core";
+          publisher = "theqtcompany";
+          version = "1.16.0";
+          sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
+        }
+        {
+          name = "qt-qml";
+          publisher = "theqtcompany";
+          version = "1.16.0";
+          sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
+        }
       ];
     };
   };
