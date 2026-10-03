@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
 
 import "../../"
 
@@ -11,13 +10,14 @@ Rectangle {
     property alias titleText: title.text
     property alias contentText: content.text
 
-    color: mouseArea.containsMouse ? Theme.bg_hov : "transparent"
+    color: hoverHandler.hovered ? Theme.bg_hov : "transparent"
     radius: 20
+    
+    HoverHandler { id: hoverHandler }
 
     RowLayout {
         anchors.fill: parent
         anchors.margins: 12
-
         spacing: 10
 
         CustomImage {
@@ -30,7 +30,6 @@ Rectangle {
         ColumnLayout {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
-
             spacing: 2
 
             CustomText {
@@ -42,7 +41,7 @@ Rectangle {
             CustomText {
                 id: content
                 color: Theme.fg2
-                font.pixelSize: 12
+                font.pixelSize: Theme.fontSmall.pixelSize
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
             }

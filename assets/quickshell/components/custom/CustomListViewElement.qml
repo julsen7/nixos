@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "./../../"
+import "../../"
 
 Rectangle {
     id: root
@@ -11,8 +11,13 @@ Rectangle {
     property alias titleText: title.text
     property alias contentText: content.text
 
-    color: mouseArea.containsMouse ? Theme.bg_hov : "transparent"
+    color: hoverHandler.hovered ? Theme.bg_hov : Theme.bg2
     radius: 20
+
+    HoverHandler {
+        id: hoverHandler
+        cursorShape: Qt.PointingHandCursor
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -21,7 +26,7 @@ Rectangle {
         spacing: 10
 
         CustomImage {
-            id: image
+            id: image 
             Layout.preferredWidth: height
             Layout.fillHeight: true
             radius: 6

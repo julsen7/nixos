@@ -3,12 +3,10 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 
-import "./../"
+import "../"
 
 Scope {
     id: root
-
-    property string wallpaperPath: ""
 
     Variants {
         model: Quickshell.screens
@@ -33,9 +31,8 @@ Scope {
 
             Rectangle {
                 id: borderRoot
-                anchors.fill: window.contentItem
+                anchors.fill: parent
                 color: Theme.bg
-                radius: 0
 
                 Rectangle {
                     id: maskSource
@@ -52,35 +49,28 @@ Scope {
                     anchors.margins: 4
 
                     fillMode: Image.PreserveAspectCrop
-                    source: root.wallpaperPath
+
+                    source: GlobalState.currentWallpaper
+
                     asynchronous: true
                     visible: false
-                    opacity: 0
-
-                    onSourceChanged: {
-                        opacity = 0
-                    }
-
-                    onStatusChanged: {
-                        if (status === Image.Ready) {
-                            anim.restart()
-                        }
-                    }
-
-                    NumberAnimation on opacity {
-                        id: anim
-                        from: 0
-                        to: 1
-                        duration: 400
-                        easing.type: Easing.InOutQuad
-                    }
                 }
 
                 MultiEffect {
+                    id: effect
                     anchors.fill: wallpaper
                     source: wallpaper
                     maskEnabled: true
                     maskSource: maskSource
+
+                    opacity: wallpaper.status === Image.Ready ? 1 : 0
+
+                    Behavior on opacity {
+                        NumberAnimation { 
+                            duration: 400 
+                            easing.type: Easing.InOutQuad 
+                        }
+                    }
                 }
             }
         }

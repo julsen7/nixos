@@ -12,6 +12,7 @@ Scope {
             screen: modelData
 
             implicitHeight: island.implicitHeight
+
             exclusiveZone: 40
             color: "transparent"
 

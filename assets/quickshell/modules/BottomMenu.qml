@@ -4,20 +4,42 @@ import QtQuick.Layouts
 import Qt.labs.folderlistmodel
 import Quickshell
 
-import "./../"
-import "./../components"
-import "./../components/custom"
+import "../"
+import "../components"
+import "../components/custom"
 
 PanelWindow {
     id: root
 
-    signal requestWallpaperChange(url newWallpaperUrl)
+    property bool appMode: !customTextField.text.startsWith(">")
 
-    property bool appMode: customTextField.text !== ">"
-    property var entries: DesktopEntries.applications.values
-    
+    property var customApps: [{
+        name: "Settings",
+        genericName: "Control Center",
+        comment: "Manage Audio, Bluetooth and Network",
+        icon: "preferences-system",
+        runInTerminal: false,
+        execute: () => { GlobalState.isSettingsOpen = true }
+    }]
+
+    property var allEntries: customApps.concat(DesktopEntries.applications.values)
+
     property bool shortcutOpen: false
-    property bool isOpen: hoverHandler.hovered || shortcutOpen
+    property bool forceClosed: false
+
+    property bool isOpen: (hoverHandler.hovered || shortcutOpen) && !forceClosed
+
+    function getFilteredApps(entries, query) {
+        let arr = entries;
+        if (query && appMode) {
+            let lowerQuery = query.toLowerCase();
+            arr = arr.filter(app => 
+                (app.name || "").toLowerCase().includes(lowerQuery) || 
+                (app.genericName || "").toLowerCase().includes(lowerQuery)
+            );
+        }
+        return arr.sort((a, b) => (a.name || "").toLowerCase().localeCompare((b.name || "").toLowerCase()));
+    }
 
     FolderListModel {
         id: wallpaperModel
@@ -28,23 +50,35 @@ PanelWindow {
 
     anchors.bottom: true
     exclusionMode: ExclusionMode.Ignore
-
     focusable: true
 
-    implicitWidth: appMode ? 600 : 1600
-    implicitHeight: isOpen ? (appMode ? 600 : 250) : 1
+    implicitWidth: appMode ? 600 : Math.min(1600, (Quickshell.screens[0]?.width || 1920) - 40)
+    implicitHeight: isOpen ? (appMode ? 600 : 250) : 8
     color: "transparent"
 
-    Behavior on implicitHeight { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
+    Behavior on implicitWidth { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
+    Behavior on implicitHeight { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
 
-    Keys.onEscapePressed: root.shortcutOpen = false
+    Shortcut {
+        sequence: "Escape"
+        onActivated: {
+            root.shortcutOpen = false
+            customTextField.text = ""
+        }
+    }
 
-    HoverHandler {
-        id: hoverHandler
+    HoverHandler { 
+        id: hoverHandler 
+        onHoveredChanged: {
+            if (!hovered) {
+                root.forceClosed = false
+            }
+        }
     }
 
     Rectangle {
         anchors.fill: parent
+        clip: true
 
         opacity: root.isOpen ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 200 } }
@@ -63,37 +97,37 @@ PanelWindow {
                 id: appList
 
                 visible: appMode
-
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
                 clip: true
                 spacing: 10
 
-                model: entries.sort((a, b) => (a.name ?? "").toLowerCase().localeCompare((b.name ?? "").toLowerCase()))
+                model: getFilteredApps(root.allEntries, customTextField.text)
 
                 delegate: CustomListViewElement {
-                    imageSource: Quickshell.iconPath(icon)
-                    titleText: name ?? ""
-                    contentText: (comment || genericName || name) ?? ""
+                    property var app: modelData
+
+                    imageSource: Quickshell.iconPath(app.icon || "")
+                    titleText: app.name ?? ""
+                    contentText: (app.comment || app.genericName || app.name) ?? ""
 
                     implicitWidth: appList.width
                     implicitHeight: 68
 
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
+                    TapHandler {
+                        onTapped: {
                             root.shortcutOpen = false
+                            root.forceClosed = true
                             
-                            if (runInTerminal) {
-                                let termCommand = ["kitty", "-e"].concat(command)
+                            if (app.runInTerminal) {
+                                let termCommand = ["kitty", "-e"].concat(app.command)
                                 Quickshell.execDetached(termCommand)
                             } else {
-                                execute()
+                                app.execute()
                             }
+                            
+                            customTextField.text = "" 
                         }
                     }
                 }
@@ -108,12 +142,11 @@ PanelWindow {
                 }
             }
 
-            // WallpaperContent
+            // Wallpaper content
             PathView {
                 id: wallpaperList
 
                 visible: !appMode
-
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -122,7 +155,7 @@ PanelWindow {
                 property int itemWidth: 200
                 property int itemSpacing: 10
                 property int totalItemWidth: itemWidth + itemSpacing
-                
+
                 pathItemCount: Math.ceil(width / totalItemWidth) + 4
 
                 preferredHighlightBegin: 0.5
@@ -149,8 +182,7 @@ PanelWindow {
 
                 onCurrentItemChanged: {
                     if (currentItem && currentItem.wallpaperUrl !== "") {
-                        console.log("Neues Wallpaper im Menü gewählt:", currentItem.wallpaperUrl)
-                        root.requestWallpaperChange(currentItem.wallpaperUrl)
+                        GlobalState.currentWallpaper = currentItem.wallpaperUrl
                     }
                 }
             }
@@ -158,10 +190,10 @@ PanelWindow {
             CustomTextField {
                 id: customTextField
                 leftIcon: ""
-                placeholderText: 'Type ">" for commands'
+                placeholderText: appMode ? 'Type ">" for wallpapers' : 'Type to search...'
                 color: Theme.bg2
                 Layout.fillWidth: true
-                
+
                 onVisibleChanged: {
                     if (visible && root.shortcutOpen) {
                         forceActiveFocus()

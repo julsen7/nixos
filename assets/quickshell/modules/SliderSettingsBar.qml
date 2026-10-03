@@ -6,10 +6,10 @@ import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 
-import "./../"
-import "./../components"
-import "./../components/custom"
-import "./../services"
+import "../"
+import "../components"
+import "../components/custom"
+import "../services"
 
 Rectangle {
     id: root
@@ -58,36 +58,29 @@ Rectangle {
     Process {
         running: true
         command: ["sh", "-c", "brightnessctl -m | cut -d, -f4 | tr -d %"]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                let val = parseInt(this.text.trim())
-                if (!isNaN(val)) {
-                    root.currentBrightness = val
-                }
+        stdout: SplitParser {
+            onRead: data => {
+                let val = parseInt(data.trim())
+                if (!isNaN(val)) root.currentBrightness = val
             }
         }
     }
 
     RowLayout {
         id: sliderSettingsRow
-
+        anchors.fill: parent
         anchors.leftMargin: padding / 2
         anchors.rightMargin: padding / 2
-
-        anchors.fill: parent
         spacing: 20
 
         CustomText {
             text: ""
             font.pixelSize: 18
 
-            MouseArea {
-                id: mouseArea
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                onClicked: Quickshell.execDetached(["kitty"])
+            TapHandler {
+                onTapped: Quickshell.execDetached(["kitty"])
             }
+            HoverHandler { cursorShape: Qt.PointingHandCursor }
         }
 
         RowLayout {
@@ -97,6 +90,8 @@ Rectangle {
                 model: Hyprland.workspaces
 
                 Rectangle {
+                    required property var modelData
+
                     implicitWidth: contentRow.implicitWidth + 28
                     implicitHeight: 28
 
@@ -152,11 +147,9 @@ Rectangle {
                         }
                     }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: Hyprland.dispatch("hl.dsp.focus({ workspace = '" + modelData.name + "' })")
+                    HoverHandler { cursorShape: Qt.PointingHandCursor }
+                    TapHandler {
+                        onTapped: Hyprland.dispatch("hl.dsp.focus({ workspace = '" + modelData.name + "' })")
                     }
                 }
             }
@@ -169,13 +162,8 @@ Rectangle {
                 text: PipewireService.sourceMuted ? "" : ""
                 font.pixelSize: 20
 
-                MouseArea {
-                    id: mouseArea2
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: PipewireService.toggleSourceMuted()
-                }
+                HoverHandler { cursorShape: Qt.PointingHandCursor }
+                TapHandler { onTapped: PipewireService.toggleSourceMuted() }
             }
 
             CustomSlider {

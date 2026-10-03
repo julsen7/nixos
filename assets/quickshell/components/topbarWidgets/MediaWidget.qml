@@ -2,19 +2,41 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "./../../"
-import "./../../components/custom"
-import "./../../services"
+import "../../"
+import "../../components/custom"
+import "../../services"
 
 RowLayout {
     id: root
 
     spacing: 20
 
-    CustomImage {
-        source: MprisService.artUrl
+    Item {
         Layout.preferredWidth: 120
         Layout.preferredHeight: 120
+
+        CustomImage {
+            anchors.fill: parent
+            source: MprisService.artUrl
+        }
+
+        Rectangle {
+            width: 30
+            height: 30
+            radius: 8
+            color: Theme.bg
+            border.color: Theme.bg3
+            border.width: 1
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 8
+
+            CustomText {
+                text: MprisService.playerIcon
+                anchors.centerIn: parent
+                font.pixelSize: 14
+            }
+        }
     }
 
     ColumnLayout {

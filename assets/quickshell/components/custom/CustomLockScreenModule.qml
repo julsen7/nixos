@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "./../../"
+import "../../"
 
 Rectangle {
     id: root
@@ -27,8 +27,7 @@ Rectangle {
 
     ColumnLayout {
         id: innerLayout
-        anchors.fill: parent
-        anchors.margins: 20
+        anchors.centerIn: parent
         z: 1
     }
 }

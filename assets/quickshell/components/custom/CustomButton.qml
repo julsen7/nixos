@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Quickshell
 
-import "./../../"
+import "../../"
 
 Button {
     id: root
@@ -16,7 +16,7 @@ Button {
 
     background: Rectangle {
         radius: root.radius
-        color: hoverHandler.hovered ? root.color : root.backgroundColor
+        color: root.hovered ? root.color : root.backgroundColor
 
         Behavior on color { ColorAnimation { duration: 200; easing.type: Easing.InOutCubic } }
     }
@@ -27,7 +27,6 @@ Button {
     }
 
     HoverHandler {
-        id: hoverHandler
         cursorShape: Qt.PointingHandCursor
     }
 }

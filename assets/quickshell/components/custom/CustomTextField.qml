@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 
-import "./../../"
+import "../../"
 
 Rectangle {
     id: root
@@ -14,6 +14,7 @@ Rectangle {
     property alias rightIcon: rightIcon.text
     property alias text: textfield.text
 
+    property int pixelSize: 14
     property color textColor: Theme.fg
 
     property alias placeholderText: textfield.placeholderText
@@ -56,9 +57,7 @@ Rectangle {
 
             Component.onCompleted: forceActiveFocus()
 
-            onAccepted: {
-                root.accepted()
-            }
+            onAccepted: root.accepted()
         }
 
         CustomText {

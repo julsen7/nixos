@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Singleton {
+QtObject {
     id: root
 
     property string osName: "Loading..."
@@ -12,13 +12,9 @@ Singleton {
     property string username: "Loading..."
     property string uptime: "Loading..."
 
-    Process {
-        id: staticProc
+    property Process staticProc: Process {
+        command: ["sh", "-c", "source /etc/os-release 2>/dev/null; echo \"${NAME:-Linux}|${XDG_CURRENT_DESKTOP:-${DESKTOP_SESSION:-Unknown}}|${USER:-$LOGNAME}\""]
         running: true
-        command: [
-            "bash", "-c",
-            "source /etc/os-release 2>/dev/null; echo \"${NAME:-Linux}|${XDG_CURRENT_DESKTOP:-${DESKTOP_SESSION:-Unknown}}|${USER:-$LOGNAME}\""
-        ]
         stdout: SplitParser {
             onRead: data => {
                 let parts = data.trim().split("|");
@@ -31,19 +27,18 @@ Singleton {
         }
     }
 
-    Process {
-        id: uptimeProc
+    property Process uptimeProc: Process {
+        command: ["awk", "{print int($1/3600)\"h \"int(($1%3600)/60)\"m\"}", "/proc/uptime"]
         running: true
-        command: ["bash", "-c", "uptime -p | sed 's/up //'"]
         stdout: SplitParser {
             onRead: data => root.uptime = data.trim()
         }
     }
 
-    Timer {
+    property Timer uptimeTimer: Timer {
         interval: 60000
         running: true
         repeat: true
-        onTriggered: uptimeProc.running = true
+        onTriggered: root.uptimeProc.running = true
     }
 }

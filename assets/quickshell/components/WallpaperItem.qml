@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "./../"
-import "./../components/custom"
+import "../"
+import "../components/custom"
 
 Item {
     id: root
@@ -24,7 +24,7 @@ Item {
 
         width: root.isCurrentItem ? 200 : 170
         height: root.isCurrentItem ? 120 : 90
-        opacity: root.isCurrentItem ? 1.0 : 0.5
+        opacity: root.isCurrentItem ? 1.0 : 0.6
 
         radius: 20
         clip: true
@@ -43,10 +43,12 @@ Item {
             anchors.fill: parent
         }
 
-        MouseArea {
-            anchors.fill: parent
+        HoverHandler {
             cursorShape: Qt.PointingHandCursor
-            onClicked: root.itemClicked(root.itemIndex, root.isCurrentItem)
+        }
+
+        TapHandler {
+            onTapped: root.itemClicked(root.itemIndex, root.isCurrentItem)
         }
     }
 }

@@ -1,4 +1,5 @@
 pragma Singleton
+
 import QtQuick
 import Quickshell
 
@@ -21,6 +22,15 @@ Singleton {
     property real windSpeed: 0.0
 
     property var hourlyForecast: []
+
+    property Timer refreshTimer: Timer {
+        interval: 1800000
+        running: true
+        repeat: true
+        onTriggered: root.reload()
+    }
+
+    Component.onCompleted: reload()
 
     function reload() {
         if (!loc || loc === "") {
@@ -104,7 +114,7 @@ Singleton {
         }
 
         var hourlyList = [];
-        var now = new Date();
+        var now = Date.now();
 
         for (var i = 0; i < json.hourly.time.length; i++) {
             var timeStr = json.hourly.time[i].replace("T", " ");
@@ -179,8 +189,6 @@ Singleton {
             default:   return { icon: "󰖐", text: "Unbekannt" };
         }
     }
-
-    Component.onCompleted: reload()
 
     Timer {
         interval: 1800000

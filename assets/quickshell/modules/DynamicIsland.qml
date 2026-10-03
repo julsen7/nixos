@@ -2,10 +2,10 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "./../"
-import "./../components/custom"
-import "./../components/topbarWidgets"
-import "./../services"
+import "../"
+import "../components/custom"
+import "../components/topbarWidgets"
+import "../services"
 
 Rectangle {
   id: root

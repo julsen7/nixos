@@ -4,17 +4,17 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 
-import "./../"
-import "./../components/custom"
-import "./../services"
+import "../"
+import "../components/custom"
+import "../services"
 
 WlSessionLock {
     id: root
 
-    Component.onCompleted: root.locked = false
+    locked: GlobalState.isLocked
 
     WlSessionLockSurface {
-        color: "white"
+        color: "black"
 
         Rectangle {
             anchors.centerIn: parent
@@ -34,7 +34,7 @@ WlSessionLock {
                 // COLUMN 1: Weather | System Info | Media
                 // ==========================================
                 ColumnLayout {
-                    Layout.preferredWidth: 1
+                    Layout.fillWidth: true
                     spacing: 20
 
                     // 1. Weather Module
@@ -42,27 +42,27 @@ WlSessionLock {
                         Layout.fillHeight: true
 
                         CustomText {
-                            text: WeatherService.description
+                            text: WeatherService.description || "Loading..."
                             font.pixelSize: 18
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: WeatherService.temp + " " + WeatherService.icon
+                            text: (WeatherService.temp || "--") + " " + (WeatherService.icon || "")
                             font.pixelSize: 36
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: "Feels like " + WeatherService.feelsLike
+                            text: "Feels like " + (WeatherService.feelsLike || "--")
                             opacity: 0.8
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: "High " + WeatherService.tempHigh + " • Low " + WeatherService.tempLow
+                            text: "High " + (WeatherService.tempHigh || "--") + " • Low " + (WeatherService.tempLow || "--")
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -87,33 +87,36 @@ WlSessionLock {
                                     spacing: 8
 
                                     Repeater {
-                                        model: WeatherService.hourlyForecast
+                                        model: WeatherService.hourlyForecast || []
 
                                         ColumnLayout {
                                             spacing: 2
                                             Layout.alignment: Qt.AlignHCenter
 
+                                            required property var modelData 
+                                            required property int index
+
                                             CustomText {
-                                                text: modelData.tempC + "°"
+                                                text: (modelData.tempC !== undefined ? modelData.tempC : "--") + "°"
                                                 font.bold: true
                                                 Layout.alignment: Qt.AlignHCenter
                                             }
 
                                             CustomText {
-                                                text: modelData.icon
+                                                text: modelData.icon || ""
                                                 font.pixelSize: 20
                                                 Layout.alignment: Qt.AlignHCenter
                                             }
 
                                             CustomText {
-                                                text: modelData.precipChance + "%"
+                                                text: (modelData.precipChance !== undefined ? modelData.precipChance : "0") + "%"
                                                 opacity: 0.7
-                                                color: modelData.precipChance > 30 ? "#89b4fa" : Theme.fg
+                                                color: (modelData.precipChance && modelData.precipChance > 30) ? "#89b4fa" : Theme.fg
                                                 Layout.alignment: Qt.AlignHCenter
                                             }
 
                                             CustomText {
-                                                text: modelData.hour
+                                                text: modelData.hour || ""
                                                 font.bold: index === 0
                                                 Layout.alignment: Qt.AlignHCenter
                                             }
@@ -148,25 +151,25 @@ WlSessionLock {
                             ColumnLayout {
                                 spacing: 4
                                 CustomText {
-                                    text: "OS   : " + OSService.osName
+                                    text: "OS   : " + (OSService.osName || "Unknown")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "WM   : " + OSService.wmName
+                                    text: "WM   : " + (OSService.wmName || "Unknown")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "USER : " + OSService.username
+                                    text: "USER : " + (OSService.username || "Unknown")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "UP   : " + OSService.uptime
+                                    text: "UP   : " + (OSService.uptime || "0:00")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
@@ -179,6 +182,7 @@ WlSessionLock {
                             Repeater {
                                 model: ["#f38ba8", "#fab387", "#f9e2af", "#a6e3a1", "#89dceb", "#b4befe", "#cba6f7"]
                                 Rectangle {
+                                    required property color modelData
                                     width: 16
                                     height: 16
                                     radius: 6
@@ -194,7 +198,7 @@ WlSessionLock {
 
                         backgroundContent: [
                             CustomImage {
-                                source: MprisService.artUrl
+                                source: MprisService.artUrl || ""
                                 anchors.fill: parent
                                 opacity: 0.25
                             },
@@ -205,7 +209,7 @@ WlSessionLock {
                         ]
 
                         CustomText {
-                            text: MprisService.trackTitle
+                            text: MprisService.trackTitle || "No Media"
                             color: Theme.accent
                             font.pixelSize: 18
                             font.bold: true
@@ -213,7 +217,7 @@ WlSessionLock {
                         }
 
                         CustomText {
-                            text: MprisService.trackArtist
+                            text: MprisService.trackArtist || ""
                             Layout.alignment: Qt.AlignHCenter
                         }
 
@@ -226,7 +230,7 @@ WlSessionLock {
                                 backgroundColor: Theme.bg
                                 Layout.preferredWidth: 40
                                 Layout.preferredHeight: 40
-                                onClicked: MprisService.player.previous()
+                                onClicked: if(MprisService.player) MprisService.player.previous()
                             }
 
                             CustomButton {
@@ -234,7 +238,7 @@ WlSessionLock {
                                 radius: 12
                                 Layout.preferredWidth: 60
                                 Layout.preferredHeight: 40
-                                onClicked: MprisService.player.togglePlaying()
+                                onClicked: if(MprisService.player) MprisService.player.togglePlaying()
                             }
 
                             CustomButton {
@@ -242,7 +246,7 @@ WlSessionLock {
                                 backgroundColor: Theme.bg
                                 Layout.preferredWidth: 40
                                 Layout.preferredHeight: 40
-                                onClicked: MprisService.player.next()
+                                onClicked: if(MprisService.player) MprisService.player.next()
                             }
                         }
                     }
@@ -265,14 +269,14 @@ WlSessionLock {
                         Layout.alignment: Qt.AlignHCenter
 
                         CustomText {
-                            text: DateTimeService.time
+                            text: DateTimeService.time || "00:00"
                             font.pixelSize: 110
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: Qt.formatDate(new Date(), "dddd • d MMM").toUpperCase()
+                            text: (DateTimeService.date || Qt.formatDate(new Date(), "dddd • d MMM")).toUpperCase()
                             font.bold: true
                             opacity: 0.7
                             Layout.alignment: Qt.AlignHCenter
@@ -298,6 +302,7 @@ WlSessionLock {
 
                     // Passwort field
                     CustomTextField {
+                        id: pwField
                         leftIcon: "󰌾"
                         rightIcon: ""
                         placeholderText: "Enter password"
@@ -309,12 +314,23 @@ WlSessionLock {
 
                         Layout.fillWidth: true
                         Layout.preferredHeight: 48
-                        onAccepted: root.locked = false
+
+                        onAccepted: {
+                            GlobalState.isLocked = false
+                            text = "" 
+                        }
+
+                        Component.onCompleted: {
+                            forceActiveFocus()
+                        }
                     }
 
                     CustomButton {
                         buttonText: "Unlock"
-                        onClicked: root.locked = false
+                        onClicked: {
+                            GlobalState.isLocked = false
+                            pwField.text = ""
+                        }
                         Layout.preferredWidth: 300
                         Layout.alignment: Qt.AlignHCenter
                     }
@@ -331,6 +347,11 @@ WlSessionLock {
                     CustomLockScreenModule {
                         Layout.preferredHeight: 125
 
+                        property string cpuTemp: "64°C"
+                        property string cpuLoad: "2%"
+                        property string ramLoad: "56%"
+                        property string batLevel: "39%"
+
                         RowLayout {
                             anchors.fill: parent
                             anchors.margins: 14
@@ -346,15 +367,15 @@ WlSessionLock {
                                 ColumnLayout {
                                     anchors.centerIn: parent
 
-                                    CustomText { 
-                                        text: "󰍛 64°C"
+                                    CustomText {
+                                        text: "󰍛" + parent.parent.parent.cpuTemp
                                         font.pixelSize: 13
                                         font.bold: true
                                         color: "#a6e3a1"
                                     }
 
                                     CustomText { 
-                                        text: "2%"
+                                        text: parent.parent.parent.cpuLoad
                                         font.pixelSize: 22
                                         font.bold: true
                                     }
@@ -378,7 +399,7 @@ WlSessionLock {
                                     }
 
                                     CustomText {
-                                        text: "56%"
+                                        text: parent.parent.parent.ramLoad
                                         font.pixelSize: 22
                                         font.bold: true
                                     }
@@ -402,7 +423,7 @@ WlSessionLock {
                                     }
 
                                     CustomText {
-                                        text: "39%"
+                                        text: parent.parent.parent.batLevel
                                         font.pixelSize: 22
                                         font.bold: true
                                         color: "#a6e3a1"
@@ -426,41 +447,18 @@ WlSessionLock {
                                 Layout.alignment: Qt.AlignTop
                             }
 
-                            // ListView {
-                            //     id: notificationList
-
-                            //     Layout.fillWidth: true
-                            //     Layout.fillHeight: true
-
-                            //     clip: true
-                            //     spacing: 10
-
-                            //     visible: count > 0 
-
-                            //     model: DesktopEntries.applications.values
-
-                            //     delegate: CustomListViewElement {
-                            //         imageSource: ""
-                            //         titleText: "Notification"
-                            //         contentText: "Content"
-
-                            //         implicitWidth: notificationList.width
-                            //         implicitHeight: 60
-                            //     }
-
-                            //     ScrollBar.vertical: ScrollBar {
-                            //         policy: ScrollBar.AsNeeded
-                            //         contentItem: Rectangle {
-                            //             implicitWidth: 6
-                            //             radius: width / 2
-                            //             color: Theme.accent
-                            //         }
-                            //     }
-                            // }
+                            ListView {
+                                id: notificationList
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                clip: true
+                                spacing: 10
+                                
+                                model: 0 
+                            }
 
                             ColumnLayout {
                                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                                
                                 visible: notificationList.count === 0
 
                                 CustomText {
