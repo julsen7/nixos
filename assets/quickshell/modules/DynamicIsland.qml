@@ -3,8 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 
 import "../"
-import "../components/custom"
-import "../components/topbarWidgets"
+import "../components"
 import "../services"
 
 Rectangle {
@@ -52,10 +51,162 @@ Rectangle {
 
     Behavior on opacity { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
 
-    MediaWidget { }
+    // Media-Widget
+    RowLayout {
+      spacing: 20
 
-    CalenderWidget { }
+      Item {
+        Layout.preferredWidth: 120
+        Layout.preferredHeight: 120
 
-    WeatherWidget { }
+        CustomImage {
+          anchors.fill: parent
+          source: MprisService.artUrl
+        }
+
+        Rectangle {
+          width: 30
+          height: 30
+          radius: 8
+          color: Theme.bg
+          border.color: Theme.bg3
+          border.width: 1
+          anchors.top: parent.top
+          anchors.right: parent.right
+          anchors.margins: 8
+
+          CustomText {
+            text: MprisService.playerIcon
+            anchors.centerIn: parent
+            font.pixelSize: 14
+          }
+        }
+      }
+
+      ColumnLayout {
+        spacing: 10
+
+        CustomText {
+          text: MprisService.trackTitle
+          font.pixelSize: 18
+          font.bold: true
+          Layout.maximumWidth: 200
+          Layout.alignment: Qt.AlignLeft
+        }
+
+        CustomText {
+          text: MprisService.trackArtist
+          color: Theme.ph
+          Layout.maximumWidth: 200
+          Layout.alignment: Qt.AlignLeft
+        }
+
+        RowLayout {
+          spacing: 10
+
+          CustomButton {
+            buttonText: ""
+            radius: 10
+            color: Theme.bg3
+            Layout.preferredWidth: 30
+            Layout.preferredHeight: 30
+            onClicked: MprisService.player.previous()
+          }
+
+          CustomButton {
+            buttonText: MprisService.isPlaying ? "" : ""
+            radius: 10
+            color: Theme.bg3
+            Layout.preferredWidth: 30
+            Layout.preferredHeight: 30
+            onClicked: MprisService.player.togglePlaying();
+          }
+
+          CustomButton {
+            buttonText: ""
+            radius: 10
+            color: Theme.bg3
+            Layout.preferredWidth: 30
+            Layout.preferredHeight: 30
+            onClicked: MprisService.player.next()
+          }
+        }
+      }
+    }
+
+    // Calendar-Widget
+    ColumnLayout {
+      CustomText {
+          text: DateTimeService.time
+          font.pixelSize: 36
+          font.bold: true
+          Layout.alignment: Qt.AlignHCenter
+      }
+
+      RowLayout {
+          spacing: 12
+          Layout.alignment: Qt.AlignHCenter
+
+          CustomText {
+              text: DateTimeService.yesterdayDayName + "\n" + DateTimeService.yesterdayDayNumber
+              color: Theme.fg2
+          }
+
+          CustomText {
+              text: DateTimeService.weekDayName + "\n" + DateTimeService.dayDateNumber
+              color: Theme.accent
+              font.bold: true
+          }
+
+          CustomText {
+              text: DateTimeService.tomorrowDayName + "\n" + DateTimeService.tomorrowDayNumber
+              color: Theme.fg2
+          }
+      }
+    }
+
+    // Weather-Widget
+    ColumnLayout {
+      spacing: 20
+
+      RowLayout {
+        spacing: 30
+
+        CustomText {
+          text: WeatherService.icon
+          font.pixelSize: 60
+          font.bold: true
+        }
+
+        ColumnLayout {
+          CustomText {
+            text: WeatherService.temp
+            font.pixelSize: 34
+            font.bold: true
+          }
+
+          CustomText {
+            text: WeatherService.description
+            font.bold: true
+          }
+        }
+      }
+
+      RowLayout {
+        Layout.alignment: Qt.AlignHCenter
+
+        spacing: 10
+
+        CustomText {
+          text: "  " + WeatherService.sunrise
+          font.pixelSize: 16
+        }
+
+        CustomText {
+          text: "  " + WeatherService.sunset
+          font.pixelSize: 16
+        }
+      }
+    }
   }
 }

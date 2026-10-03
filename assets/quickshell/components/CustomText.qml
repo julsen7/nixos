@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 
-import "./../../"
+import "../"
 
 Text {
     id: root

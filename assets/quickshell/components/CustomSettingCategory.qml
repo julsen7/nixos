@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 
-import "../../"
+import "../"
 
 Rectangle {
     id: root

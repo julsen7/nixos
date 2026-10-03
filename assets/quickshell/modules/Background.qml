@@ -12,8 +12,6 @@ Scope {
         model: Quickshell.screens
 
         PanelWindow {
-            id: window
-
             required property var modelData
             screen: modelData
 
@@ -30,7 +28,6 @@ Scope {
             }
 
             Rectangle {
-                id: borderRoot
                 anchors.fill: parent
                 color: Theme.bg
 

@@ -4,7 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 
 import "../"
-import "../components/custom"
+import "../components"
 
 FloatingWindow {
     id: root

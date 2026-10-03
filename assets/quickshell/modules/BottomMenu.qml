@@ -6,28 +6,20 @@ import Quickshell
 
 import "../"
 import "../components"
-import "../components/custom"
 
 PanelWindow {
     id: root
 
-    property bool appMode: !customTextField.text.startsWith(">")
-
+    property bool appMode: !searchBar.text.startsWith(">")
     property var customApps: [{
         name: "Settings",
         genericName: "Control Center",
         comment: "Manage Audio, Bluetooth and Network",
-        icon: "preferences-system",
+        icon: "/home/julsen/nixos/assets/settings.jpg",
         runInTerminal: false,
         execute: () => { GlobalState.isSettingsOpen = true }
     }]
-
-    property var allEntries: customApps.concat(DesktopEntries.applications.values)
-
-    property bool shortcutOpen: false
-    property bool forceClosed: false
-
-    property bool isOpen: (hoverHandler.hovered || shortcutOpen) && !forceClosed
+    property var allEntries: DesktopEntries.applications.values.concat(customApps)
 
     function getFilteredApps(entries, query) {
         let arr = entries;
@@ -53,35 +45,16 @@ PanelWindow {
     focusable: true
 
     implicitWidth: appMode ? 600 : Math.min(1600, (Quickshell.screens[0]?.width || 1920) - 40)
-    implicitHeight: isOpen ? (appMode ? 600 : 250) : 8
+    implicitHeight: hoverHandler.hovered ? (appMode ? 600 : 250) : 8
     color: "transparent"
 
     Behavior on implicitWidth { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
     Behavior on implicitHeight { NumberAnimation { duration: 250; easing.type: Easing.OutCubic } }
 
-    Shortcut {
-        sequence: "Escape"
-        onActivated: {
-            root.shortcutOpen = false
-            customTextField.text = ""
-        }
-    }
-
-    HoverHandler { 
-        id: hoverHandler 
-        onHoveredChanged: {
-            if (!hovered) {
-                root.forceClosed = false
-            }
-        }
-    }
+    HoverHandler { id: hoverHandler }
 
     Rectangle {
         anchors.fill: parent
-        clip: true
-
-        opacity: root.isOpen ? 1 : 0
-        Behavior on opacity { NumberAnimation { duration: 200 } }
 
         color: Theme.bg
         topLeftRadius: 20
@@ -96,44 +69,40 @@ PanelWindow {
             ListView {
                 id: appList
 
-                visible: appMode
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                visible: appMode
                 clip: true
                 spacing: 10
 
-                model: getFilteredApps(root.allEntries, customTextField.text)
+                model: getFilteredApps(root.allEntries, searchBar.text)
 
                 delegate: CustomListViewElement {
                     property var app: modelData
 
-                    imageSource: Quickshell.iconPath(app.icon || "")
-                    titleText: app.name ?? ""
-                    contentText: (app.comment || app.genericName || app.name) ?? ""
+                    image: Quickshell.iconPath(app.icon || "")
+                    title: app.name ?? ""
+                    description: (app.comment || app.name) ?? ""
 
                     implicitWidth: appList.width
                     implicitHeight: 68
 
                     TapHandler {
                         onTapped: {
-                            root.shortcutOpen = false
-                            root.forceClosed = true
-                            
                             if (app.runInTerminal) {
-                                let termCommand = ["kitty", "-e"].concat(app.command)
-                                Quickshell.execDetached(termCommand)
+                                Quickshell.execDetached(["kitty", "-e"].concat(app.command))
                             } else {
                                 app.execute()
                             }
-                            
-                            customTextField.text = "" 
+                            searchBar.text = ""
                         }
                     }
                 }
 
                 ScrollBar.vertical: ScrollBar {
-                    policy: ScrollBar.AsNeeded
+                    policy: ScrollBar.AlwaysOn
+                    visible: parent.contentHeight > parent.height
                     contentItem: Rectangle {
                         implicitWidth: 6
                         radius: width / 2
@@ -146,15 +115,13 @@ PanelWindow {
             PathView {
                 id: wallpaperList
 
-                visible: !appMode
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                visible: !appMode
                 model: wallpaperModel
 
-                property int itemWidth: 200
-                property int itemSpacing: 10
-                property int totalItemWidth: itemWidth + itemSpacing
+                property int totalItemWidth: 210
 
                 pathItemCount: Math.ceil(width / totalItemWidth) + 4
 
@@ -166,39 +133,46 @@ PanelWindow {
                     startX: (wallpaperList.width / 2) - ((wallpaperList.pathItemCount / 2) * wallpaperList.totalItemWidth)
                     startY: wallpaperList.height / 2
 
-                    PathLine { 
+                    PathLine {
                         x: (wallpaperList.width / 2) + ((wallpaperList.pathItemCount / 2) * wallpaperList.totalItemWidth)
                         y: wallpaperList.height / 2 
                     }
                 }
 
-                delegate: WallpaperItem {
-                    wallpaperUrl: model.fileUrl
+                delegate: CustomImage {
+                    id: delegateRoot
+                    
+                    property string imageUrl: model.fileUrl
+                    
+                    source: imageUrl
+                    radius: 20 
 
-                    onItemClicked: (idx) => {
-                        wallpaperList.currentIndex = idx
-                    }
+                    width: PathView.isCurrentItem ? 200 : 170
+                    height: PathView.isCurrentItem ? 120 : 90
+                    opacity: PathView.isCurrentItem ? 1.0 : 0.6
+
+                    Behavior on width { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
+                    Behavior on height { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
+                    Behavior on opacity { NumberAnimation { duration: 250; easing.type: Easing.OutQuart } }
+
+                    HoverHandler { cursorShape: Qt.PointingHandCursor }
+
+                    TapHandler { onTapped: { wallpaperList.currentIndex = index } }
                 }
 
                 onCurrentItemChanged: {
-                    if (currentItem && currentItem.wallpaperUrl !== "") {
-                        GlobalState.currentWallpaper = currentItem.wallpaperUrl
+                    if (currentItem && currentItem.imageUrl !== "") {
+                        GlobalState.currentWallpaper = currentItem.imageUrl
                     }
                 }
             }
 
             CustomTextField {
-                id: customTextField
+                id: searchBar
                 leftIcon: ""
-                placeholderText: appMode ? 'Type ">" for wallpapers' : 'Type to search...'
+                placeholderText: 'Type ">" for wallpapers'
                 color: Theme.bg2
                 Layout.fillWidth: true
-
-                onVisibleChanged: {
-                    if (visible && root.shortcutOpen) {
-                        forceActiveFocus()
-                    }
-                }
             }
         }
     }

@@ -6,7 +6,7 @@ import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 
 import "../"
-import "../components/custom"
+import "../components"
 
 Rectangle {
     id: root
@@ -24,7 +24,6 @@ Rectangle {
         margin: root.height
     }
 
-    // Leiste bleibt auch sichtbar, wenn das Kontextmenü geöffnet ist
     y: hoverHandler.hovered || trayContextMenu.opened ? 0 : -height
 
     Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }

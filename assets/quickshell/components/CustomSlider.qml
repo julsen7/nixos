@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import Quickshell
 
-import "../../"
+import "../"
 
 Slider {
     id: root

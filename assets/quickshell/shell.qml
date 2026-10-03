@@ -14,12 +14,11 @@ ShellRoot {
   // NotificationService { id: notificationService }
 
   // --- Core ---
-  Background { id: background }
-  Shortcuts { id: shortcuts }
+  Background { }
 
   // --- Panels & UI ---
-  TopBar { id: topBar }
-  BottomMenu { id: bottomMenu }
-  SettingsApp { id: settingsApp }
-  LockScreen { id: lockScreen }
+  TopBar { }
+  BottomMenu { }
+  SettingsApp { }
+  LockScreen { }
 }

@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Widgets
 
-import "../../"
+import "../"
 
 ClippingRectangle {
     id: root

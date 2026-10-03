@@ -8,7 +8,6 @@ import Quickshell.Wayland
 
 import "../"
 import "../components"
-import "../components/custom"
 import "../services"
 
 Rectangle {

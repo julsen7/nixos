@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Wayland
 
 import "../"
-import "../components/custom"
+import "../components"
 import "../services"
 
 WlSessionLock {
