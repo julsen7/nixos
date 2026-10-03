@@ -628,7 +628,7 @@ in {
           name = "qt-core";
           publisher = "theqtcompany";
           version = "1.16.0";
-          sha256 = "sha256-5Hx9Y73osV3Kd795q4i8sQWTtecRlM0YNxwMJQQ8nxE=";
+          sha256 = "sha256-6NBWsK7ljx7Ie3xvOrjBClyvwQP1UltCna1jQHJST5U=";
         }
         {
           name = "qt-qml";
