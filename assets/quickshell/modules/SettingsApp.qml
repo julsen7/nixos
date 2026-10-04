@@ -13,31 +13,31 @@ FloatingWindow {
     color: Theme.bg
 
     property int currentTab: GlobalState.settingsTab
-    property var categories: ["󰤨 Network", "󰂯 Bluetooth", "󰕾 Audio", " Battery"]
+    property var categories: [" Network", "󰂯 Bluetooth", " Audio", " Battery"]
 
     WrapperRectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         implicitWidth: 30
 
-        color: Theme.bg3
+        color: Theme.bg2
         bottomLeftRadius: 20
 
         CustomText {
             anchors.centerIn: parent
             text: ""
+            color: hoverHandler.hovered ? Theme.red : Theme.fg
             font.pixelSize: 18
             font.bold: true
 
-            HoverHandler { cursorShape: Qt.PointingHandCursor }
+            HoverHandler { id: hoverHandler; cursorShape: Qt.PointingHandCursor }
             TapHandler { onTapped: GlobalState.isSettingsOpen = false }
         }
     }
 
     WrapperRectangle {
         anchors.fill: parent
-        anchors.margins: 60
-        anchors.topMargin: 40
+        anchors.margins: 40
 
         color: Theme.bg2
         radius: 20
@@ -50,8 +50,7 @@ FloatingWindow {
                 Layout.preferredWidth: 220
                 Layout.fillHeight: true
                 color: "transparent"
-                
-                // Trennlinie nach rechts
+
                 Rectangle {
                     anchors.right: parent.right
                     width: 1
@@ -84,18 +83,12 @@ FloatingWindow {
                         }
 
                         HoverHandler { id: hoverHandler; cursorShape: Qt.PointingHandCursor }
-                        TapHandler { 
-                            onTapped: {
-                                GlobalState.settingsTab = index 
-                            }
-                        }
+                        TapHandler { onTapped: GlobalState.settingsTab = index }
                     }
                 }
             }
 
-            // ==========================================
             // RECHTE SEITE: CONTENT (StackLayout)
-            // ==========================================
             StackLayout {
                 currentIndex: root.currentTab
                 Layout.fillWidth: true
@@ -104,20 +97,26 @@ FloatingWindow {
 
                 ColumnLayout {
                     spacing: 20
-                    CustomText { text: "Bluetooth Devices"; font.pixelSize: 24; font.bold: true }
+                    CustomText { text: "Network"; font.pixelSize: 24; font.bold: true }
+                    CustomText { text: "nmcli connections here..."; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
+                }
+
+                ColumnLayout {
+                    spacing: 20
+                    CustomText { text: "Bluetooth"; font.pixelSize: 24; font.bold: true }
                     CustomText { text: "Run 'bluetoothctl devices' here..."; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
                 }
 
                 ColumnLayout {
                     spacing: 20
-                    CustomText { text: "Audio & Mixer"; font.pixelSize: 24; font.bold: true }
+                    CustomText { text: "Audio"; font.pixelSize: 24; font.bold: true }
                     CustomText { text: "Volume Sliders (wpctl set-volume) go here..."; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
                 }
 
                 ColumnLayout {
                     spacing: 20
-                    CustomText { text: "Network Interfaces"; font.pixelSize: 24; font.bold: true }
-                    CustomText { text: "nmcli connections here..."; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
+                    CustomText { text: "Battery"; font.pixelSize: 24; font.bold: true }
+                    CustomText { text: "battery"; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
                 }
             }
         }

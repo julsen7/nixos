@@ -422,14 +422,25 @@ in {
     };
 
     settings = {
-      color0 = "#100a19";
-      color1 = "#4E6468";
-      color2 = "#458A78";
-      color3 = "#4F7985";
-      color4 = "#33908F";
-      color5 = "#3DA19C";
-      color6 = "#51A192";
-      color7 = "#c3c1c5";
+      # blue
+      # color0 = "#100a19";
+      # color1 = "#4E6468";
+      # color2 = "#458A78";
+      # color3 = "#4F7985";
+      # color4 = "#33908F";
+      # color5 = "#3DA19C";
+      # color6 = "#51A192";
+      # color7 = "#c3c1c5";
+
+      # green
+      color0 = "#343434";
+      color1 = "#23b65a";
+      color2 = "#43ff88";
+      color3 = "#7cfcab";
+      color4 = "#78c19f";
+      color5 = "#7ae9a7";
+      color6 = "#80deb2";
+      color7 = "#ccdcd6";
 
       window_margin_width = "10 15";
       window_resize_step_cells = 5;

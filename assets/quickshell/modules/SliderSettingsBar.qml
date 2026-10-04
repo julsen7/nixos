@@ -147,9 +147,8 @@ Rectangle {
                     }
 
                     HoverHandler { cursorShape: Qt.PointingHandCursor }
-                    TapHandler {
-                        onTapped: Hyprland.dispatch("hl.dsp.focus({ workspace = '" + modelData.name + "' })")
-                    }
+
+                    TapHandler { onTapped: Hyprland.dispatch("hl.dsp.focus({ workspace = '" + modelData.name + "' })") }
                 }
             }
         }
@@ -159,9 +158,10 @@ Rectangle {
 
             CustomText {
                 text: PipewireService.sourceMuted ? "" : ""
-                font.pixelSize: 20
+                font.pixelSize: 18
 
                 HoverHandler { cursorShape: Qt.PointingHandCursor }
+
                 TapHandler { onTapped: PipewireService.toggleSourceMuted() }
             }
 
@@ -175,7 +175,6 @@ Rectangle {
                     if (vol < 66) return "";
                     return "";
                 }
-                maxValue: 100
                 sliderValue: PipewireService.source ? Math.round(PipewireService.volume * 100) : 50
                 onMoved: PipewireService.setVolume(value / 100.0)
 
@@ -194,7 +193,6 @@ Rectangle {
                     if (brightness < 50) return "󰃝"
                     return "󰃠"
                 }
-                maxValue: 100
                 sliderValue: root.currentBrightness
                 onMoved: Quickshell.execDetached(["brightnessctl", "set", Math.round(value) + "%"])
             }

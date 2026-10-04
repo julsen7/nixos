@@ -15,6 +15,7 @@ Slider {
     implicitWidth: 200
     implicitHeight: 20
 
+    maxValue: 100
     stepSize: 1
     snapMode: Slider.SnapOnRelease
 
@@ -37,6 +38,8 @@ Slider {
         implicitHeight: width
         radius: height / 2
         color: Theme.bg3
+
+        HoverHandler { cursorShape: Qt.PointingHandCursor }
 
         CustomText {
             text: root.pressed ? Math.round(root.value) : root.icon

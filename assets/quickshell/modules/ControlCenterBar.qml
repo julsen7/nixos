@@ -61,17 +61,18 @@ Rectangle {
                     MouseArea {
                         id: mouseArea
                         anchors.fill: parent
-                        hoverEnabled: true
                         cursorShape: Qt.PointingHandCursor
                         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-                        onClicked: (mouse) => {
-                            if (mouse.button === Qt.LeftButton) {
-                                modelData.activate()
-                            } else if (mouse.button === Qt.RightButton) {
-                                menuAnchor.open()
-                            } else {
-                                modelData.contextMenu(mouse.x, mouse.y)
+                        onClicked: {
+                            (mouse) => {
+                                if (mouse.button === Qt.LeftButton) {
+                                    modelData.activate()
+                                } else if (mouse.button === Qt.RightButton) {
+                                    menuAnchor.open()
+                                } else {
+                                    modelData.contextMenu(mouse.x, mouse.y)
+                                }
                             }
                         }
                     }
@@ -88,7 +89,7 @@ Rectangle {
 
             HoverHandler { id: btHover; cursorShape: Qt.PointingHandCursor }
 
-            TapHandler { onTapped: { GlobalState.isSettingsOpen = true; GlobalState.settingsTab = 0 } }
+            TapHandler { onTapped: { GlobalState.isSettingsOpen = true; GlobalState.settingsTab = 1 } }
 
             CustomTooltip {
                 target: btSetting
@@ -106,7 +107,7 @@ Rectangle {
 
             HoverHandler { id: netHover; cursorShape: Qt.PointingHandCursor }
             
-            TapHandler { onTapped: { GlobalState.isSettingsOpen = true; GlobalState.settingsTab = 2 } }
+            TapHandler { onTapped: { GlobalState.isSettingsOpen = true; GlobalState.settingsTab = 0 } }
 
             CustomTooltip {
                 target: netSetting
