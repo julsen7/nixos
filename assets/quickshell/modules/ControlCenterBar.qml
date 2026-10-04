@@ -1,6 +1,6 @@
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
@@ -24,98 +24,9 @@ Rectangle {
         margin: root.height
     }
 
-    y: hoverHandler.hovered || trayContextMenu.opened ? 0 : -height
+    y: hoverHandler.hovered ? 0 : -height
 
     Behavior on y { NumberAnimation { duration: 200; easing.type: Easing.InOutCubic } }
-
-    // --- CUSTOM KONTEXTMENÜ FÜR TRAY ICONS ---
-    Popup {
-        id: trayContextMenu
-        padding: 6
-        modal: false
-        focus: true
-        closePolicy: Popup.CloseOnPressOutsideParent | Popup.CloseOnEscape
-
-        property var activeMenu: null
-
-        background: Rectangle {
-            color: Theme.bg
-            border.color: Theme.bg3
-            border.width: 1
-            radius: 12
-        }
-
-        contentItem: ColumnLayout {
-            spacing: 2
-
-            Repeater {
-                model: trayContextMenu.activeMenu ? trayContextMenu.activeMenu.items : []
-
-                delegate: Loader {
-                    required property var modelData
-                    visible: modelData ? (modelData.visible ?? true) : false
-                    Layout.fillWidth: true
-
-                    sourceComponent: (modelData && modelData.isSeparator) ? separatorComponent : menuItemComponent
-                }
-            }
-        }
-
-        Component {
-            id: separatorComponent
-            Rectangle {
-                implicitWidth: 160
-                implicitHeight: 1
-                color: Theme.bg3
-                Layout.topMargin: 4
-                Layout.bottomMargin: 4
-            }
-        }
-
-        Component {
-            id: menuItemComponent
-            Rectangle {
-                id: itemRect
-                implicitWidth: Math.max(160, itemRow.implicitWidth + 20)
-                implicitHeight: 30
-                radius: 6
-                color: itemHover.hovered ? Theme.bg3 : "transparent"
-                enabled: modelData ? (modelData.enabled ?? true) : true
-                opacity: enabled ? 1.0 : 0.5
-
-                RowLayout {
-                    id: itemRow
-                    anchors.fill: parent
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
-                    spacing: 8
-
-                    CustomText {
-                        // Entfernt Tastatur-Shortcuts-Zeichen (&Open -> Open)
-                        text: modelData ? (modelData.label || "").replace(/&/g, "") : ""
-                        color: itemHover.hovered ? Theme.accent : Theme.fg
-                        font.pixelSize: 13
-                        Layout.fillWidth: true
-                    }
-                }
-
-                HoverHandler { 
-                    id: itemHover
-                    cursorShape: parent.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor 
-                }
-                
-                TapHandler {
-                    enabled: parent.enabled
-                    onTapped: {
-                        if (modelData && typeof modelData.trigger === "function") {
-                            modelData.trigger() // Führt die DBus-Aktion (z.B. App öffnen) aus
-                        }
-                        trayContextMenu.close()
-                    }
-                }
-            }
-        }
-    }
 
     RowLayout {
         id: controlCenterRow
@@ -129,36 +40,38 @@ Rectangle {
             spacing: 10
             Repeater {
                 model: SystemTray.items
-                CustomImage {
-                    id: trayIcon
-                    required property SystemTrayItem modelData
-                    source: modelData.icon
-                    implicitWidth: 20
-                    implicitHeight: 20
 
-                    HoverHandler { 
-                        id: trayHover
-                        cursorShape: Qt.PointingHandCursor 
+                delegate: CustomImage {
+                    id: trayIcon
+                    width: 20
+                    height: 20
+                    source: modelData.icon
+
+                    CustomTooltip {
+                        visible: mouseArea.containsMouse
+                        text: modelData.title !== undefined ? modelData.title : "App"
                     }
 
-                    TapHandler {
-                        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-                        onTapped: (eventPoint, button) => {
-                            let x = eventPoint.scenePosition.x
-                            let y = eventPoint.scenePosition.y
+                    QsMenuAnchor {
+                        id: menuAnchor
+                        menu: modelData.menu
+                        anchor.item: parent
+                    }
 
-                            if (button === Qt.RightButton) {
-                                if (modelData.menu) {
-                                    trayContextMenu.activeMenu = modelData.menu
-                                    // Platziert das Popup direkt unter dem geklickten Icon
-                                    trayContextMenu.x = trayIcon.mapToItem(root, 0, trayIcon.height + 5).x
-                                    trayContextMenu.y = trayIcon.mapToItem(root, 0, trayIcon.height + 5).y
-                                    trayContextMenu.open()
-                                }
-                            } else if (button === Qt.MiddleButton) {
-                                modelData.secondaryActivate(x, y)
+                    MouseArea {
+                        id: mouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        acceptedButtons: Qt.LeftButton | Qt.RightButton
+
+                        onClicked: (mouse) => {
+                            if (mouse.button === Qt.LeftButton) {
+                                modelData.activate()
+                            } else if (mouse.button === Qt.RightButton) {
+                                menuAnchor.open()
                             } else {
-                                modelData.activate(x, y)
+                                modelData.contextMenu(mouse.x, mouse.y)
                             }
                         }
                     }
@@ -168,47 +81,50 @@ Rectangle {
 
         // --- BLUETOOTH ---
         CustomTopSetting {
+            id: btSetting
             icon: "󰂯"
             command: "bluetoothctl devices connected | wc -l"
             interval: 10000
 
             HoverHandler { id: btHover; cursorShape: Qt.PointingHandCursor }
-            TapHandler {
-                onTapped: {
-                    GlobalState.settingsTab = 0
-                    GlobalState.isSettingsOpen = true
-                }
+
+            TapHandler { onTapped: { GlobalState.isSettingsOpen = true; GlobalState.settingsTab = 0 } }
+
+            CustomTooltip {
+                target: btSetting
+                visible: btHover.hovered
+                command: "devices=$(bluetoothctl devices Connected | cut -d' ' -f3-); [ -z \"$devices\" ] && echo \"Keine Geräte verbunden\" || echo \"$devices\""
+                interval: 5000
             }
         }
 
         // --- NETWORK ---
         CustomTopSetting {
+            id: netSetting
             command: "nmcli -t -f TYPE,NAME connection show --active | head -n1 | awk -F: 'BEGIN{i=\"\"; v=\"Keine Verbindung\"} {if($1 ~ \"ethernet\"){i=\"󰌗\"; v=\"LAN\"} else if($1 ~ \"wireless\"){i=\"\"; v=$2}} END{print i\"\\t\"v}'"
             interval: 10000
 
-            property string networkBandwidth: " 0 KB/s    0 KB/s"
-
             HoverHandler { id: netHover; cursorShape: Qt.PointingHandCursor }
-            TapHandler {
-                onTapped: {
-                    GlobalState.settingsTab = 2
-                    GlobalState.isSettingsOpen = true
-                }
+            
+            TapHandler { onTapped: { GlobalState.isSettingsOpen = true; GlobalState.settingsTab = 2 } }
+
+            CustomTooltip {
+                target: netSetting
+                visible: netHover.hovered
+                command: "iface=$(ip route show default | awk '/default/ {print $5}' | head -n1); if [ -n \"$iface\" ]; then r1=$(awk -v iface=\"$iface\" '$1==iface\":\" {print $2}' /proc/net/dev); t1=$(awk -v iface=\"$iface\" '$1==iface\":\" {print $10}' /proc/net/dev); sleep 1; r2=$(awk -v iface=\"$iface\" '$1==iface\":\" {print $2}' /proc/net/dev); t2=$(awk -v iface=\"$iface\" '$1==iface\":\" {print $10}' /proc/net/dev); dl=$(( (r2 - r1) )); ul=$(( (t2 - t1) )); echo \"↓ $((dl / 1024)) KB/s  ↑ $((ul / 1024)) KB/s\"; else echo \"Keine Verbindung\"; fi"
+                interval: 3000
             }
         }
 
         // --- BATTERY ---
         CustomTopSetting {
+            id: batSetting
             command: "cat /sys/class/power_supply/BAT1/capacity" 
             interval: 30000
             
-            HoverHandler { id: batHover; cursorShape: Qt.ArrowCursor }
-            TapHandler {
-                onTapped: {
-                    GlobalState.settingsTab = 3
-                    GlobalState.isSettingsOpen = true
-                }
-            }
+            HoverHandler { id: batHover; cursorShape: Qt.PointingHandCursor }
+
+            TapHandler { onTapped: { GlobalState.isSettingsOpen = true; GlobalState.settingsTab = 3 } }
 
             onValueChanged: {
                 let c = parseInt(value);
@@ -217,17 +133,26 @@ Rectangle {
                 else if (c < 60) icon = "";
                 else if (c < 80) icon = "";
                 else icon = "";
-                
+
                 value = c + "%";
+            }
+
+            CustomTooltip {
+                target: batSetting
+                visible: batHover.hovered
+                text: "Batterie: " + batSetting.value
             }
         }
 
+        // --- POWER ---
         CustomText {
+            id: powerBtn
             text: ""
             font.pixelSize: 22
-            color: powerHover.hovered ? Theme.red : Theme.fg
+            color: powerHandler.hovered ? Theme.red : Theme.fg
 
-            HoverHandler { id: powerHover; cursorShape: Qt.PointingHandCursor }
+            HoverHandler { id: powerHandler; cursorShape: Qt.PointingHandCursor }
+
             TapHandler { onTapped: GlobalState.isLocked = true }
         }
     }

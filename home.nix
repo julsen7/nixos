@@ -326,9 +326,9 @@ in {
         hl.exec_cmd("uwsm app -- discord --start-minimized")
         hl.exec_cmd("uwsm app -- spotify", { workspace = "6 silent" })
 
-        -- hl.dispatch(hl.dsp.focus({ workspace = "4" }))
+        hl.dispatch(hl.dsp.focus({ workspace = "1" }))
 
-        -- hl.exec_cmd("xrandr --output HDMI-A-1 --primary")
+        hl.exec_cmd("xrandr --output HDMI-A-1 --primary")
       end)
 
       -- General configuration
@@ -570,9 +570,6 @@ in {
         format = " [$symbol ($version)]($style) ";
         symbol = "󰌠";
         style = "#ffd43b";
-      };
-      cmd_duration = {
-        format = " 󱦟 [$duration]($style) ";
       };
       time = {
         disabled = false;

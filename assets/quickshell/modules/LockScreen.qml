@@ -19,7 +19,7 @@ WlSessionLock {
         Rectangle {
             anchors.centerIn: parent
 
-            implicitWidth: 1500
+            implicitWidth: 1600
             implicitHeight: 1000
 
             color: Theme.bg
@@ -30,11 +30,9 @@ WlSessionLock {
                 anchors.margins: 20
                 spacing: 60
 
-                // ==========================================
                 // COLUMN 1: Weather | System Info | Media
-                // ==========================================
                 ColumnLayout {
-                    Layout.fillWidth: true
+                    Layout.preferredWidth: 400
                     spacing: 20
 
                     // 1. Weather Module
@@ -252,16 +250,9 @@ WlSessionLock {
                     }
                 }
 
-                // ==========================================
                 // COLUMN 2: Clock | Avatar | Unlock Bar
-                // ==========================================
                 ColumnLayout {
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    
                     Layout.preferredWidth: 400
-                    Layout.minimumWidth: 400
-                    Layout.maximumWidth: 400
-
                     spacing: 50
 
                     // Clock & Date
@@ -331,16 +322,14 @@ WlSessionLock {
                             GlobalState.isLocked = false
                             pwField.text = ""
                         }
-                        Layout.preferredWidth: 300
+                        Layout.preferredWidth: 200
                         Layout.alignment: Qt.AlignHCenter
                     }
                 }
 
-                // ==========================================
                 // COLUMN 3: Hardware | Notifications
-                // ==========================================
                 ColumnLayout {
-                    Layout.preferredWidth: 1 
+                    Layout.preferredWidth: 400
                     spacing: 20
 
                     // 1. Hardware Monitor Modul
