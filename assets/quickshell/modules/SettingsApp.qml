@@ -15,6 +15,7 @@ FloatingWindow {
     property int currentTab: GlobalState.settingsTab
     property var categories: [" Network", "󰂯 Bluetooth", " Audio", " Battery"]
 
+    // close-button
     WrapperRectangle {
         anchors.right: parent.right
         anchors.top: parent.top
@@ -35,6 +36,7 @@ FloatingWindow {
         }
     }
 
+    // main window
     WrapperRectangle {
         anchors.fill: parent
         anchors.margins: 40
@@ -51,13 +53,7 @@ FloatingWindow {
                 Layout.fillHeight: true
                 color: "transparent"
 
-                Rectangle {
-                    anchors.right: parent.right
-                    width: 1
-                    height: parent.height
-                    color: Theme.bg3
-                }
-
+                // left side
                 ListView {
                     anchors.fill: parent
                     anchors.margins: 20
@@ -66,7 +62,7 @@ FloatingWindow {
                     model: root.categories
 
                     delegate: Rectangle {
-                        width: ListView.view.width
+                        implicitWidth: ListView.view.width
                         height: 45
                         radius: 10
 
@@ -86,9 +82,16 @@ FloatingWindow {
                         TapHandler { onTapped: GlobalState.settingsTab = index }
                     }
                 }
+
+                Rectangle {
+                    anchors.right: parent.right
+                    width: 1
+                    height: parent.height
+                    color: Theme.bg3
+                }
             }
 
-            // RECHTE SEITE: CONTENT (StackLayout)
+            // right side
             StackLayout {
                 currentIndex: root.currentTab
                 Layout.fillWidth: true
@@ -97,26 +100,68 @@ FloatingWindow {
 
                 ColumnLayout {
                     spacing: 20
-                    CustomText { text: "Network"; font.pixelSize: 24; font.bold: true }
-                    CustomText { text: "nmcli connections here..."; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
+
+                    CustomText {
+                        text: "Network"
+                        font.pixelSize: 24
+                        font.bold: true 
+                    }
+                    CustomText {
+                        text: "nmcli connections here..."
+                        color: Theme.fg2
+                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignTop
+                    }
                 }
 
                 ColumnLayout {
                     spacing: 20
-                    CustomText { text: "Bluetooth"; font.pixelSize: 24; font.bold: true }
-                    CustomText { text: "Run 'bluetoothctl devices' here..."; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
+
+                    CustomText {
+                        text: "Bluetooth"
+                        font.pixelSize: 24
+                        font.bold: true
+                    }
+
+                    CustomText {
+                        text: "Run 'bluetoothctl devices' here..."
+                        color: Theme.fg2
+                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignTop
+                    }
                 }
 
                 ColumnLayout {
                     spacing: 20
-                    CustomText { text: "Audio"; font.pixelSize: 24; font.bold: true }
-                    CustomText { text: "Volume Sliders (wpctl set-volume) go here..."; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
+
+                    CustomText {
+                        text: "Audio"
+                        font.pixelSize: 24
+                        font.bold: true
+                    }
+                    CustomText {
+                        text: "Volume Sliders (wpctl set-volume) go here..."
+                        color: Theme.fg2
+                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignTop
+                    }
                 }
 
                 ColumnLayout {
                     spacing: 20
-                    CustomText { text: "Battery"; font.pixelSize: 24; font.bold: true }
-                    CustomText { text: "battery"; color: Theme.fg2; Layout.fillHeight: true; Layout.alignment: Qt.AlignTop }
+
+                    CustomText {
+                        text: "Battery"
+                        font.pixelSize: 24
+                        font.bold: true
+                    }
+
+                    CustomText {
+                        text: "battery"
+                        color: Theme.fg2
+                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignTop
+                    }
                 }
             }
         }
