@@ -18,8 +18,6 @@ Scope {
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.layer: WlrLayer.Background
 
-            color: "transparent"
-
             anchors {
                 top: true
                 bottom: true

@@ -14,6 +14,7 @@ FloatingWindow {
 
     property int currentTab: GlobalState.settingsTab
     property var categories: [" Network", "󰂯 Bluetooth", " Audio", " Battery"]
+    property var titles: ["Network", "Bluetooth", "Audio", "Battery"]
 
     // close-button
     WrapperRectangle {
@@ -92,75 +93,84 @@ FloatingWindow {
             }
 
             // right side
-            StackLayout {
-                currentIndex: root.currentTab
-                Layout.fillWidth: true
+            ColumnLayout {
                 Layout.fillHeight: true
                 Layout.margins: 30
 
-                ColumnLayout {
-                    spacing: 20
+                spacing: 20
 
-                    CustomText {
-                        text: "Network"
-                        font.pixelSize: 24
-                        font.bold: true 
-                    }
-                    CustomText {
-                        text: "nmcli connections here..."
-                        color: Theme.fg2
-                        Layout.fillHeight: true
-                        Layout.alignment: Qt.AlignTop
-                    }
+                CustomText {
+                    id: title
+                    Layout.alignment: Qt.AlignVCenter
+                    text: root.titles[currentTab]
+                    font.pixelSize: 26
+                    font.bold: true 
                 }
 
-                ColumnLayout {
-                    spacing: 20
+                StackLayout {
+                    currentIndex: root.currentTab
 
-                    CustomText {
-                        text: "Bluetooth"
-                        font.pixelSize: 24
-                        font.bold: true
-                    }
-
-                    CustomText {
-                        text: "Run 'bluetoothctl devices' here..."
-                        color: Theme.fg2
+                    ColumnLayout {
                         Layout.fillHeight: true
-                        Layout.alignment: Qt.AlignTop
-                    }
-                }
+                        spacing: 20
 
-                ColumnLayout {
-                    spacing: 20
+                        RowLayout {
+                            spacing: 10
 
-                    CustomText {
-                        text: "Audio"
-                        font.pixelSize: 24
-                        font.bold: true
-                    }
-                    CustomText {
-                        text: "Volume Sliders (wpctl set-volume) go here..."
-                        color: Theme.fg2
-                        Layout.fillHeight: true
-                        Layout.alignment: Qt.AlignTop
-                    }
-                }
+                            Rectangle {
+                                Layout.alignment: Qt.AlignVCenter
+                                color: Theme.ph
 
-                ColumnLayout {
-                    spacing: 20
+                                implicitWidth: 40
+                                implicitHeight: 40
 
-                    CustomText {
-                        text: "Battery"
-                        font.pixelSize: 24
-                        font.bold: true
-                    }
+                                radius: 10
 
-                    CustomText {
-                        text: "battery"
-                        color: Theme.fg2
-                        Layout.fillHeight: true
-                        Layout.alignment: Qt.AlignTop
+                                CustomText {
+                                    anchors.centerIn: parent
+                                    text: ""
+                                    font.pixelSize: 20
+                                    color: Theme.fg
+                                }
+
+                                HoverHandler { cursorShape: Qt.PointingHandCursor }
+                                TapHandler { onTapped: console.log("search") }
+                            }
+
+                            Rectangle {
+                                Layout.alignment: Qt.AlignVCenter
+                                color: Theme.accent
+
+                                implicitWidth: 40
+                                implicitHeight: 40
+
+                                radius: 10
+
+                                CustomText {
+                                    anchors.centerIn: parent
+                                    text: "+"
+                                    font.pixelSize: 30
+                                    color: Theme.fg
+                                }
+
+                                HoverHandler { cursorShape: Qt.PointingHandCursor }
+                                TapHandler { onTapped: console.log("add") }
+                            }
+                        }
+
+                        CustomSettingsToggle {
+                            text: "Enable WiFi"
+                            isActivated: GlobalState.wifiEnabled
+
+                            onToggled: (active) => {
+                                console.log("Neuer Status:", active)
+                                if (active) {
+                                    // Logik fürs Einschalten
+                                } else {
+                                    // Logik fürs Ausschalten
+                                }
+                            }
+                        }
                     }
                 }
             }
