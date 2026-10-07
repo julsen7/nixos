@@ -13,8 +13,8 @@ FloatingWindow {
     color: Theme.bg
 
     property int currentTab: GlobalState.settingsTab
-    property var categories: [" Network", "󰂯 Bluetooth", " Audio", " Battery"]
-    property var titles: ["Network", "Bluetooth", "Audio", "Battery"]
+    property var categories: [" Network", "󰂯 Bluetooth", " Audio", " Battery", "Storage"]
+    property var titles: ["Network", "Bluetooth", "Audio", "Battery", "Storage"]
 
     // close-button
     WrapperRectangle {
@@ -95,7 +95,7 @@ FloatingWindow {
             // right side
             ColumnLayout {
                 Layout.fillHeight: true
-                Layout.margins: 30
+                Layout.margins: 20
 
                 spacing: 20
 
@@ -110,64 +110,137 @@ FloatingWindow {
                 StackLayout {
                     currentIndex: root.currentTab
 
+                    // network stack
                     ColumnLayout {
                         Layout.fillHeight: true
-                        spacing: 20
+                        spacing: 10
 
-                        RowLayout {
-                            spacing: 10
+                        // ethernet
+                        CustomSettingsGroup {
+                            text: "Ethernet"
 
-                            Rectangle {
-                                Layout.alignment: Qt.AlignVCenter
-                                color: Theme.ph
-
-                                implicitWidth: 40
-                                implicitHeight: 40
-
-                                radius: 10
-
+                            mainControl: ColumnLayout {
+                                spacing: 0
                                 CustomText {
-                                    anchors.centerIn: parent
-                                    text: ""
-                                    font.pixelSize: 20
-                                    color: Theme.fg
+                                    Layout.fillWidth: true
+                                    text: "Connected"
+                                    color: Theme.accent
+                                    horizontalAlignment: Text.AlignRight
                                 }
 
-                                HoverHandler { cursorShape: Qt.PointingHandCursor }
-                                TapHandler { onTapped: console.log("search") }
+                                CustomText {
+                                    Layout.fillWidth: true
+                                    text: "Data usage: 25MiB"
+                                    color: Theme.fg2
+                                    horizontalAlignment: Text.AlignRight
+                                }
                             }
 
-                            Rectangle {
-                                Layout.alignment: Qt.AlignVCenter
-                                color: Theme.accent
-
-                                implicitWidth: 40
-                                implicitHeight: 40
-
-                                radius: 10
+                            content: RowLayout {
+                                spacing: 20
 
                                 CustomText {
-                                    anchors.centerIn: parent
-                                    text: "+"
-                                    font.pixelSize: 30
-                                    color: Theme.fg
+                                    text: "#"
+                                    Layout.fillWidth: true
                                 }
 
-                                HoverHandler { cursorShape: Qt.PointingHandCursor }
-                                TapHandler { onTapped: console.log("add") }
+                                ColumnLayout {
+                                    CustomText {
+                                        text: "Kabellose Verbindung 1"
+                                    }
+                                    CustomText {
+                                        text: "enp3s0"
+                                        color: Theme.accent
+                                    }
+                                }
+
+                                CustomSettingsButton {
+                                    text: ""
+                                    onClicked: console.log("clicked")
+                                }
+                            } 
+                        }
+
+                        // wifi
+                        CustomSettingsGroup {
+                            text: "Wi-Fi"
+
+                            mainControl: CustomSettingsToggle {
+                                activated: GlobalState.wifiEnabled
+                                onToggled: (active) => console.log(active)
+                            }
+
+                            content: ListView {
+                                delegate: Rectangle {
+                                    implicitHeight: 20
+                                    implicitWidth: 100
+                                    color: "red"
+                                }
+                            }
+                        }
+                    }
+
+                    // bluetooth stack
+                    ColumnLayout {
+                        Layout.fillHeight: true
+                        spacing: 10
+
+                        // bluetooth
+                        CustomSettingsGroup {
+                            text: "Bluetooth"
+
+                            mainControl: CustomSettingsToggle {
+                                activated: GlobalState.bluetoothEnabled
+                                onToggled: (active) => console.log(active)
+                            }
+
+                            content: ListView {
+                                delegate: Rectangle {
+                                    implicitHeight: 20
+                                    implicitWidth: 100
+                                    color: "red"
+                                }
+                            }
+                        }
+                    }
+
+                    // audio stack
+                    ColumnLayout {
+                        Layout.fillHeight: true
+                        spacing: 10
+
+                        // output
+                        CustomSettingsGroup {
+                            text: "Output"
+
+                            mainControl: CustomSettingsToggle {
+                                activated: GlobalState.bluetoothEnabled
+                                onToggled: (active) => console.log(active)
+                            }
+
+                            content: ListView {
+                                delegate: Rectangle {
+                                    implicitHeight: 20
+                                    implicitWidth: 100
+                                    color: "red"
+                                }
                             }
                         }
 
-                        CustomSettingsToggle {
-                            text: "Enable WiFi"
-                            isActivated: GlobalState.wifiEnabled
+                        // input
+                        CustomSettingsGroup {
+                            text: "Input"
 
-                            onToggled: (active) => {
-                                console.log("Neuer Status:", active)
-                                if (active) {
-                                    // Logik fürs Einschalten
-                                } else {
-                                    // Logik fürs Ausschalten
+                            mainControl: CustomSettingsToggle {
+                                activated: GlobalState.bluetoothEnabled
+                                onToggled: (active) => console.log(active)
+                            }
+
+                            content: ListView {
+                                delegate: Rectangle {
+                                    implicitHeight: 20
+                                    implicitWidth: 100
+                                    color: "red"
                                 }
                             }
                         }

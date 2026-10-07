@@ -10,4 +10,5 @@ QtObject {
     // SETTINGS
     property int settingsTab: 0
     property bool wifiEnabled: true
+    property bool bluetoothEnabled: true
 }

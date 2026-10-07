@@ -7,7 +7,8 @@ import "../"
 Button {
     id: root
 
-    property string buttonText: ""
+    property alias buttonText: text.text
+
     property int radius: height / 2
     property color color: Theme.fg
     property color backgroundColor: Theme.accent
@@ -22,7 +23,7 @@ Button {
     }
 
     contentItem: CustomText {
-        text: root.buttonText
+        id: text
         color: hoverHandler.hovered ? root.backgroundColor : root.color
     }
 

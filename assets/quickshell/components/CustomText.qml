@@ -6,7 +6,7 @@ import "../"
 Text {
     id: root
 
-    horizontalAlignment: Text.AlignHCenter
+    horizontalAlignment: Text.AlignLeft
     verticalAlignment: Text.AlignVCenter
 
     color: Theme.fg
