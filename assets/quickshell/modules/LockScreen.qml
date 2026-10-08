@@ -40,27 +40,27 @@ WlSessionLock {
                         Layout.fillHeight: true
 
                         CustomText {
-                            text: WeatherService.description || "Loading..."
+                            text: Weather.description || "Loading..."
                             font.pixelSize: 18
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: (WeatherService.temp || "--") + " " + (WeatherService.icon || "")
+                            text: (Weather.temp || "--") + " " + (Weather.icon || "")
                             font.pixelSize: 36
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: "Feels like " + (WeatherService.feelsLike || "--")
+                            text: "Feels like " + (Weather.feelsLike || "--")
                             opacity: 0.8
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: "High " + (WeatherService.tempHigh || "--") + " • Low " + (WeatherService.tempLow || "--")
+                            text: "High " + (Weather.tempHigh || "--") + " • Low " + (Weather.tempLow || "--")
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -85,7 +85,7 @@ WlSessionLock {
                                     spacing: 8
 
                                     Repeater {
-                                        model: WeatherService.hourlyForecast || []
+                                        model: Weather.hourlyForecast || []
 
                                         ColumnLayout {
                                             spacing: 2
@@ -149,25 +149,25 @@ WlSessionLock {
                             ColumnLayout {
                                 spacing: 4
                                 CustomText {
-                                    text: "OS   : " + (OSService.osName || "Unknown")
+                                    text: "OS   : " + (OS.osName || "Unknown")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "WM   : " + (OSService.wmName || "Unknown")
+                                    text: "WM   : " + (OS.wmName || "Unknown")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "USER : " + (OSService.username || "Unknown")
+                                    text: "USER : " + (OS.username || "Unknown")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
 
                                 CustomText {
-                                    text: "UP   : " + (OSService.uptime || "0:00")
+                                    text: "UP   : " + (OS.uptime || "0:00")
                                     font.bold: true
                                     font.pixelSize: 22
                                 }
@@ -196,7 +196,7 @@ WlSessionLock {
 
                         backgroundContent: [
                             CustomImage {
-                                source: MprisService.artUrl || ""
+                                source: Mpris.artUrl || ""
                                 anchors.fill: parent
                                 opacity: 0.25
                             },
@@ -207,7 +207,7 @@ WlSessionLock {
                         ]
 
                         CustomText {
-                            text: MprisService.trackTitle || "No Media"
+                            text: Mpris.trackTitle || "No Media"
                             color: Theme.accent
                             font.pixelSize: 18
                             font.bold: true
@@ -215,7 +215,7 @@ WlSessionLock {
                         }
 
                         CustomText {
-                            text: MprisService.trackArtist || ""
+                            text: Mpris.trackArtist || ""
                             Layout.alignment: Qt.AlignHCenter
                         }
 
@@ -228,15 +228,15 @@ WlSessionLock {
                                 backgroundColor: Theme.bg
                                 Layout.preferredWidth: 40
                                 Layout.preferredHeight: 40
-                                onClicked: if(MprisService.player) MprisService.player.previous()
+                                onClicked: if(Mpris.player) Mpris.player.previous()
                             }
 
                             CustomButton {
-                                buttonText: MprisService.isPlaying ? "" : ""
+                                buttonText: Mpris.isPlaying ? "" : ""
                                 radius: 12
                                 Layout.preferredWidth: 60
                                 Layout.preferredHeight: 40
-                                onClicked: if(MprisService.player) MprisService.player.togglePlaying()
+                                onClicked: if(Mpris.player) Mpris.player.togglePlaying()
                             }
 
                             CustomButton {
@@ -244,7 +244,7 @@ WlSessionLock {
                                 backgroundColor: Theme.bg
                                 Layout.preferredWidth: 40
                                 Layout.preferredHeight: 40
-                                onClicked: if(MprisService.player) MprisService.player.next()
+                                onClicked: if(Mpris.player) Mpris.player.next()
                             }
                         }
                     }
@@ -260,14 +260,14 @@ WlSessionLock {
                         Layout.alignment: Qt.AlignHCenter
 
                         CustomText {
-                            text: DateTimeService.time || "00:00"
+                            text: DateTime.time || "00:00"
                             font.pixelSize: 110
                             font.bold: true
                             Layout.alignment: Qt.AlignHCenter
                         }
 
                         CustomText {
-                            text: (DateTimeService.date || Qt.formatDate(new Date(), "dddd • d MMM")).toUpperCase()
+                            text: (DateTime.date || Qt.formatDate(new Date(), "dddd • d MMM")).toUpperCase()
                             font.bold: true
                             opacity: 0.7
                             Layout.alignment: Qt.AlignHCenter

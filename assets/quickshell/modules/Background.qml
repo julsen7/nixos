@@ -41,7 +41,7 @@ Scope {
                     id: wallpaper
 
                     anchors.fill: parent
-                    anchors.margins: 4
+                    anchors.margins: 10
 
                     fillMode: Image.PreserveAspectCrop
 

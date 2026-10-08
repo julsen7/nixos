@@ -5,6 +5,7 @@ import Quickshell.Widgets
 
 import "../"
 import "../components"
+import "../services"
 
 FloatingWindow {
     id: root
@@ -13,7 +14,7 @@ FloatingWindow {
     color: Theme.bg
 
     property int currentTab: GlobalState.settingsTab
-    property var categories: [" Network", "󰂯 Bluetooth", " Audio", " Battery", "Storage"]
+    property var categories: [" Network", "󰂯 Bluetooth", " Audio", " Battery", " Storage"]
     property var titles: ["Network", "Bluetooth", "Audio", "Battery", "Storage"]
 
     // close-button
@@ -84,6 +85,7 @@ FloatingWindow {
                     }
                 }
 
+                // spacer
                 Rectangle {
                     anchors.right: parent.right
                     width: 1
@@ -123,8 +125,8 @@ FloatingWindow {
                                 spacing: 0
                                 CustomText {
                                     Layout.fillWidth: true
-                                    text: "Connected"
-                                    color: Theme.accent
+                                    text: Network.ethernetConnected ? "Connected" : "Disconnected"
+                                    color: Network.ethernetConnected ? Theme.accent : Theme.fg2
                                     horizontalAlignment: Text.AlignRight
                                 }
 
@@ -140,23 +142,22 @@ FloatingWindow {
                                 spacing: 20
 
                                 CustomText {
-                                    text: "#"
-                                    Layout.fillWidth: true
+                                    text: " # " 
                                 }
 
                                 ColumnLayout {
                                     CustomText {
-                                        text: "Kabellose Verbindung 1"
+                                        text: Network.lanDevice && Network.lanDevice.network ? Network.lanDevice.network.name : "Kabelverbindung"
                                     }
                                     CustomText {
-                                        text: "enp3s0"
+                                        text: Network.lanDeviceName // enp3s0
                                         color: Theme.accent
                                     }
                                 }
 
                                 CustomSettingsButton {
-                                    text: ""
-                                    onClicked: console.log("clicked")
+                                    text: Network.ethernetConnected ? " " : "  "
+                                    onClicked: Network.toggleLan()
                                 }
                             } 
                         }
@@ -166,15 +167,50 @@ FloatingWindow {
                             text: "Wi-Fi"
 
                             mainControl: CustomSettingsToggle {
-                                activated: GlobalState.wifiEnabled
-                                onToggled: (active) => console.log(active)
+                                activated: Network.wifiEnabled
+                                onToggled: Network.toggleWifi()
                             }
 
-                            content: ListView {
-                                delegate: Rectangle {
-                                    implicitHeight: 20
-                                    implicitWidth: 100
-                                    color: "red"
+                            content: ColumnLayout {
+                                Layout.fillWidth: true
+                                visible: Network.wifiEnabled
+
+                                ListView {
+                                    Layout.fillWidth: true
+                                    implicitHeight: Math.min(contentHeight, 200)
+                                    clip: true
+                                    
+                                    model: Network.wifiNetworks
+                                    
+                                    delegate: Rectangle {
+                                        required property var modelData
+                                        width: parent.width
+                                        height: 35
+                                        color: modelData.connected ? Qt.alpha(Theme.accent, 0.1) : "transparent"
+
+                                        RowLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 10
+                                            
+                                            CustomText {
+                                                text: modelData.name
+                                                Layout.fillWidth: true
+                                            }
+                                        }
+
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: modelData.connect()
+                                        }
+                                    }
+                                }
+            
+                                CustomText {
+                                    text: "Searching for networks..."
+                                    visible: Network.wifiNetworks.length === 0
+                                    color: Theme.fg2
+                                    horizontalAlignment: Text.AlignCenter
+                                    Layout.fillWidth: true
                                 }
                             }
                         }

@@ -27,7 +27,7 @@ Rectangle {
   }
 
   CustomText {
-    text: DateTimeService.time
+    text: DateTime.time
     font.pixelSize: 20
     font.bold: true
 
@@ -61,7 +61,7 @@ Rectangle {
 
         CustomImage {
           anchors.fill: parent
-          source: MprisService.artUrl
+          source: Mpris.artUrl
         }
 
         Rectangle {
@@ -76,7 +76,7 @@ Rectangle {
           anchors.margins: 8
 
           CustomText {
-            text: MprisService.playerIcon
+            text: Mpris.playerIcon
             anchors.centerIn: parent
             font.pixelSize: 14
           }
@@ -87,7 +87,7 @@ Rectangle {
         spacing: 10
 
         CustomText {
-          text: MprisService.trackTitle
+          text: Mpris.trackTitle
           font.pixelSize: 18
           font.bold: true
           Layout.maximumWidth: 200
@@ -95,7 +95,7 @@ Rectangle {
         }
 
         CustomText {
-          text: MprisService.trackArtist
+          text: Mpris.trackArtist
           color: Theme.ph
           Layout.maximumWidth: 200
           Layout.alignment: Qt.AlignLeft
@@ -110,16 +110,16 @@ Rectangle {
             color: Theme.bg3
             Layout.preferredWidth: 30
             Layout.preferredHeight: 30
-            onClicked: MprisService.player.previous()
+            onClicked: Mpris.player.previous()
           }
 
           CustomButton {
-            buttonText: MprisService.isPlaying ? "" : ""
+            buttonText: Mpris.isPlaying ? "" : ""
             radius: 10
             color: Theme.bg3
             Layout.preferredWidth: 30
             Layout.preferredHeight: 30
-            onClicked: MprisService.player.togglePlaying();
+            onClicked: Mpris.player.togglePlaying();
           }
 
           CustomButton {
@@ -128,7 +128,7 @@ Rectangle {
             color: Theme.bg3
             Layout.preferredWidth: 30
             Layout.preferredHeight: 30
-            onClicked: MprisService.player.next()
+            onClicked: Mpris.player.next()
           }
         }
       }
@@ -137,7 +137,7 @@ Rectangle {
     // Calendar-Widget
     ColumnLayout {
       CustomText {
-          text: DateTimeService.time
+          text: DateTime.time
           font.pixelSize: 36
           font.bold: true
           Layout.alignment: Qt.AlignHCenter
@@ -148,18 +148,18 @@ Rectangle {
           Layout.alignment: Qt.AlignHCenter
 
           CustomText {
-              text: DateTimeService.yesterdayDayName + "\n" + DateTimeService.yesterdayDayNumber
+              text: DateTime.yesterdayDayName + "\n" + DateTime.yesterdayDayNumber
               color: Theme.fg2
           }
 
           CustomText {
-              text: DateTimeService.weekDayName + "\n" + DateTimeService.dayDateNumber
+              text: DateTime.weekDayName + "\n" + DateTime.dayDateNumber
               color: Theme.accent
               font.bold: true
           }
 
           CustomText {
-              text: DateTimeService.tomorrowDayName + "\n" + DateTimeService.tomorrowDayNumber
+              text: DateTime.tomorrowDayName + "\n" + DateTime.tomorrowDayNumber
               color: Theme.fg2
           }
       }
@@ -173,20 +173,20 @@ Rectangle {
         spacing: 30
 
         CustomText {
-          text: WeatherService.icon
+          text: Weather.icon
           font.pixelSize: 60
           font.bold: true
         }
 
         ColumnLayout {
           CustomText {
-            text: WeatherService.temp
+            text: Weather.temp
             font.pixelSize: 34
             font.bold: true
           }
 
           CustomText {
-            text: WeatherService.description
+            text: Weather.description
             font.bold: true
           }
         }
@@ -198,12 +198,12 @@ Rectangle {
         spacing: 10
 
         CustomText {
-          text: "  " + WeatherService.sunrise
+          text: "  " + Weather.sunrise
           font.pixelSize: 16
         }
 
         CustomText {
-          text: "  " + WeatherService.sunset
+          text: "  " + Weather.sunset
           font.pixelSize: 16
         }
       }

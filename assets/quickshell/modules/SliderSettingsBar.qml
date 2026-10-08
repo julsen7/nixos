@@ -157,32 +157,32 @@ Rectangle {
             spacing: 10
 
             CustomText {
-                text: PipewireService.sourceMuted ? "" : ""
+                text: Pipewire.sourceMuted ? "" : ""
                 font.pixelSize: 18
 
                 HoverHandler { cursorShape: Qt.PointingHandCursor }
 
-                TapHandler { onTapped: PipewireService.toggleSourceMuted() }
+                TapHandler { onTapped: Pipewire.toggleSourceMuted() }
             }
 
             CustomSlider {
                 icon: {
-                    if (PipewireService.muted) return "󰖁";
+                    if (Pipewire.muted) return "󰖁";
 
-                    let vol = Math.round(PipewireService.volume * 100);
+                    let vol = Math.round(Pipewire.volume * 100);
                     if (vol === 0) return "";
                     if (vol < 33) return "";
                     if (vol < 66) return "";
                     return "";
                 }
-                sliderValue: PipewireService.source ? Math.round(PipewireService.volume * 100) : 50
-                onMoved: PipewireService.setVolume(value / 100.0)
+                sliderValue: Pipewire.source ? Math.round(Pipewire.volume * 100) : 50
+                onMoved: Pipewire.setVolume(value / 100.0)
 
                 MouseArea {
                     anchors.fill: parent
                     acceptedButtons: Qt.RightButton
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: PipewireService.toggleMuted()
+                    onClicked: Pipewire.toggleMuted()
                 }
             }
 

@@ -13,7 +13,7 @@ Singleton {
 
     readonly property string trackTitle: player?.trackTitle || "No media"
     readonly property string trackArtist: player?.trackArtist || "Unknown artist"
-    readonly property string artUrl: player?.trackArtUrl || "file:///home/julsen/nixos/assets/default_cover.jpg"
+    readonly property string artUrl: player?.trackArtUrl || "file:///home/julsen/nixos/assets/quickshell/assets/default_cover.jpg"
 
     readonly property string playerIdentity: player?.identity || ""
     readonly property string desktopEntry: player?.desktopEntry || ""

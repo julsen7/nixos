@@ -15,7 +15,7 @@ PanelWindow {
         name: "Settings",
         genericName: "Control Center",
         comment: "Manage Audio, Bluetooth and Network",
-        icon: "/home/julsen/nixos/assets/settings.jpg",
+        icon: "/home/julsen/nixos/assets/quickshell/assets/settings.jpg",
         runInTerminal: false,
         execute: () => { GlobalState.isSettingsOpen = true }
     }]
