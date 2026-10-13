@@ -119,7 +119,7 @@ in {
   };
 
   home.sessionVariables = {
-    EDITOR = "codium";
+    EDITOR = "code";
     HYPRCURSOR_THEME = "Bibata-Modern-Ice";
     HYPRCURSOR_SIZE = "24";
   };
@@ -379,7 +379,7 @@ in {
       hl.bind("SUPER + B", hl.dsp.exec_cmd("uwsm app -- zen"))
       hl.bind("SUPER + M", hl.dsp.exec_cmd("uwsm app -- spotify"))
       hl.bind("SUPER + D", hl.dsp.exec_cmd("uwsm app -- discord"))
-      hl.bind("SUPER + C", hl.dsp.exec_cmd("uwsm app -- codium"))
+      hl.bind("SUPER + C", hl.dsp.exec_cmd("uwsm app -- code"))
 
       for i = 1, 6 do
         hl.bind("SUPER + " .. i, hl.dsp.focus({ workspace = i }))
@@ -604,7 +604,7 @@ in {
     };
   };
 
-  programs.vscodium = {
+  programs.vscode = {
     enable = true;
     profiles.default = {
       userSettings = {
