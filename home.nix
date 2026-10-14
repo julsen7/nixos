@@ -664,7 +664,13 @@ in {
         {
           name = "cpp-devtools";
           publisher = "ms-vscode";
-          version = "0.5.14";
+          version = "0.6.18";
+          sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
+        }
+        {
+          name = "cpptools-themes";
+          publisher = "ms-vscode";
+          version = "2.0.0";
           sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
         }
        ];
