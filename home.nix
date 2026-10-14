@@ -108,6 +108,13 @@ in {
     bluetui
     wiremix
     nvtopPackages.full
+
+    gcc
+    gdb
+    cmake
+    gnumake
+    jdk
+    python3
   ];
 
   # SYSTEM
@@ -157,12 +164,12 @@ in {
     };
 
     shellAliases = {
-      # ls = "eza --icons --group-directories-first --color=always";
-      # ll = "eza -lh --icons --group-directories-first";
-      # lt = "eza --tree --level=2 --icons";
-      # la = "eza -a --icons";
-      # lla = "eza -lha --icons --group-directories-first";
-      # cd = "z";
+      ls = "eza --icons --group-directories-first --color=always";
+      ll = "eza -lh --icons --group-directories-first";
+      lt = "eza --tree --level=2 --icons";
+      la = "eza -a --icons";
+      lla = "eza -lha --icons --group-directories-first";
+      cd = "z";
       cl = "clear";
     };
 
@@ -630,6 +637,25 @@ in {
         davidanson.vscode-markdownlint
         eamodio.gitlens
         github.github-vscode-theme
+        bbenoist.nix
+        ms-vscode.cmake-tools
+        ms-vscode.cpp-devtools
+        ms-vscode.cpptools
+        ms-vscode.cpptools-extension-pack
+        ms-vscode.cpptools-themes
+        redhat.java
+        vscjava.vscode-gradle
+        vscjava.vscode-java-debug
+        vscjava.vscode-java-dependency
+        vscjava.vscode-java-pack
+        vscjava.vscode-java-test
+        vscjava.vscode-maven
+        bbenoist.nix
+        ms-python.debugpy
+        ms-python.python
+        ms-python.vscode-pylance
+        ms-python.vscode-python-envs
+        rust-lang.rust-analyzer
       ];
     };
   };
