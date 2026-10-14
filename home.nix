@@ -664,7 +664,7 @@ in {
           name = "cpp-devtools";
           publisher = "ms-vscode";
           version = "0.6.18";
-          sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
+          sha256 = "sha256-5eq0m1jOyYzN8JCJWHWQFdkt1OzvBcO9P7cQ5dY7DoA=";
         }
         {
           name = "cpptools-themes";
