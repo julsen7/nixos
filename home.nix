@@ -644,7 +644,6 @@ in {
         github.github-vscode-theme
         bbenoist.nix
         ms-vscode.cmake-tools
-        ms-vscode.cpp-devtools
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
         ms-vscode.cpptools-themes
@@ -661,7 +660,14 @@ in {
         ms-python.vscode-pylance
         ms-python.vscode-python-envs
         rust-lang.rust-analyzer
-      ];
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "cpp-devtools";
+          publisher = "ms-vscode";
+          version = "0.5.14";
+          sha256 = "sha256-9W+Ub//WFrfnMt4vbm+cvLqniXJ04I9N60D/5i7AAQw=";
+        }
+       ];
     };
   };
 }
