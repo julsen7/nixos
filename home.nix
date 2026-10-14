@@ -646,7 +646,6 @@ in {
         ms-vscode.cmake-tools
         ms-vscode.cpptools
         ms-vscode.cpptools-extension-pack
-        ms-vscode.cpptools-themes
         redhat.java
         vscjava.vscode-gradle
         vscjava.vscode-java-debug
