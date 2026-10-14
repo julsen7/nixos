@@ -121,9 +121,9 @@ in {
     clippy
     rustfmt
 
-    # jetbrains.idea
-    # jetbrains.clion
-    # jetbrains.pycharm
+    jetbrains.idea
+    jetbrains.clion
+    jetbrains.pycharm
   ];
 
   # SYSTEM
@@ -306,6 +306,8 @@ in {
         mode     = "2560x1440@144",
         position = "1920x-500",
         scale    = 1,
+        hdr      = true,
+        depth    = 10,
       })
 
       hl.monitor({
