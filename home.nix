@@ -115,6 +115,11 @@ in {
     gnumake
     jdk
     python3
+    uv
+    rustc
+    cargo
+    clippy
+    rustfmt
   ];
 
   # SYSTEM
