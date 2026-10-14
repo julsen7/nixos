@@ -120,6 +120,10 @@ in {
     cargo
     clippy
     rustfmt
+
+    # jetbrains.idea
+    # jetbrains.clion
+    # jetbrains.pycharm
   ];
 
   # SYSTEM
