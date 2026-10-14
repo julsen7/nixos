@@ -306,8 +306,6 @@ in {
         mode     = "2560x1440@144",
         position = "1920x-500",
         scale    = 1,
-        hdr      = true,
-        depth    = 10,
       })
 
       hl.monitor({
