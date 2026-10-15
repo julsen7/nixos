@@ -95,6 +95,7 @@ in {
     btop
     _7zz
     github-cli
+    openconnect
 
     hyprpolkitagent
     brightnessctl
