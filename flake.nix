@@ -29,7 +29,6 @@
   outputs = { nixpkgs, home-manager, spicetify-nix, ... } @ inputs: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [
           ./hosts/desktop/configuration.nix
@@ -40,11 +39,9 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.julsen = import ./home.nix;
           }
-          ./caelestia.nix
         ];
       };
       portable = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [
           ./hosts/portable/configuration.nix
@@ -55,7 +52,6 @@
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.julsen = import ./home.nix;
           }
-          ./caelestia.nix
         ];
       };
     };
