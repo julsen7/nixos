@@ -80,6 +80,8 @@ in {
     inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
+    inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     thunar
     discord
     pinta
@@ -93,23 +95,23 @@ in {
     lmms
 
     btop
+    bluetui
+    wiremix
     _7zz
-    github-cli
     openconnect
+    hyprshot
+    hyprpicker
 
     hyprpolkitagent
     brightnessctl
-    hyprpicker
-    hyprshot
-    matugen
-    cliphist
-    wl-clipboard
     playerctl
     libnotify
-    bluetui
-    wiremix
-    nvtopPackages.full
+    # matugen
+    # cliphist
+    # wl-clipboard
+    # nvtopPackages.full
 
+    github-cli
     gcc
     gdb
     cmake
@@ -338,7 +340,8 @@ in {
 
       hl.on("hyprland.start", function()
         hl.exec_cmd("uwsm app -- udiskie")
-        hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
+        hl.exec_cmd("uwsm app -- caelestia shell -d")
+        -- hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
 
         hl.exec_cmd("uwsm app -- discord --start-minimized")
         hl.exec_cmd("uwsm app -- spotify", { workspace = "6 silent" })
