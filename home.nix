@@ -615,7 +615,8 @@ in {
         github.github-vscode-theme
         eamodio.gitlens
         davidanson.vscode-markdownlint
-        pinage404.nix-extension-pack
+        tomoki1207.pdf
+        jnoortheen.nix-ide
         vscode-java-pack
         cpptools-extension-pack
         ms-python.debugpy
