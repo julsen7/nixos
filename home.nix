@@ -617,8 +617,8 @@ in {
         davidanson.vscode-markdownlint
         tomoki1207.pdf
         jnoortheen.nix-ide
-        vscode-java-pack
-        cpptools-extension-pack
+        vscjava.vscode-java-pack
+        ms-vscode.cpptools-extension-pack
         ms-python.debugpy
         rust-lang.rust-analyzer
         ms-python.python
