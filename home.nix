@@ -98,6 +98,7 @@ in {
     openconnect
     hyprshot
     hyprpicker
+    hyprflow
 
     hyprpolkitagent
     brightnessctl
@@ -119,6 +120,7 @@ in {
     cargo
     clippy
     rustfmt
+    claude-code
 
     jetbrains.idea
     jetbrains.clion
