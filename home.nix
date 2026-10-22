@@ -38,10 +38,6 @@ in {
       color-scheme = "prefer-dark";
       gtk-theme = "Adwaita-dark";
     };
-    "org/gnome/shell/extensions/just-perfection" = {
-      app-menu = false;
-      activities-button = false;
-    };
   };
 
   qt = {
@@ -53,9 +49,9 @@ in {
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      monospace = [ "pkgs.nerd-fonts.ubuntu-mono" ];
-      sansSerif = [ "pkgs.nerd-fonts.ubuntu-sans" ];
-      serif = [ "pkgs.nerd-fonts.ubuntu" ];
+      monospace = [ "JetBrainsMono Nerd Font" "JetBrainsMono" ];
+      sansSerif = [ "Ubuntu Sans" ];
+      serif = [ "Ubuntu" ];
     };
   };
 
@@ -63,6 +59,7 @@ in {
     enable = true;
     gtk.enable = true;
     x11.enable = true;
+    hyprcursor.enable = true;
     name = "Bibata-Modern-Ice";
     size = 24;
     package = pkgs.bibata-cursors;
@@ -111,7 +108,6 @@ in {
     # wl-clipboard
     # nvtopPackages.full
 
-    github-cli
     gcc
     gdb
     cmake
@@ -132,21 +128,9 @@ in {
   # SYSTEM
   xdg.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-  };
-
   home.sessionVariables = {
     EDITOR = "code";
-    HYPRCURSOR_THEME = "Bibata-Modern-Ice";
-    HYPRCURSOR_SIZE = "24";
   };
-
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.local/share/icons"
-    "${config.home.homeDirectory}/.spicetify"
-  ];
 
   home.file = {
     "wallpaper".source = ./wallpaper;
@@ -175,28 +159,11 @@ in {
       size = 10000;
     };
 
-    shellAliases = {
-      ls = "eza --icons --group-directories-first --color=always";
-      ll = "eza -lh --icons --group-directories-first";
-      lt = "eza --tree --level=2 --icons";
-      la = "eza -a --icons";
-      lla = "eza -lha --icons --group-directories-first";
-      cd = "z";
-      cl = "clear";
-    };
-
     completionInit = ''
       zstyle ':completion:*' menu select
       zstyle ':completion:*' use-cache on
       zstyle ':completion:*' cache-path ~/.cache/zsh/
-      autoload -U compinit && compinit
     '';
-
-     oh-my-zsh = {
-      enable = true;
-      theme = "robbyrussell";
-      plugins = [ "git" "sudo" ];
-    };
 
     initContent = ''
       bindkey '^[[3~' delete-char
@@ -208,14 +175,14 @@ in {
     enable = true;
     enableZshIntegration = true;
     git = true;
-    extraOptions = [
-      "--group-directories-first"
-    ];
+    icons = "auto";
+    extraOptions = [ "--group-directories-first" ];
   };
 
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+    options = [ "--cmd" "cd" ];
   };
 
   programs.fzf = {
@@ -236,14 +203,13 @@ in {
         name  = "julsen7";
         email = "263753131+julsen7@users.noreply.github.com";
       };
-      "credential \"https://github.com\"" = {
-          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
-      };
-      "credential \"https://gist.github.com\"" = {
-          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
-      };
     };
   };
+
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+  }
 
   programs.fastfetch = {
     enable = true;
@@ -299,6 +265,8 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = null;
+    portalPackage = null;
     systemd.enable = false;
     
     extraConfig = ''
@@ -339,7 +307,6 @@ in {
       -- Autostart / Startup Events
 
       hl.on("hyprland.start", function()
-        hl.exec_cmd("uwsm app -- udiskie")
         hl.exec_cmd("uwsm app -- caelestia-shell")
         -- hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
 
@@ -370,6 +337,7 @@ in {
         },
         input = {
           kb_layout = "de",
+          kb_options = "caps:escape",
         },
       })
 
@@ -433,6 +401,8 @@ in {
     '';
   };
 
+  services.hyprpolkitagent.enable = true;
+
   programs.kitty = {
     enable = true;
 
@@ -493,11 +463,9 @@ in {
 
   programs.obs-studio = {
     enable = true;
-
     package = pkgs.obs-studio.override {
       cudaSupport = true;
     };
-
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
       obs-backgroundremoval
@@ -522,9 +490,7 @@ in {
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-
     presets = [ "no-runtime-versions" ];
-
     settings = {
       add_newline = true;
       format = lib.concatStrings [
@@ -646,41 +612,18 @@ in {
       };
       extensions = with pkgs.vscode-extensions; [
         pkief.material-icon-theme
-        bbenoist.nix
-        davidanson.vscode-markdownlint
-        eamodio.gitlens
         github.github-vscode-theme
-        bbenoist.nix
-        ms-vscode.cmake-tools
-        ms-vscode.cpptools
-        ms-vscode.cpptools-extension-pack
-        redhat.java
-        vscjava.vscode-gradle
-        vscjava.vscode-java-debug
-        vscjava.vscode-java-dependency
-        vscjava.vscode-java-pack
-        vscjava.vscode-java-test
-        vscjava.vscode-maven
-        bbenoist.nix
+        eamodio.gitlens
+        davidanson.vscode-markdownlint
+        pinage404.nix-extension-pack
+        vscode-java-pack
+        cpptools-extension-pack
         ms-python.debugpy
+        rust-lang.rust-analyzer
         ms-python.python
         ms-python.vscode-pylance
         ms-python.vscode-python-envs
-        rust-lang.rust-analyzer
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "cpp-devtools";
-          publisher = "ms-vscode";
-          version = "0.6.18";
-          sha256 = "sha256-5eq0m1jOyYzN8JCJWHWQFdkt1OzvBcO9P7cQ5dY7DoA=";
-        }
-        {
-          name = "cpptools-themes";
-          publisher = "ms-vscode";
-          version = "2.0.0";
-          sha256 = "sha256-YWA5UsA+cgvI66uB9d9smwghmsqf3vZPFNpSCK+DJxc=";
-        }
-       ];
+      ];
     };
   };
 }

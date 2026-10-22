@@ -108,13 +108,14 @@
     displayManager = {
       sddm = {
         enable = true;
-        theme = "sddm-astronaut";
+        extraPackages = with pkgs; [
+          kdePackages.qtmultimedia
+          qtsvg
+          qtvirtualkeyboard
+        ];
+        theme = "sddm-astronaut-theme";
         autoNumlock = true;
         wayland.enable = true;
-      };
-      autoLogin = {
-        enable = false;
-        user = "julsen";
       };
       defaultSession = "hyprland-uwsm";
     };
@@ -156,6 +157,8 @@
     withUWSM = true;
     xwayland.enable = true;
   };
+
+  programs.dconf.enable = true;
 
   programs.steam = {
     enable = true;
