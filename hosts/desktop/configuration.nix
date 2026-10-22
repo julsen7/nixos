@@ -110,8 +110,6 @@
         enable = true;
         extraPackages = with pkgs; [
           kdePackages.qtmultimedia
-          qtsvg
-          qtvirtualkeyboard
         ];
         theme = "sddm-astronaut-theme";
         autoNumlock = true;
