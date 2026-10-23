@@ -69,8 +69,6 @@ in {
 
   programs.home-manager.enable = true;
 
-  programs.nix-ld.enable = true;
-
   home.packages = with pkgs; [
     noto-fonts
     noto-fonts-color-emoji

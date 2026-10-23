@@ -135,6 +135,16 @@
 
   programs.zsh.enable = true;
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      glibc
+      openssl
+    ];
+  };
+
   users.users.julsen = {
     isNormalUser = true;
     shell = pkgs.zsh;
