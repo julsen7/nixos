@@ -339,7 +339,6 @@ in {
         },
         input = {
           kb_layout = "de",
-          kb_options = "caps:escape",
         },
       })
 
