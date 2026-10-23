@@ -20,7 +20,6 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-audacity.url = "github:NixOS/nixpkgs/4684fd6b0c01e4b7d99027a34c93c2e09ecafee2";
   };
 
   outputs = { nixpkgs, home-manager, spicetify-nix, ... } @ inputs: {

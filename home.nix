@@ -88,7 +88,7 @@ in {
     prismlauncher
     heroic
     libreoffice-stable
-    audacity
+    # audacity
     lmms
 
     btop
