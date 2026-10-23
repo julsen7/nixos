@@ -584,11 +584,6 @@ in {
       program_options = {
         file_manager = "${pkgs.thunar}/bin/thunar";
         terminal = "${pkgs.kitty}/bin/kitty";
-        tray = true;
-        udisks_version = 2;
-      };
-      icon_names = {
-        media = [ "media-optical" ];
       };
     };
   };

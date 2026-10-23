@@ -1,173 +1,109 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
-
-  # BOOTLOADER
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # NETWORKING & LOCALIZATION
-
-  networking = {
-    hostName = "desktop";
-    networkmanager.enable = true;
-    firewall.enable = true;
-  };
-
-  time.timeZone = "Europe/Berlin";
-  i18n.defaultLocale = "de_DE.UTF-8";
-  console.keyMap = "de";
-
-  zramSwap.enable = true;
-
-  # HARDWARE & GRAPHICS
-
-  hardware = {
-    enableRedistributableFirmware = true;
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-    nvidia = {
-      modesetting.enable = true;
-      open = true;
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-        amdgpuBusId = "PCI:5@0:0:0";
-        nvidiaBusId = "PCI:1@0:0:0";
-      };
-    };
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      settings = {
-        General = {
-          Experimental = true;
-          Privacy = "device";
-          JustWorksRepairing = "always";
-          Class = "0x000100";
-          FastConnectable = true;
-        };
-      };
-    };
-    xpadneo.enable = true;
-  };
-
-  services.xserver = {
-    videoDrivers = [ "amdgpu" "nvidia" ];
-    xkb = {
-      layout = "de";
-      variant = "";
-      options = "eurosign:e,caps:escape";
-    };
-  };
-
-  # SERVICES & SECURITY
-
-  security = {
-    rtkit.enable = true;
-    polkit.enable = true;
-  };
-
-  services = {
-    openssh.enable = true;
-    gnome.gnome-keyring.enable = true;
-    fwupd.enable = true;
-    power-profiles-daemon.enable = true;
-
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
-
-    mysql = {
-      enable = true;
-      package = pkgs.mariadb;
-    };
-
-    udisks2 = {
-      enable = true;
-      mountOnMedia = true;
-      settings = {
-        "udisks2.conf".defaults.encryption = "luks2";
-        "WDC-WD10EZEX-60M2NA0-WD-WCC3F3SJ0698.conf".ATA.StandbyTimeout = 50;
-      };
-    };
-
-    displayManager = {
-      sddm = {
-        enable = true;
-        extraPackages = with pkgs; [
-          kdePackages.qtmultimedia
-        ];
-        theme = "sddm-astronaut-theme";
-        autoNumlock = true;
-        wayland.enable = true;
-      };
-      defaultSession = "hyprland-uwsm";
-    };
-  };
-
-  # VIRTUALISATION
-
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      swtpm.enable = true;
-    };
-  };
-
-  programs.virt-manager.enable = true;
+  imports = [ ./hardware-configuration.nix ];
+  system.stateVersion = "26.05";
 
   # USER
-
-  programs.zsh.enable = true;
+  users.users.julsen = {
+    isNormalUser = true;
+    home = "/home/julsen";
+    description = "Julsen";
+    extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
+    shell = pkgs.zsh;
+    hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
+    openssh.authorizedKeys.keys = [ "ssh-dss AAAAB3Nza... alice@foobar" ];
+  };
 
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc
-      zlib
-      glibc
-      openssl
-    ];
+    libraries = options.programs.nix-ld.libraries.default;
   };
 
-  users.users.julsen = {
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "libvirtd" "kvm" "video" "audio" "input" ];
-    hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
+  # ZSH
+  programs.zsh.enable = true;
+  environment.shells = with pkgs; [ zsh ];
+
+  # LOCALIZATION
+  time.timeZone = "Europe/Berlin";
+  services.xserver.xkb.layout = "de";
+  services.xserver.xkb.options = "eurosign:e";
+  console.useXkbConfig = true;
+
+  # BOOTLOADER
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # NETWORKING
+  networking.hostName = "desktop";
+  networking.networkmanager.enable = true;
+  services.openssh.enable = true;
+
+  # HARDWARE
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.settings.General = {
+    Experimental = true;
+    Privacy = "device";
+    JustWorksRepairing = "always";
+    Class = "0x000100";
+    FastConnectable = true;
+  };
+  hardware.xpadneo.enable = true;
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
-  # PACKAGES
+  # HARDWARE & GRAPHICS
+  zramSwap.enable = true;
+  hardware.enableRedistributableFirmware = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.open = true;
+  hardware.nvidia.prime.offload.enable = true;
+  hardware.nvidia.prime.offload.enableOffloadCmd = true;
+  hardware.nvidia.prime.amdgpuBusId = "PCI:5@0:0:0";
+  hardware.nvidia.prime.nvidiaBusId = "PCI:1@0:0:0";
 
+  # VIRTUALISATION
+  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.qemu.package = pkgs.qemu_kvm;
+  virtualisation.libvirtd.qemu.swtpm.enable = true;
+  programs.virt-manager.enable = true;
+
+  # SERVICES & SECURITY
+  security.polkit.enable = true;
+  services.udisks2.enable = true;
+  services.fwupd.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true; # für freischalten ohne einloggen
+  services.power-profiles-daemon.enable = true;
+  services.mysql.enable = true;
+  services.mysql.package = pkgs.mariadb;
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    defaultSession = "hyprland-uwsm";
+    autoLogin.enable = true;
+    autoLogin.user = "julsen";
+  };
+
+  # PROGRAMS
   nixpkgs.config.allowUnfree = true;
-
-  environment.systemPackages = with pkgs; [
-    sddm-astronaut
-  ];
-
+  programs.dconf.enable = true;
   programs.hyprland = {
     enable = true;
     withUWSM = true;
-    xwayland.enable = true;
   };
-
-  programs.dconf.enable = true;
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -176,18 +112,9 @@
   };
 
   # NIXOS
-
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
-
-  system.stateVersion = "26.05";
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
+  nix.gc.automatic = true;
+  nix.gc.dates = "weekly";
+  nix.gc.options = "--delete-older-than 7d";
 }
