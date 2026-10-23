@@ -597,6 +597,7 @@ in {
     enable = true;
     profiles.default = {
       userSettings = {
+        "chat.tips.enabled" = false;
         "editor.fontFamily" = "JetBrainsMono Nerd Font Propo";
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;

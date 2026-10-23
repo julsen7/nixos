@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,34 +22,33 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, spicetify-nix, ... } @ inputs: {
-    nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/desktop/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.julsen = import ./home.nix;
-          }
-        ];
-      };
-      portable = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/portable/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.julsen = import ./home.nix;
-          }
-        ];
-      };
+  outputs = inputs @ { nixpkgs, home-manager, ... }: 
+    let
+      system = "x86_64-linux";
+
+      mkHost =
+        hostname:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/${hostname}/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "backup";
+                extraSpecialArgs = { inherit inputs; };
+                users.julsen = import ./home.nix;
+              };
+            }
+          ];
+        };
+    in
+    {
+      nixosConfigurations = nixpkgs.lib.genAttrs [ "desktop" "portable" ] mkHost;
+    
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
-  };
 }
