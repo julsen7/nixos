@@ -77,7 +77,7 @@ in {
     inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-    inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli
+    # inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli
 
     thunar
     discord
