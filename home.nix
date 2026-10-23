@@ -98,7 +98,7 @@ in {
     openconnect
     hyprshot
     hyprpicker
-    hyprflow
+    # hyprflow
 
     hyprpolkitagent
     brightnessctl
@@ -439,6 +439,8 @@ in {
       window_resize_step_lines = 2;
       confirm_os_window_close = 0;
 
+      remember_window_size = "no";
+
       startup_mode = "normal";
 
       background_opacity = "0.9";
@@ -450,7 +452,7 @@ in {
       cursor_trail = 10;
 
       mouse_hide_wait = "3.0";
-      
+
       enable_audio_bell = false;
       force_ltr = false;
       detect_urls = true;
