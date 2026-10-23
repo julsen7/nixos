@@ -15,6 +15,7 @@
     openssh.authorizedKeys.keys = [ "ssh-dss AAAAB3Nza... alice@foobar" ];
   };
 
+  # BINARIES
   programs.nix-ld = {
     enable = true;
     libraries = options.programs.nix-ld.libraries.default;
@@ -26,6 +27,7 @@
 
   # LOCALIZATION
   time.timeZone = "Europe/Berlin";
+  i18n.defaultLocale = "de_DE.UTF-8";
   services.xserver.xkb.layout = "de";
   services.xserver.xkb.options = "eurosign:e";
   console.useXkbConfig = true;
