@@ -309,8 +309,8 @@ in {
       -- Autostart / Startup Events
 
       hl.on("hyprland.start", function()
-        hl.exec_cmd("uwsm app -- caelestia-shell")
-        -- hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
+        -- hl.exec_cmd("uwsm app -- caelestia-shell")
+        hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
 
         hl.exec_cmd("uwsm app -- discord --start-minimized")
         hl.exec_cmd("uwsm app -- spotify", { workspace = "6 silent" })
