@@ -621,13 +621,11 @@ in {
         davidanson.vscode-markdownlint
         tomoki1207.pdf
         jnoortheen.nix-ide
+        anthropic.claude-code
         vscjava.vscode-java-pack
         ms-vscode.cpptools-extension-pack
-        ms-python.debugpy
-        rust-lang.rust-analyzer
         ms-python.python
-        ms-python.vscode-pylance
-        ms-python.vscode-python-envs
+        rust-lang.rust-analyzer
       ];
     };
   };
