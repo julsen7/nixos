@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792703141,
-        "narHash": "sha256-3X34FaSeMJXMx8CK/BN6sZ9knwNauuiJXQhLM+bQQuI=",
+        "lastModified": 1792766863,
+        "narHash": "sha256-iNufDpV2OeQ45zOwweKfEWSEhJ37aVJePVAxDBGAJko=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6750249c69969d09d952efaf3fab88a2bdac7ec6",
+        "rev": "752e986f562574eed4ce636ac6841f193963f5c2",
         "type": "github"
       },
       "original": {
@@ -33,6 +33,22 @@
         "owner": "nixos",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-audacity": {
+      "locked": {
+        "lastModified": 1748124733,
+        "narHash": "sha256-y7OLqUkEb0Leg/eZCO5/AQh1u5byAnMEj13OMIJ6Uqo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4684fd6b0c01e4b7d99027a34c93c2e09ecafee2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4684fd6b0c01e4b7d99027a34c93c2e09ecafee2",
         "type": "github"
       }
     },
@@ -60,6 +76,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-audacity": "nixpkgs-audacity",
         "quickshell": "quickshell",
         "spicetify-nix": "spicetify-nix",
         "zen-browser": "zen-browser"
