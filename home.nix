@@ -8,31 +8,31 @@ in {
   home.stateVersion = "26.05";
 
   # THEME & CURSOR
-  gtk = {
-    enable = true;
-    # theme = {
-    #   name = "Adwaita-dark";
-    #   package = pkgs.gnome-themes-extra;
-    # };
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
-    # font = {
-    #   name = "Sans";
-    #   size = 11;
-    # };
-    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
-  };
+  # gtk = {
+  #   enable = true;
+  #   # theme = {
+  #   #   name = "Adwaita-dark";
+  #   #   package = pkgs.gnome-themes-extra;
+  #   # };
+  #   iconTheme = {
+  #     name = "Adwaita";
+  #     package = pkgs.adwaita-icon-theme;
+  #   };
+  #   # font = {
+  #   #   name = "Sans";
+  #   #   size = 11;
+  #   # };
+  #   gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+  #   gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+  # };
 
-  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  # dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk3";
-    # style.name = "adwaita-dark";
-  };
+  # qt = {
+  #   enable = true;
+  #   platformTheme.name = "gtk3";
+  #   # style.name = "adwaita-dark";
+  # };
 
   home.pointerCursor = {
     enable = true;
@@ -46,7 +46,7 @@ in {
 
   # PACKAGES
   programs.home-manager.enable = true;
-  fonts.fontconfig.enable = true;
+  # fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
     inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
