@@ -50,7 +50,6 @@ in {
     libreoffice-stable
     # audacity
     lmms
-
     btop
     bluetui
     wiremix
@@ -59,7 +58,6 @@ in {
     hyprshot
     hyprpicker
     # hyprflow
-
     hyprpolkitagent
     brightnessctl
     playerctl
@@ -68,7 +66,6 @@ in {
     # cliphist
     # wl-clipboard
     # nvtopPackages.full
-
     gcc
     gdb
     cmake
@@ -81,7 +78,6 @@ in {
     clippy
     rustfmt
     claude-code
-
     jetbrains.idea
     jetbrains.clion
     jetbrains.pycharm
@@ -90,9 +86,9 @@ in {
   # SYSTEM
   xdg.enable = true;
 
-  home.sessionVariables = {
-    EDITOR = "code";
-  };
+  # home.sessionVariables = {
+  #   EDITOR = "code";
+  # };
 
   home.file = {
     "wallpaper".source = ./wallpaper;
