@@ -8,23 +8,19 @@ in {
   home.stateVersion = "26.05";
 
   # THEME & CURSOR
-  # gtk = {
-  #   enable = true;
-  #   # theme = {
-  #   #   name = "Adwaita-dark";
-  #   #   package = pkgs.gnome-themes-extra;
-  #   # };
-  #   iconTheme = {
-  #     name = "Adwaita";
-  #     package = pkgs.adwaita-icon-theme;
-  #   };
-  #   # font = {
-  #   #   name = "Sans";
-  #   #   size = 11;
-  #   # };
-  #   gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-  #   gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
-  # };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Arc-Dark"; # "Adwaita-dark";
+      package = pkgs.arc-theme; # pkgs.gnome-themes-extra;
+    };
+    # iconTheme = {
+    #   name = "Papirus-Dark"; # "Adwaita";
+    #   package = pkgs.papirus-icon-theme; # pkgs.adwaita-icon-theme;
+    # };
+    # gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    # gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+  };
 
   # dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
