@@ -85,44 +85,32 @@ in {
 
   # SYSTEM
   xdg.enable = true;
-
-  # home.sessionVariables = {
-  #   EDITOR = "code";
-  # };
-
-  home.file = {
-    "wallpaper".source = ./wallpaper;
-  };
+  home.file = { "wallpaper".source = ./wallpaper; };
 
   # FILES & CONFIGURATION
-
   xdg.configFile = {
     "quickshell".source = ./assets/quickshell;
-    "matugen".source = ./assets/matugen;
+    # "matugen".source = ./assets/matugen;
     "obs-studio/basic".source = ./assets/obs-studio/basic;
-    "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+    # "uwsm/env".source = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 
   # PROGRAMS
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-
     history = {
       ignoreAllDups = true;
       saveNoDups = true;
       size = 10000;
     };
-
     completionInit = ''
       zstyle ':completion:*' menu select
       zstyle ':completion:*' use-cache on
       zstyle ':completion:*' cache-path ~/.cache/zsh/
     '';
-
     initContent = ''
       bindkey '^[[3~' delete-char
       fastfetch
@@ -157,10 +145,8 @@ in {
         co = "checkout";
         st = "status";
       };
-      user = {
-        name  = "julsen7";
-        email = "263753131+julsen7@users.noreply.github.com";
-      };
+      user.name  = "julsen7";
+      user.email = "263753131+julsen7@users.noreply.github.com";
     };
   };
 
@@ -226,10 +212,8 @@ in {
     package = null;
     portalPackage = null;
     systemd.enable = false;
-    
     extraConfig = ''
       -- Monitor-Setups
-
       hl.monitor({
         output   = "HDMI-A-1",
         mode     = "2560x1440@144",
@@ -244,7 +228,6 @@ in {
         scale    = 1,
       })
 
-      -- Fallback for extern monitors
       hl.monitor({
         output   = "",
         mode     = "preferred",
@@ -253,7 +236,6 @@ in {
       })
 
       -- Workspaces
-
       for i = 1, 3 do
         hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1", persistent = true })
       end
@@ -263,7 +245,6 @@ in {
       end
 
       -- Autostart / Startup Events
-
       hl.on("hyprland.start", function()
         -- hl.exec_cmd("uwsm app -- caelestia-shell")
         hl.exec_cmd("uwsm app -- quickshell -p /home/julsen/.config/quickshell")
@@ -277,7 +258,6 @@ in {
       end)
 
       -- General configuration
-
       hl.config({
         general = {
           border_size      = 0,
@@ -299,7 +279,6 @@ in {
       })
 
       -- Keybindings
-
       hl.bind("CTRL + ALT + Delete", hl.dsp.exit())
       hl.bind("ALT + F4", hl.dsp.window.close())
       hl.bind("F11", hl.dsp.window.fullscreen())
@@ -349,7 +328,6 @@ in {
       hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
       -- Animations
-
       hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0 }, { 0.35, 1 } } })
       hl.curve("rubber", { type = "spring", mass = 1, stiffness = 40, dampening = 10 })
 
