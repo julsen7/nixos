@@ -11,8 +11,8 @@ in {
   gtk = {
     enable = true;
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "Arc-Dark";
+      package = pkgs.arc-theme;
     };
     # iconTheme = {
     #   name = "Adwaita";
