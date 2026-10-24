@@ -3,18 +3,11 @@
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
-  imports = [
-    inputs.spicetify-nix.homeManagerModules.spicetify
-  ];
+  imports = [ inputs.spicetify-nix.homeManagerModules.spicetify ];
 
-  # GENERAL
-
-  home.username = "julsen";
-  home.homeDirectory = "/home/julsen";
   home.stateVersion = "26.05";
 
-  # THEMING & CURSOR
-
+  # THEME & CURSOR
   gtk = {
     enable = true;
     theme = {
@@ -46,38 +39,23 @@ in {
     style.name = "adwaita-dark";
   };
 
-  fonts.fontconfig = {
-    enable = true;
-    defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font" "JetBrainsMono" ];
-      sansSerif = [ "Ubuntu Sans" ];
-      serif = [ "Ubuntu" ];
-    };
-  };
-
   home.pointerCursor = {
     enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 24;
     gtk.enable = true;
     x11.enable = true;
     hyprcursor.enable = true;
-    name = "Bibata-Modern-Ice";
-    size = 24;
-    package = pkgs.bibata-cursors;
   };
 
   # PACKAGES
-
   programs.home-manager.enable = true;
+  fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-color-emoji
-    nerd-fonts.jetbrains-mono
-
     inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-
-    # inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli
 
     thunar
     discord

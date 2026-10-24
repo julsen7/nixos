@@ -7,12 +7,9 @@
   # USER
   users.users.julsen = {
     isNormalUser = true;
-    home = "/home/julsen";
-    description = "Julsen";
     extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
     shell = pkgs.zsh;
     hashedPassword = "$y$j9T$n8yEDLyG5/IORRV5SPJ5I.$KEdyBgQbDYMSWWxeZYgW/NpdKltwuBk7RZU7ydNzb5.";
-    openssh.authorizedKeys.keys = [ "ssh-dss AAAAB3Nza... alice@foobar" ];
   };
 
   # BINARIES
@@ -101,7 +98,7 @@
 
   # PROGRAMS
   nixpkgs.config.allowUnfree = true;
-  programs.dconf.enable = true;
+  programs.dconf.enable = true; # nötig?
   programs.hyprland = {
     enable = true;
     withUWSM = true;
@@ -111,6 +108,22 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+  };
+
+  # FONTS
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      noto-fonts
+      noto-fonts-color-emoji
+    ];
+    fontconfig.defaultFonts = {
+      monospace = [ "JetBrainsMono Nerd Font" ];
+      sansSerif = [ "Noto Sans" ];
+      serif = [ "Noto Serif" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
   };
 
   # NIXOS
