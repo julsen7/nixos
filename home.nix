@@ -7,29 +7,21 @@ in {
 
   home.stateVersion = "26.05";
 
-  # THEME & CURSOR
+  # THEME
   gtk = {
     enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
+    theme.name = "Adwaita-dark";
+    theme.package = pkgs.gnome-themes-extra;
+    iconTheme.name = "Adwaita";
+    iconTheme.package = pkgs.adwaita-icon-theme;
     gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
     gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
-
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  qt.enable = true;
+  qt.platformTheme.name = "gtk3";
 
-  # qt = {
-  #   enable = true;
-  #   platformTheme.name = "gtk3";
-  #   # style.name = "adwaita-dark";
-  # };
-
+  # CURSOR
   home.pointerCursor = {
     enable = true;
     package = pkgs.bibata-cursors;
@@ -42,12 +34,11 @@ in {
 
   # PACKAGES
   programs.home-manager.enable = true;
-  # fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
     inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-
     thunar
     discord
     pinta

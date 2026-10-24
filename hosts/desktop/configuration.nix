@@ -98,7 +98,7 @@
 
   # PROGRAMS
   nixpkgs.config.allowUnfree = true;
-  # programs.dconf.enable = true; # nötig?
+  programs.dconf.enable = true;
   programs.hyprland = {
     enable = true;
     withUWSM = true;
