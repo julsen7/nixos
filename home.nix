@@ -18,11 +18,11 @@ in {
       name = "Adwaita";
       package = pkgs.gnome.adwaita-icon-theme;
     };
-    # gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-    # gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
-  # dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   # qt = {
   #   enable = true;
