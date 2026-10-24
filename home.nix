@@ -14,10 +14,10 @@ in {
       name = "Adwaita-dark";
       package = pkgs.gnome.gnome-themes-extra;
     };
-    # iconTheme = {
-    #   name = "Papirus-Dark"; # "Adwaita";
-    #   package = pkgs.papirus-icon-theme; # pkgs.adwaita-icon-theme;
-    # };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+    };
     # gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
     # gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
